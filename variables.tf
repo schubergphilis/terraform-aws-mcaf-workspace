@@ -102,6 +102,12 @@ variable "repository_description" {
   description = "A description for the Github repository"
 }
 
+variable "repository_private" {
+  type        = bool
+  default     = true
+  description = "Make the Github repository private"
+}
+
 variable "sensitive_env_variables" {
   type        = map(string)
   default     = {}
