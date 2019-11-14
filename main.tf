@@ -23,7 +23,7 @@ resource "github_repository" "default" {
   has_issues         = false
   has_projects       = false
   has_wiki           = false
-  private            = true
+  private            = var.repository_private
 }
 
 resource "github_team_repository" "admins" {
