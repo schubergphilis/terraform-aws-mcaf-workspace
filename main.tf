@@ -86,13 +86,6 @@ resource "tfe_notification_configuration" "default" {
   ]
 }
 
-resource "tfe_variable" "aws_account_arn" {
-  key          = "aws_account_arn"
-  value        = module.workspace_account.arn
-  category     = "terraform"
-  workspace_id = tfe_workspace.default.id
-}
-
 resource "tfe_variable" "aws_access_key_id" {
   key          = "AWS_ACCESS_KEY_ID"
   value        = module.workspace_account.access_key_id
