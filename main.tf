@@ -44,6 +44,25 @@ resource "github_team_repository" "writers" {
   depends_on = [github_repository.default]
 }
 
+resource "github_branch_protection" "default" {
+  count          = length(var.github_protection)
+  repository     = var.github_repository
+  branch         = var.github_protection[count.index].branch
+  enforce_admins = true
+
+  required_pull_request_reviews {
+    dismiss_stale_reviews           = true
+    required_approving_review_count = 1
+  }
+
+  required_status_checks {
+    strict   = false
+    contexts = var.github_protection[count.index].context
+  }
+
+  depends_on = [github_repository.default]
+}
+
 resource "tfe_workspace" "default" {
   name                  = var.name
   organization          = var.terraform_organization

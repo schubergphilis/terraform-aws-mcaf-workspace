@@ -62,6 +62,18 @@ variable "github_organization" {
   description = "The Github organization to connect the workspace to"
 }
 
+variable "github_protection" {
+  type = list(object({
+    branch  = string
+    context = list(string)
+  }))
+  default = [{
+    branch  = "master"
+    context = []
+  }]
+  description = "The Github branches to protect from forced pushes and deletion"
+}
+
 variable "github_repository" {
   type        = string
   description = "The Github organization to connect the workspace to"
