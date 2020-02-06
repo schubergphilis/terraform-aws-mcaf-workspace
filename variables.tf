@@ -57,9 +57,22 @@ variable "github_admins" {
   description = "A list of Github teams that should have admins access"
 }
 
-variable "github_organization" {
-  type        = string
-  description = "The Github organization to connect the workspace to"
+variable "github_branch_protection" {
+  type = list(object({
+    branch_pattern                  = string
+    enforce_admins                  = bool
+    restriction_teams               = list(string)
+    restriction_users               = list(string)
+    review_dismiss_stale            = bool
+    review_dismissal_teams          = list(string)
+    review_dismissal_users          = list(string)
+    review_required_approving_count = number
+    review_require_code_owner       = bool
+    status_checks_context           = list(string)
+    status_checks_strict            = bool
+  }))
+  default     = []
+  description = "The Github branches to protect from forced pushes and deletion"
 }
 
 variable "github_repository" {
