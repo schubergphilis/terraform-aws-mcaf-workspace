@@ -12,36 +12,15 @@ module "workspace_account" {
   tags        = var.tags
 }
 
-resource "github_repository" "default" {
-  count              = var.create_repository ? 1 : 0
-  name               = var.github_repository
-  description        = var.repository_description
-  allow_rebase_merge = false
-  allow_squash_merge = false
-  auto_init          = true
-  has_downloads      = false
-  has_issues         = false
-  has_projects       = false
-  has_wiki           = false
-  private            = var.repository_private
-}
-
-resource "github_team_repository" "admins" {
-  count      = length(var.github_admins)
-  team_id    = var.github_admins[count.index]
-  repository = var.github_repository
-  permission = "admin"
-
-  depends_on = [github_repository.default]
-}
-
-resource "github_team_repository" "writers" {
-  count      = length(var.github_writers)
-  team_id    = var.github_writers[count.index]
-  repository = var.github_repository
-  permission = "push"
-
-  depends_on = [github_repository.default]
+module "github_repository" {
+  source            = "github.com/schubergphilis/terraform-github-mcaf-repository?ref=v0.1.0"
+  create_repository = var.create_repository
+  name              = var.github_repository
+  admins            = var.github_admins
+  branch_protection = var.branch_protection
+  description       = var.repository_description
+  private           = var.repository_private
+  writers           = var.github_writers
 }
 
 resource "tfe_workspace" "default" {
@@ -58,14 +37,12 @@ resource "tfe_workspace" "default" {
     for_each = local.connect_vcs_repo
 
     content {
-      identifier         = "${var.github_organization}/${var.github_repository}"
+      identifier         = module.github_repository.full_name
       branch             = var.branch
       ingress_submodules = false
       oauth_token_id     = var.oauth_token_id
     }
   }
-
-  depends_on = [github_repository.default]
 }
 
 resource "tfe_notification_configuration" "default" {
