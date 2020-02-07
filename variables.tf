@@ -21,6 +21,33 @@ variable "branch" {
   description = "The Git branch to trigger the TFE workspace for"
 }
 
+variable "branch_protection" {
+  type = list(object({
+    branch         = string
+    enforce_admins = bool
+
+    required_reviews = object({
+      dismiss_stale_reviews           = bool
+      dismissal_teams                 = list(string)
+      dismissal_users                 = list(string)
+      required_approving_review_count = number
+      require_code_owner_reviews      = bool
+    })
+
+    required_checks = object({
+      strict   = bool
+      contexts = list(string)
+    })
+
+    restrictions = object({
+      users = list(string)
+      teams = list(string)
+    })
+  }))
+  default     = []
+  description = "The Github branches to protect from forced pushes and deletion"
+}
+
 variable "clear_text_env_variables" {
   type        = map(string)
   default     = {}
@@ -55,33 +82,6 @@ variable "github_admins" {
   type        = list(string)
   default     = []
   description = "A list of Github teams that should have admins access"
-}
-
-variable "github_branch_protection" {
-  type = list(object({
-    branch         = string
-    enforce_admins = bool
-
-    required_reviews = object({
-      dismiss_stale_reviews           = bool
-      dismissal_teams                 = list(string)
-      dismissal_users                 = list(string)
-      required_approving_review_count = number
-      require_code_owner_reviews      = bool
-    })
-
-    required_checks = object({
-      strict   = bool
-      contexts = list(string)
-    })
-
-    restrictions = object({
-      users = list(string)
-      teams = list(string)
-    })
-  }))
-  default     = []
-  description = "The Github branches to protect from forced pushes and deletion"
 }
 
 variable "github_repository" {

@@ -17,7 +17,7 @@ module "github_repository" {
   create_repository = var.create_repository
   name              = var.github_repository
   admins            = var.github_admins
-  branch_protection = var.github_branch_protection
+  branch_protection = var.branch_protection
   description       = var.repository_description
   private           = var.repository_private
   writers           = var.github_writers
