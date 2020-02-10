@@ -23,7 +23,7 @@ variable "branch" {
 
 variable "branch_protection" {
   type = list(object({
-    branch         = string
+    branches       = list(string)
     enforce_admins = bool
 
     required_reviews = object({
