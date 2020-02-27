@@ -84,6 +84,12 @@ variable "github_admins" {
   description = "A list of Github teams that should have admins access"
 }
 
+variable "github_organization" {
+  type        = string
+  default     = null
+  description = "The Github organization to connect the workspace to"
+}
+
 variable "github_repository" {
   type        = string
   description = "The Github organization to connect the workspace to"
