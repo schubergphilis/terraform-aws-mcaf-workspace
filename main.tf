@@ -37,7 +37,7 @@ resource "tfe_workspace" "default" {
     for_each = local.connect_vcs_repo
 
     content {
-      identifier         = module.github_repository.full_name
+      identifier         = "${var.github_organization}/${var.github_repository}"
       branch             = var.branch
       ingress_submodules = false
       oauth_token_id     = var.oauth_token_id
