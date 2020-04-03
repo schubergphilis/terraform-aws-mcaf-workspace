@@ -49,7 +49,7 @@ resource "tfe_notification_configuration" "default" {
   count                 = var.slack_notification_url != null ? 1 : 0
   name                  = tfe_workspace.default.name
   destination_type      = "slack"
-  enabled               = var.slack_notification_triggers != null
+  enabled               = length(coalesce(var.slack_notification_triggers, [])) > 0
   triggers              = var.slack_notification_triggers
   url                   = var.slack_notification_url
   workspace_external_id = tfe_workspace.default.external_id
