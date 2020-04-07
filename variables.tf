@@ -72,6 +72,12 @@ variable "connect_vcs_repo" {
   description = "Whether or not to connect a VCS repo to the workspace"
 }
 
+variable "delete_branch_on_merge" {
+  type        = bool
+  default     = true
+  description = "Whether or not to delete the branch after a pull request is merged"
+}
+
 variable "file_triggers_enabled" {
   type        = bool
   default     = true
@@ -149,8 +155,8 @@ variable "sensitive_terraform_variables" {
 }
 
 variable "slack_notification_triggers" {
-  type        = list(string)
-  default     = [
+  type = list(string)
+  default = [
     "run:created",
     "run:planning",
     "run:needs_attention",
