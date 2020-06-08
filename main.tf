@@ -29,6 +29,7 @@ resource "tfe_workspace" "default" {
   organization          = var.terraform_organization
   auto_apply            = var.auto_apply
   file_triggers_enabled = var.file_triggers_enabled
+  ssh_key_id            = var.ssh_key_id
   terraform_version     = var.terraform_version
   trigger_prefixes      = var.trigger_prefixes
   queue_all_runs        = true
