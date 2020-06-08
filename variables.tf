@@ -173,6 +173,12 @@ variable "slack_notification_url" {
   description = "The Slack Webhook URL to send notification to"
 }
 
+variable "ssh_key_id " {
+  type        = string
+  default     = null
+  description = "The SSH key ID to assign to the workspace"
+}
+
 variable "terraform_version" {
   type        = string
   default     = "latest"
@@ -182,12 +188,6 @@ variable "terraform_version" {
 variable "terraform_organization" {
   type        = string
   description = "The Terraform Enterprise organization to create the workspace in"
-}
-
-variable "terraform_ssh_key_id " {
-  type        = string
-  default     = null
-  description = "The ID of an SSH key to assign to the workspace"
 }
 
 variable "trigger_prefixes" {
