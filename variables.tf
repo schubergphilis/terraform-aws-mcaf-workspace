@@ -184,6 +184,12 @@ variable "terraform_organization" {
   description = "The Terraform Enterprise organization to create the workspace in"
 }
 
+variable "terraform_ssh_key_id " {
+  type        = string
+  default     = null
+  description = "The ID of an SSH key to assign to the workspace"
+}
+
 variable "trigger_prefixes" {
   type        = list(string)
   default     = ["modules"]
