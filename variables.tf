@@ -179,7 +179,7 @@ variable "slack_notification_url" {
   description = "The Slack Webhook URL to send notification to"
 }
 
-variable "ssh_key_id " {
+variable "ssh_key_id" {
   type        = string
   default     = null
   description = "The SSH key ID to assign to the workspace"
