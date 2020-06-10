@@ -96,6 +96,12 @@ variable "github_organization" {
   description = "The Github organization to connect the workspace to"
 }
 
+variable "github_readers" {
+  type        = list(string)
+  default     = []
+  description = "A list of Github teams that should have read access"
+}
+
 variable "github_repository" {
   type        = string
   description = "The Github organization to connect the workspace to"

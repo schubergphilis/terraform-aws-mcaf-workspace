@@ -21,6 +21,7 @@ module "github_repository" {
   delete_branch_on_merge = var.delete_branch_on_merge
   description            = var.repository_description
   private                = var.repository_private
+  readers                = var.github_readers
   writers                = var.github_writers
 }
 
