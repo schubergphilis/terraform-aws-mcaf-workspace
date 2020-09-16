@@ -142,10 +142,10 @@ variable "repository_description" {
   description = "A description for the Github repository"
 }
 
-variable "repository_private" {
+variable "repository_visibility" {
   type        = bool
   default     = true
-  description = "Make the Github repository private"
+  description = "Make the Github repository visibility"
 }
 
 variable "sensitive_env_variables" {
