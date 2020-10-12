@@ -23,13 +23,13 @@ variable "branch" {
 
 variable "branch_protection" {
   type = list(object({
-    branches       = list(string)
-    enforce_admins = bool
+    branches          = list(string)
+    enforce_admins    = bool
+    push_restrictions = list(string)
 
     required_reviews = object({
       dismiss_stale_reviews           = bool
-      dismissal_teams                 = list(string)
-      dismissal_users                 = list(string)
+      dismissal_restrictions          = list(string)
       required_approving_review_count = number
       require_code_owner_reviews      = bool
     })
@@ -37,11 +37,6 @@ variable "branch_protection" {
     required_checks = object({
       strict   = bool
       contexts = list(string)
-    })
-
-    restrictions = object({
-      users = list(string)
-      teams = list(string)
     })
   }))
   default     = []
@@ -143,8 +138,8 @@ variable "repository_description" {
 }
 
 variable "repository_visibility" {
-  type        = bool
-  default     = true
+  type        = string
+  default     = "private"
   description = "Make the Github repository visibility"
 }
 
