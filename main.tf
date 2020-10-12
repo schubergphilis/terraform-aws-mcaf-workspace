@@ -3,7 +3,7 @@ locals {
 }
 module "workspace_account" {
   providers   = { aws = aws }
-  source      = "github.com/schubergphilis/terraform-aws-mcaf-user?ref=v0.1.5"
+  source      = "github.com/schubergphilis/terraform-aws-mcaf-user?ref=v0.1.6"
   name        = var.username
   policy      = var.policy
   policy_arns = var.policy_arns
@@ -11,7 +11,7 @@ module "workspace_account" {
 }
 
 module "github_repository" {
-  source                 = "github.com/schubergphilis/terraform-github-mcaf-repository?ref=v0.1.6"
+  source                 = "github.com/schubergphilis/terraform-github-mcaf-repository?ref=v0.1.7"
   create_repository      = var.create_repository
   name                   = var.github_repository
   admins                 = var.github_admins
