@@ -11,7 +11,7 @@ module "workspace_account" {
 }
 
 module "github_repository" {
-  source                 = "github.com/schubergphilis/terraform-github-mcaf-repository?ref=v0.1.7"
+  source                 = "github.com/schubergphilis/terraform-github-mcaf-repository?ref=v0.1.8"
   create_repository      = var.create_repository
   name                   = var.github_repository
   admins                 = var.github_admins
