@@ -15,7 +15,6 @@ module "github_repository" {
   admins                 = var.github_admins
   branch_protection      = var.branch_protection
   create_repository      = var.create_repository
-  default_branch         = var.default_branch
   delete_branch_on_merge = var.delete_branch_on_merge
   description            = var.repository_description
   name                   = var.github_repository
