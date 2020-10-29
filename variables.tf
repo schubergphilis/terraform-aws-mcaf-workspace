@@ -67,6 +67,12 @@ variable "connect_vcs_repo" {
   description = "Whether or not to connect a VCS repo to the workspace"
 }
 
+variable "default_branch" {
+  type        = string
+  default     = "master"
+  description = "The default branch to set"
+}
+
 variable "delete_branch_on_merge" {
   type        = bool
   default     = true
