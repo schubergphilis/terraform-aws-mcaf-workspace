@@ -12,15 +12,16 @@ module "workspace_account" {
 
 module "github_repository" {
   source                 = "github.com/schubergphilis/terraform-github-mcaf-repository?ref=v0.2.0"
-  create_repository      = var.create_repository
-  name                   = var.github_repository
   admins                 = var.github_admins
   branch_protection      = var.branch_protection
+  create_repository      = var.create_repository
+  default_branch         = var.default_branch
   delete_branch_on_merge = var.delete_branch_on_merge
   description            = var.repository_description
+  name                   = var.github_repository
   readers                = var.github_readers
-  writers                = var.github_writers
   visibility             = var.repository_visibility
+  writers                = var.github_writers
 }
 
 resource "tfe_workspace" "default" {
