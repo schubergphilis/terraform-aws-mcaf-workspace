@@ -11,10 +11,10 @@ module "workspace_account" {
 }
 
 module "github_repository" {
-  source                 = "github.com/schubergphilis/terraform-github-mcaf-repository?ref=v0.2.0"
+  count                  = var.create_repository ? 1 : 0
+  source                 = "github.com/schubergphilis/terraform-github-mcaf-repository?ref=v0.3.0"
   admins                 = var.github_admins
   branch_protection      = var.branch_protection
-  create_repository      = var.create_repository
   delete_branch_on_merge = var.delete_branch_on_merge
   description            = var.repository_description
   name                   = var.github_repository
