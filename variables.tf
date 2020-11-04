@@ -55,6 +55,12 @@ variable "clear_text_terraform_variables" {
   description = "An optional map with clear text Terraform variables"
 }
 
+variable "create_backend_config" {
+  type        = bool
+  default     = true
+  description = "Whether to create a backend.tf containing the remote backend config"
+}
+
 variable "create_repository" {
   type        = bool
   default     = false

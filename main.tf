@@ -23,6 +23,20 @@ module "github_repository" {
   writers                = var.github_writers
 }
 
+resource "github_repository_file" "default" {
+  count      = var.create_backend_config ? 1 : 0
+  repository = var.github_repository
+  file       = "${var.working_directory}/backend.tf"
+  branch     = var.branch
+
+  content = templatefile("${path.module}/backend.tf.tpl", {
+    organization = var.terraform_organization
+    workspace    = var.name
+  })
+
+  depends_on = [module.github_repository]
+}
+
 resource "tfe_workspace" "default" {
   name                  = var.name
   organization          = var.terraform_organization
