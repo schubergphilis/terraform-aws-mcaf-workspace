@@ -1,8 +1,8 @@
 locals {
   connect_vcs_repo = var.connect_vcs_repo ? { create = true } : {}
 }
+
 module "workspace_account" {
-  providers   = { aws = aws }
   source      = "github.com/schubergphilis/terraform-aws-mcaf-user?ref=v0.1.6"
   name        = var.username
   policy      = var.policy
