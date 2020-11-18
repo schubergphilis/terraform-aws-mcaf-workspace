@@ -1,8 +1,8 @@
 locals {
   connect_vcs_repo = var.connect_vcs_repo ? { create = true } : {}
 }
+
 module "workspace_account" {
-  providers   = { aws = aws }
   source      = "github.com/schubergphilis/terraform-aws-mcaf-user?ref=v0.1.6"
   name        = var.username
   policy      = var.policy
@@ -11,16 +11,30 @@ module "workspace_account" {
 }
 
 module "github_repository" {
-  source                 = "github.com/schubergphilis/terraform-github-mcaf-repository?ref=v0.2.0"
+  count                  = var.create_repository ? 1 : 0
+  source                 = "github.com/schubergphilis/terraform-github-mcaf-repository?ref=v0.3.0"
   admins                 = var.github_admins
   branch_protection      = var.branch_protection
-  create_repository      = var.create_repository
   delete_branch_on_merge = var.delete_branch_on_merge
   description            = var.repository_description
   name                   = var.github_repository
   readers                = var.github_readers
   visibility             = var.repository_visibility
   writers                = var.github_writers
+}
+
+resource "github_repository_file" "default" {
+  count      = var.create_backend_config ? 1 : 0
+  repository = var.github_repository
+  file       = "${var.working_directory}/backend.tf"
+  branch     = var.branch
+
+  content = templatefile("${path.module}/backend.tf.tpl", {
+    organization = var.terraform_organization
+    workspace    = var.name
+  })
+
+  depends_on = [module.github_repository]
 }
 
 resource "tfe_workspace" "default" {
