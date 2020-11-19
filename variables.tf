@@ -40,7 +40,7 @@ variable "branch_protection" {
     })
   }))
   default     = []
-  description = "The Github branches to protect from forced pushes and deletion"
+  description = "The GitHub branches to protect from forced pushes and deletion"
 }
 
 variable "clear_text_env_variables" {
@@ -88,30 +88,30 @@ variable "file_triggers_enabled" {
 variable "github_admins" {
   type        = list(string)
   default     = []
-  description = "A list of Github teams that should have admins access"
+  description = "A list of GitHub teams that should have admins access"
 }
 
 variable "github_organization" {
   type        = string
   default     = null
-  description = "The Github organization to connect the workspace to"
+  description = "The GitHub organization to connect the workspace to"
 }
 
 variable "github_readers" {
   type        = list(string)
   default     = []
-  description = "A list of Github teams that should have read access"
+  description = "A list of GitHub teams that should have read access"
 }
 
 variable "github_repository" {
   type        = string
-  description = "The Github organization to connect the workspace to"
+  description = "The GitHub repository to connect the workspace to"
 }
 
 variable "github_writers" {
   type        = list(string)
   default     = []
-  description = "A list of Github teams that should have write access"
+  description = "A list of GitHub teams that should have write access"
 }
 
 variable "kms_key_id" {
@@ -140,13 +140,13 @@ variable "policy_arns" {
 variable "repository_description" {
   type        = string
   default     = null
-  description = "A description for the Github repository"
+  description = "A description for the GitHub repository"
 }
 
 variable "repository_visibility" {
   type        = string
   default     = "private"
-  description = "Make the Github repository visibility"
+  description = "Make the GitHub repository visibility"
 }
 
 variable "sensitive_env_variables" {
