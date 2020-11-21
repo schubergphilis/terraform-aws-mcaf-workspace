@@ -230,7 +230,7 @@ variable "vcs_provider" {
   description = "The VCS provider to use"
 
   validation {
-    condition     = lower(var.vcs_provider) == "gitlab" || lower(var.vcs_provider) == "github"
+    condition     = lower(var.vcs_provider) == "github" || lower(var.vcs_provider) == "gitlab"
     error_message = "The vcs_provider value must be either \"github\" or \"gitlab\"."
   }
 }
