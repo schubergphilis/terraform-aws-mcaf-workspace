@@ -35,6 +35,7 @@ jobs:
         uses: hashicorp/terraform-github-actions@master
         env:
           AWS_DEFAULT_REGION: eu-west-1
+          GITLAB_TOKEN: 1
         with:
           tf_actions_version: latest
           tf_actions_subcommand: validate

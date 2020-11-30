@@ -21,28 +21,6 @@ variable "branch" {
   description = "The Git branch to trigger the TFE workspace for"
 }
 
-variable "branch_protection" {
-  type = list(object({
-    branches          = list(string)
-    enforce_admins    = bool
-    push_restrictions = list(string)
-
-    required_reviews = object({
-      dismiss_stale_reviews           = bool
-      dismissal_restrictions          = list(string)
-      required_approving_review_count = number
-      require_code_owner_reviews      = bool
-    })
-
-    required_checks = object({
-      strict   = bool
-      contexts = list(string)
-    })
-  }))
-  default     = []
-  description = "The Github branches to protect from forced pushes and deletion"
-}
-
 variable "clear_text_env_variables" {
   type        = map(string)
   default     = {}
@@ -67,12 +45,6 @@ variable "create_repository" {
   description = "Whether of not to create a new repository"
 }
 
-variable "connect_vcs_repo" {
-  type        = bool
-  default     = true
-  description = "Whether or not to connect a VCS repo to the workspace"
-}
-
 variable "delete_branch_on_merge" {
   type        = bool
   default     = true
@@ -88,30 +60,51 @@ variable "file_triggers_enabled" {
 variable "github_admins" {
   type        = list(string)
   default     = []
-  description = "A list of Github teams that should have admins access"
+  description = "A list of GitHub teams that should have admins access"
 }
 
-variable "github_organization" {
-  type        = string
-  default     = null
-  description = "The Github organization to connect the workspace to"
+variable "github_branch_protection" {
+  type = list(object({
+    branches          = list(string)
+    enforce_admins    = bool
+    push_restrictions = list(string)
+
+    required_reviews = object({
+      dismiss_stale_reviews           = bool
+      dismissal_restrictions          = list(string)
+      required_approving_review_count = number
+      require_code_owner_reviews      = bool
+    })
+
+    required_checks = object({
+      strict   = bool
+      contexts = list(string)
+    })
+  }))
+  default     = []
+  description = "The GitHub branches to protect from forced pushes and deletion"
 }
 
 variable "github_readers" {
   type        = list(string)
   default     = []
-  description = "A list of Github teams that should have read access"
-}
-
-variable "github_repository" {
-  type        = string
-  description = "The Github organization to connect the workspace to"
+  description = "A list of GitHub teams that should have read access"
 }
 
 variable "github_writers" {
   type        = list(string)
   default     = []
-  description = "A list of Github teams that should have write access"
+  description = "A list of GitHub teams that should have write access"
+}
+
+variable "gitlab_branch_protection" {
+  type = map(object({
+    push_access_level            = string
+    merge_access_level           = string
+    code_owner_approval_required = bool
+  }))
+  default     = null
+  description = "The GitLab branches to protect from forced pushes and deletion"
 }
 
 variable "kms_key_id" {
@@ -140,13 +133,29 @@ variable "policy_arns" {
 variable "repository_description" {
   type        = string
   default     = null
-  description = "A description for the Github repository"
+  description = "A description for the GitHub or GitLab repository"
+}
+
+variable "repository_name" {
+  type        = string
+  description = "The GitHub or GitLab repository to connect the workspace to"
+}
+
+variable "repository_owner" {
+  type        = string
+  default     = null
+  description = "The GitHub organization or GitLab namespace that owns the repository"
 }
 
 variable "repository_visibility" {
   type        = string
   default     = "private"
-  description = "Make the Github repository visibility"
+  description = "Make the GitHub repository visibility"
+
+  validation {
+    condition     = contains(["internal", "private", "public"], var.repository_visibility)
+    error_message = "The repository_visibility value must be either \"internal\", \"private\" or \"public\"."
+  }
 }
 
 variable "sensitive_env_variables" {
@@ -213,6 +222,17 @@ variable "working_directory" {
   type        = string
   default     = "terraform"
   description = "A relative path that Terraform will execute within"
+}
+
+variable "vcs_provider" {
+  type        = string
+  default     = "github"
+  description = "The VCS provider to use"
+
+  validation {
+    condition     = lower(var.vcs_provider) == "github" || lower(var.vcs_provider) == "gitlab"
+    error_message = "The vcs_provider value must be either \"github\" or \"gitlab\"."
+  }
 }
 
 variable "tags" {
