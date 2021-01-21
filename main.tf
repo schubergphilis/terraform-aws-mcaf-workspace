@@ -3,6 +3,7 @@ locals {
 }
 
 module "workspace_account" {
+  count       = var.aws_credentials == null ? 1 : 0
   source      = "github.com/schubergphilis/terraform-aws-mcaf-user?ref=v0.1.6"
   name        = var.username
   policy      = var.policy
@@ -58,7 +59,7 @@ resource "tfe_workspace" "default" {
   queue_all_runs        = true
   working_directory     = var.working_directory
 
-  dynamic vcs_repo {
+  dynamic "vcs_repo" {
     for_each = local.connect_vcs_repo
 
     content {
@@ -87,7 +88,7 @@ resource "tfe_notification_configuration" "default" {
 
 resource "tfe_variable" "aws_access_key_id" {
   key          = "AWS_ACCESS_KEY_ID"
-  value        = module.workspace_account.access_key_id
+  value        = var.aws_credentials == null ? module.workspace_account[0].access_key_id : var.aws_credentials.access_key_id
   category     = "env"
   sensitive    = true
   workspace_id = tfe_workspace.default.id
@@ -95,7 +96,7 @@ resource "tfe_variable" "aws_access_key_id" {
 
 resource "tfe_variable" "aws_secret_access_key" {
   key          = "AWS_SECRET_ACCESS_KEY"
-  value        = module.workspace_account.secret_access_key
+  value        = var.aws_credentials == null ? module.workspace_account[0].secret_access_key : var.aws_credentials.secret_access_key
   category     = "env"
   sensitive    = true
   workspace_id = tfe_workspace.default.id

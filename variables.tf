@@ -15,6 +15,16 @@ variable "auto_apply" {
   description = "Whether to automatically apply changes when a Terraform plan is successful"
 }
 
+variable "aws_credentials" {
+  type = object({
+    access_key_id     = string
+    secret_access_key = string
+  })
+  default     = null
+  description = "Existing AWS credentials that should be used instead of creating a new IAM user"
+  sensitive   = true
+}
+
 variable "branch" {
   type        = string
   default     = "master"
