@@ -49,7 +49,7 @@ resource "tfe_workspace" "default" {
   queue_all_runs        = true
   working_directory     = var.working_directory
 
-  dynamic vcs_repo {
+  dynamic "vcs_repo" {
     for_each = local.connect_vcs_repo
 
     content {
@@ -129,6 +129,27 @@ resource "tfe_variable" "sensitive_terraform_variables" {
   key          = each.key
   value        = each.value
   category     = "terraform"
+  sensitive    = true
+  workspace_id = tfe_workspace.default.id
+}
+
+resource "tfe_variable" "clear_text_hcl_variables" {
+  for_each = var.clear_text_hcl_variables
+
+  key          = each.key
+  value        = each.value
+  category     = "terraform"
+  hcl          = true
+  workspace_id = tfe_workspace.default.id
+}
+
+resource "tfe_variable" "sensitive_hcl_variables" {
+  for_each = var.sensitive_hcl_variables
+
+  key          = each.key
+  value        = each.value
+  category     = "terraform"
+  hcl          = true
   sensitive    = true
   workspace_id = tfe_workspace.default.id
 }
