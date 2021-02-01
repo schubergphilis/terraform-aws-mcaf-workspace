@@ -9,6 +9,12 @@ variable "region" {
   description = "The default region of the account"
 }
 
+variable "agent_pool_id" {
+  type        = string
+  default     = null
+  description = "Agent pool ID. Requires \"execution_mode\" to be set to agent"
+}
+
 variable "auto_apply" {
   type        = bool
   default     = false
@@ -49,6 +55,12 @@ variable "delete_branch_on_merge" {
   type        = bool
   default     = true
   description = "Whether or not to delete the branch after a pull request is merged"
+}
+
+variable "execution_mode" {
+  type        = string
+  default     = "remote"
+  description = "Which execution mode to use"
 }
 
 variable "file_triggers_enabled" {
