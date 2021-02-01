@@ -50,7 +50,9 @@ module "gitlab_project" {
 resource "tfe_workspace" "default" {
   name                  = var.name
   organization          = var.terraform_organization
+  agent_pool_id         = var.agent_pool_id
   auto_apply            = var.auto_apply
+  execution_mode        = var.execution_mode
   file_triggers_enabled = var.file_triggers_enabled
   ssh_key_id            = var.ssh_key_id
   terraform_version     = var.terraform_version
@@ -58,7 +60,7 @@ resource "tfe_workspace" "default" {
   queue_all_runs        = true
   working_directory     = var.working_directory
 
-  dynamic vcs_repo {
+  dynamic "vcs_repo" {
     for_each = local.connect_vcs_repo
 
     content {

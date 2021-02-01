@@ -23,6 +23,7 @@
 | repository\_name | The GitHub or GitLab repository to connect the workspace to | `string` | n/a | yes |
 | tags | A mapping of tags to assign to resource | `map(string)` | n/a | yes |
 | terraform\_organization | The Terraform Enterprise organization to create the workspace in | `string` | n/a | yes |
+| agent\_pool\_id | Agent pool ID. Requires "execution\_mode" to be set to agent | `string` | `null` | no |
 | auto\_apply | Whether to automatically apply changes when a Terraform plan is successful | `bool` | `false` | no |
 | branch | The Git branch to trigger the TFE workspace for | `string` | `"master"` | no |
 | clear\_text\_env\_variables | An optional map with clear text environment variables | `map(string)` | `{}` | no |
@@ -30,6 +31,7 @@
 | create\_backend\_config | Whether to create a backend.tf containing the remote backend config | `bool` | `true` | no |
 | create\_repository | Whether of not to create a new repository | `bool` | `false` | no |
 | delete\_branch\_on\_merge | Whether or not to delete the branch after a pull request is merged | `bool` | `true` | no |
+| execution\_mode | Which execution mode to use | `string` | `"remote"` | no |
 | file\_triggers\_enabled | Whether to filter runs based on the changed files in a VCS push | `bool` | `true` | no |
 | github\_admins | A list of GitHub teams that should have admins access | `list(string)` | `[]` | no |
 | github\_branch\_protection | The GitHub branches to protect from forced pushes and deletion | <pre>list(object({<br>    branches          = list(string)<br>    enforce_admins    = bool<br>    push_restrictions = list(string)<br><br>    required_reviews = object({<br>      dismiss_stale_reviews           = bool<br>      dismissal_restrictions          = list(string)<br>      required_approving_review_count = number<br>      require_code_owner_reviews      = bool<br>    })<br><br>    required_checks = object({<br>      strict   = bool<br>      contexts = list(string)<br>    })<br>  }))</pre> | `[]` | no |
