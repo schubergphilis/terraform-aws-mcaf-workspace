@@ -33,6 +33,12 @@ variable "clear_text_env_variables" {
   description = "An optional map with clear text environment variables"
 }
 
+variable "clear_text_hcl_variables" {
+  type        = map(string)
+  default     = {}
+  description = "An optional map with clear text HCL Terraform variables"
+}
+
 variable "clear_text_terraform_variables" {
   type        = map(string)
   default     = {}
@@ -88,6 +94,14 @@ variable "sensitive_terraform_variables" {
   type        = map(string)
   default     = {}
   description = "An optional map with sensitive Terraform variables"
+}
+
+variable "sensitive_hcl_variables" {
+  type = map(object({
+    sensitive = string
+  }))
+  default     = {}
+  description = "An optional map with sensitive HCL Terraform variables"
 }
 
 variable "slack_notification_triggers" {
