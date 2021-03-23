@@ -49,6 +49,12 @@ variable "clear_text_env_variables" {
   description = "An optional map with clear text environment variables"
 }
 
+variable "clear_text_hcl_variables" {
+  type        = map(string)
+  default     = {}
+  description = "An optional map with clear text HCL Terraform variables"
+}
+
 variable "clear_text_terraform_variables" {
   type        = map(string)
   default     = {}
@@ -161,6 +167,14 @@ variable "sensitive_terraform_variables" {
   description = "An optional map with sensitive Terraform variables"
 }
 
+variable "sensitive_hcl_variables" {
+  type = map(object({
+    sensitive = string
+  }))
+  default     = {}
+  description = "An optional map with sensitive HCL Terraform variables"
+}
+
 variable "slack_notification_triggers" {
   type = list(string)
   default = [
@@ -184,6 +198,12 @@ variable "ssh_key_id" {
   type        = string
   default     = null
   description = "The SSH key ID to assign to the workspace"
+}
+
+variable "tfe_agent_pool_id" {
+  type        = string
+  default     = null
+  description = "Terraform agent pool ID"
 }
 
 variable "terraform_version" {

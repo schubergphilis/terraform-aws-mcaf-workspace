@@ -41,7 +41,9 @@ resource "github_repository_file" "default" {
 resource "tfe_workspace" "default" {
   name                  = var.name
   organization          = var.terraform_organization
+  agent_pool_id         = var.tfe_agent_pool_id
   auto_apply            = var.auto_apply
+  execution_mode        = var.tfe_agent_pool_id != null ? "agent" : "remote"
   file_triggers_enabled = var.file_triggers_enabled
   ssh_key_id            = var.ssh_key_id
   terraform_version     = var.terraform_version
@@ -49,7 +51,7 @@ resource "tfe_workspace" "default" {
   queue_all_runs        = true
   working_directory     = var.working_directory
 
-  dynamic vcs_repo {
+  dynamic "vcs_repo" {
     for_each = local.connect_vcs_repo
 
     content {
@@ -132,3 +134,25 @@ resource "tfe_variable" "sensitive_terraform_variables" {
   sensitive    = true
   workspace_id = tfe_workspace.default.id
 }
+
+resource "tfe_variable" "clear_text_hcl_variables" {
+  for_each = var.clear_text_hcl_variables
+
+  key          = each.key
+  value        = each.value
+  category     = "terraform"
+  hcl          = true
+  workspace_id = tfe_workspace.default.id
+}
+
+resource "tfe_variable" "sensitive_hcl_variables" {
+  for_each = var.sensitive_hcl_variables
+
+  key          = each.key
+  value        = each.value.sensitive
+  category     = "terraform"
+  hcl          = true
+  sensitive    = true
+  workspace_id = tfe_workspace.default.id
+}
+
