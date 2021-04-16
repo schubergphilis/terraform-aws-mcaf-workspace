@@ -3,7 +3,7 @@ locals {
 }
 module "workspace_account" {
   providers   = { aws = aws }
-  source      = "github.com/schubergphilis/terraform-aws-mcaf-user?ref=v0.1.6"
+  source      = "github.com/schubergphilis/terraform-aws-mcaf-user?ref=v0.1.7"
   name        = var.username
   policy      = var.policy
   policy_arns = var.policy_arns
@@ -34,7 +34,7 @@ resource "tfe_workspace" "default" {
   queue_all_runs        = true
   working_directory     = var.working_directory
 
-  dynamic vcs_repo {
+  dynamic "vcs_repo" {
     for_each = local.connect_vcs_repo
 
     content {
