@@ -84,7 +84,7 @@ resource "tfe_notification_configuration" "default" {
   enabled          = length(coalesce(var.slack_notification_triggers, [])) > 0
   triggers         = var.slack_notification_triggers
   url              = var.slack_notification_url
-  workspace_id     = tfe_workspace.default.external_id
+  workspace_id     = tfe_workspace.default.id
 }
 
 resource "tfe_variable" "aws_access_key_id" {
