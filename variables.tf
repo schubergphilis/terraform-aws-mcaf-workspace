@@ -12,7 +12,7 @@ variable "region" {
 variable "agent_pool_id" {
   type        = string
   default     = null
-  description = "Agent pool ID. Requires \"execution_mode\" to be set to agent"
+  description = "Agent pool ID, requires \"execution_mode\" to be set to agent"
 }
 
 variable "auto_apply" {
@@ -24,7 +24,7 @@ variable "auto_apply" {
 variable "branch" {
   type        = string
   default     = "master"
-  description = "The Git branch to trigger the TFE workspace for"
+  description = "The git branch to trigger the TFE workspace for"
 }
 
 variable "clear_text_env_variables" {
@@ -39,24 +39,6 @@ variable "clear_text_terraform_variables" {
   description = "An optional map with clear text Terraform variables"
 }
 
-variable "create_backend_config" {
-  type        = bool
-  default     = true
-  description = "Whether to create a backend.tf containing the remote backend config"
-}
-
-variable "create_repository" {
-  type        = bool
-  default     = false
-  description = "Whether of not to create a new repository"
-}
-
-variable "delete_branch_on_merge" {
-  type        = bool
-  default     = true
-  description = "Whether or not to delete the branch after a pull request is merged"
-}
-
 variable "execution_mode" {
   type        = string
   default     = "remote"
@@ -67,56 +49,6 @@ variable "file_triggers_enabled" {
   type        = bool
   default     = true
   description = "Whether to filter runs based on the changed files in a VCS push"
-}
-
-variable "github_admins" {
-  type        = list(string)
-  default     = []
-  description = "A list of GitHub teams that should have admins access"
-}
-
-variable "github_branch_protection" {
-  type = list(object({
-    branches          = list(string)
-    enforce_admins    = bool
-    push_restrictions = list(string)
-
-    required_reviews = object({
-      dismiss_stale_reviews           = bool
-      dismissal_restrictions          = list(string)
-      required_approving_review_count = number
-      require_code_owner_reviews      = bool
-    })
-
-    required_checks = object({
-      strict   = bool
-      contexts = list(string)
-    })
-  }))
-  default     = []
-  description = "The GitHub branches to protect from forced pushes and deletion"
-}
-
-variable "github_readers" {
-  type        = list(string)
-  default     = []
-  description = "A list of GitHub teams that should have read access"
-}
-
-variable "github_writers" {
-  type        = list(string)
-  default     = []
-  description = "A list of GitHub teams that should have write access"
-}
-
-variable "gitlab_branch_protection" {
-  type = map(object({
-    push_access_level            = string
-    merge_access_level           = string
-    code_owner_approval_required = bool
-  }))
-  default     = null
-  description = "The GitLab branches to protect from forced pushes and deletion"
 }
 
 variable "kms_key_id" {
@@ -142,12 +74,6 @@ variable "policy_arns" {
   description = "A set of policy ARNs to attach to the pipeline user"
 }
 
-variable "repository_description" {
-  type        = string
-  default     = null
-  description = "A description for the GitHub or GitLab repository"
-}
-
 variable "repository_name" {
   type        = string
   description = "The GitHub or GitLab repository to connect the workspace to"
@@ -155,19 +81,7 @@ variable "repository_name" {
 
 variable "repository_owner" {
   type        = string
-  default     = null
   description = "The GitHub organization or GitLab namespace that owns the repository"
-}
-
-variable "repository_visibility" {
-  type        = string
-  default     = "private"
-  description = "Make the GitHub repository visibility"
-
-  validation {
-    condition     = contains(["internal", "private", "public"], var.repository_visibility)
-    error_message = "The repository_visibility value must be either \"internal\", \"private\" or \"public\"."
-  }
 }
 
 variable "sensitive_env_variables" {
@@ -234,17 +148,6 @@ variable "working_directory" {
   type        = string
   default     = "terraform"
   description = "A relative path that Terraform will execute within"
-}
-
-variable "vcs_provider" {
-  type        = string
-  default     = "github"
-  description = "The VCS provider to use"
-
-  validation {
-    condition     = lower(var.vcs_provider) == "github" || lower(var.vcs_provider) == "gitlab"
-    error_message = "The vcs_provider value must be either \"github\" or \"gitlab\"."
-  }
 }
 
 variable "tags" {
