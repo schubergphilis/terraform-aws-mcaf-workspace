@@ -12,7 +12,7 @@ module "workspace_account" {
 
 module "github_repository" {
   count                  = var.create_repository && lower(var.vcs_provider) == "github" ? 1 : 0
-  source                 = "github.com/schubergphilis/terraform-github-mcaf-repository?ref=v0.3.0"
+  source                 = "github.com/schubergphilis/terraform-github-mcaf-repository?ref=v0.3.4"
   admins                 = var.github_admins
   branch_protection      = var.github_branch_protection
   delete_branch_on_merge = var.delete_branch_on_merge
