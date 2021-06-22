@@ -41,7 +41,6 @@ resource "tfe_variable" "aws_access_key_id" {
   key          = "AWS_ACCESS_KEY_ID"
   value        = module.workspace_account.access_key_id
   category     = "env"
-  sensitive    = true
   workspace_id = tfe_workspace.default.id
 }
 
@@ -57,7 +56,6 @@ resource "tfe_variable" "aws_default_region" {
   key          = "AWS_DEFAULT_REGION"
   value        = var.region
   category     = "env"
-  sensitive    = true
   workspace_id = tfe_workspace.default.id
 }
 
