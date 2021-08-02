@@ -30,7 +30,6 @@
 | clear\_text\_terraform\_variables | An optional map with clear text Terraform variables | `map(string)` | `{}` | no |
 | execution\_mode | Which execution mode to use | `string` | `"remote"` | no |
 | file\_triggers\_enabled | Whether to filter runs based on the changed files in a VCS push | `bool` | `true` | no |
-| kms\_key\_id | The KMS key ID used to encrypt the SSM parameters | `string` | `null` | no |
 | policy | The policy to attach to the pipeline user | `string` | `null` | no |
 | policy\_arns | A set of policy ARNs to attach to the pipeline user | `set(string)` | `[]` | no |
 | region | The default region of the account | `string` | `null` | no |
