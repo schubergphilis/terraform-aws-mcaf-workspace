@@ -51,12 +51,6 @@ variable "file_triggers_enabled" {
   description = "Whether to filter runs based on the changed files in a VCS push"
 }
 
-variable "kms_key_id" {
-  type        = string
-  default     = null
-  description = "The KMS key ID used to encrypt the SSM parameters"
-}
-
 variable "oauth_token_id" {
   type        = string
   description = "The OAuth token ID of the VCS provider"
