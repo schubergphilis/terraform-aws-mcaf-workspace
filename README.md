@@ -27,6 +27,7 @@
 | auto\_apply | Whether to automatically apply changes when a Terraform plan is successful | `bool` | `false` | no |
 | branch | The git branch to trigger the TFE workspace for | `string` | `"master"` | no |
 | clear\_text\_env\_variables | An optional map with clear text environment variables | `map(string)` | `{}` | no |
+| clear\_text\_hcl\_variables | An optional map with clear text HCL Terraform variables | `map(string)` | `{}` | no |
 | clear\_text\_terraform\_variables | An optional map with clear text Terraform variables | `map(string)` | `{}` | no |
 | execution\_mode | Which execution mode to use | `string` | `"remote"` | no |
 | file\_triggers\_enabled | Whether to filter runs based on the changed files in a VCS push | `bool` | `true` | no |
@@ -34,6 +35,7 @@
 | policy\_arns | A set of policy ARNs to attach to the pipeline user | `set(string)` | `[]` | no |
 | region | The default region of the account | `string` | `null` | no |
 | sensitive\_env\_variables | An optional map with sensitive environment variables | `map(string)` | `{}` | no |
+| sensitive\_hcl\_variables | An optional map with sensitive HCL Terraform variables | <pre>map(object({<br>    sensitive = string<br>  }))</pre> | `{}` | no |
 | sensitive\_terraform\_variables | An optional map with sensitive Terraform variables | `map(string)` | `{}` | no |
 | slack\_notification\_triggers | The triggers to send to Slack | `list(string)` | <pre>[<br>  "run:created",<br>  "run:planning",<br>  "run:needs_attention",<br>  "run:applying",<br>  "run:completed",<br>  "run:errored"<br>]</pre> | no |
 | slack\_notification\_url | The Slack Webhook URL to send notification to | `string` | `null` | no |
