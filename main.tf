@@ -20,7 +20,7 @@ resource "tfe_workspace" "default" {
   working_directory     = var.working_directory
 
   vcs_repo {
-    identifier         = format("%s/%s", var.repository_owner, var.repository_name)
+    identifier         = var.repository_identifier
     branch             = var.branch
     ingress_submodules = false
     oauth_token_id     = var.oauth_token_id
