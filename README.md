@@ -19,8 +19,7 @@
 |------|-------------|------|---------|:--------:|
 | name | A name for the Terraform workspace | `string` | n/a | yes |
 | oauth\_token\_id | The OAuth token ID of the VCS provider | `string` | n/a | yes |
-| repository\_name | The GitHub or GitLab repository to connect the workspace to | `string` | n/a | yes |
-| repository\_owner | The GitHub organization or GitLab namespace that owns the repository | `string` | n/a | yes |
+| repository\_identifier | The VCS repository to connect the workspace to. E.g. for GitHub this is: <organization>/<repository> | `string` | n/a | yes |
 | tags | A mapping of tags to assign to resource | `map(string)` | n/a | yes |
 | terraform\_organization | The Terraform Enterprise organization to create the workspace in | `string` | n/a | yes |
 | agent\_pool\_id | Agent pool ID, requires "execution\_mode" to be set to agent | `string` | `null` | no |
