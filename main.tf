@@ -1,5 +1,5 @@
 locals {
-  connect_vcs_repo = (var.repository_owner != null && var.repository_name != null) ? { create = true } : {}
+  connect_vcs_repo = var.repository_identifier != null ? { create = true } : {}
 }
 
 module "workspace_account" {
@@ -29,7 +29,7 @@ resource "tfe_workspace" "default" {
     for_each = local.connect_vcs_repo
 
     content {
-      identifier         = format("%s/%s", var.repository_owner, var.repository_name)
+      identifier         = var.repository_identifier
       branch             = var.branch
       ingress_submodules = false
       oauth_token_id     = var.oauth_token_id

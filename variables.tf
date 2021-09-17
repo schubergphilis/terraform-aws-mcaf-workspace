@@ -86,16 +86,10 @@ variable "policy_arns" {
   description = "A set of policy ARNs to attach to the pipeline user"
 }
 
-variable "repository_name" {
+variable "repository_identifier" {
   type        = string
   default     = null
-  description = "The GitHub or GitLab repository to connect the workspace to"
-}
-
-variable "repository_owner" {
-  type        = string
-  default     = null
-  description = "The GitHub organization or GitLab namespace that owns the repository"
+  description = "The VCS repository to connect the workspace to. E.g. for GitHub this is: <organization>/<repository>"
 }
 
 variable "sensitive_env_variables" {
