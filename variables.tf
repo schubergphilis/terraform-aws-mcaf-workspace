@@ -27,6 +27,12 @@ variable "branch" {
   description = "The git branch to trigger the TFE workspace for"
 }
 
+variable "connect_vcs_repo" {
+  type        = bool
+  default     = true
+  description = "Whether to connect a VCS repo to the workspace"
+}
+
 variable "clear_text_env_variables" {
   type        = map(string)
   default     = {}
