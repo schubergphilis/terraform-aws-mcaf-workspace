@@ -1,5 +1,5 @@
 locals {
-  connect_vcs_repo = (var.repository_owner == null || var.repository_name == null) ? {} : { create = true }
+  connect_vcs_repo = (var.repository_owner != null && var.repository_name != null) ? { create = true } : {}
 }
 
 module "workspace_account" {
