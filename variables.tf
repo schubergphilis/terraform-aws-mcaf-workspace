@@ -76,11 +76,13 @@ variable "policy_arns" {
 
 variable "repository_name" {
   type        = string
+  default     = null
   description = "The GitHub or GitLab repository to connect the workspace to"
 }
 
 variable "repository_owner" {
   type        = string
+  default     = null
   description = "The GitHub organization or GitLab namespace that owns the repository"
 }
 

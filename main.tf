@@ -1,3 +1,7 @@
+locals {
+  connect_vcs_repo = (var.repository_owner != null && var.repository_name != null) ? { create = true } : {}
+}
+
 module "workspace_account" {
   source      = "github.com/schubergphilis/terraform-aws-mcaf-user?ref=v0.1.7"
   name        = var.username
@@ -19,11 +23,15 @@ resource "tfe_workspace" "default" {
   queue_all_runs        = true
   working_directory     = var.working_directory
 
-  vcs_repo {
-    identifier         = format("%s/%s", var.repository_owner, var.repository_name)
-    branch             = var.branch
-    ingress_submodules = false
-    oauth_token_id     = var.oauth_token_id
+  dynamic "vcs_repo" {
+    for_each = local.connect_vcs_repo
+
+    content {
+      identifier         = format("%s/%s", var.repository_owner, var.repository_name)
+      branch             = var.branch
+      ingress_submodules = false
+      oauth_token_id     = var.oauth_token_id
+    }
   }
 }
 

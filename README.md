@@ -19,8 +19,6 @@
 |------|-------------|------|---------|:--------:|
 | name | A name for the Terraform workspace | `string` | n/a | yes |
 | oauth\_token\_id | The OAuth token ID of the VCS provider | `string` | n/a | yes |
-| repository\_name | The GitHub or GitLab repository to connect the workspace to | `string` | n/a | yes |
-| repository\_owner | The GitHub organization or GitLab namespace that owns the repository | `string` | n/a | yes |
 | tags | A mapping of tags to assign to resource | `map(string)` | n/a | yes |
 | terraform\_organization | The Terraform Enterprise organization to create the workspace in | `string` | n/a | yes |
 | agent\_pool\_id | Agent pool ID, requires "execution\_mode" to be set to agent | `string` | `null` | no |
@@ -34,6 +32,8 @@
 | policy | The policy to attach to the pipeline user | `string` | `null` | no |
 | policy\_arns | A set of policy ARNs to attach to the pipeline user | `set(string)` | `[]` | no |
 | region | The default region of the account | `string` | `null` | no |
+| repository\_name | The GitHub or GitLab repository to connect the workspace to | `string` | `null` | no |
+| repository\_owner | The GitHub organization or GitLab namespace that owns the repository | `string` | `null` | no |
 | sensitive\_env\_variables | An optional map with sensitive environment variables | `map(string)` | `{}` | no |
 | sensitive\_hcl\_variables | An optional map with sensitive HCL Terraform variables | <pre>map(object({<br>    sensitive = string<br>  }))</pre> | `{}` | no |
 | sensitive\_terraform\_variables | An optional map with sensitive Terraform variables | `map(string)` | `{}` | no |
