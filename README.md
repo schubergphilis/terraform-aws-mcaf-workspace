@@ -29,6 +29,7 @@
 | clear\_text\_env\_variables | An optional map with clear text environment variables | `map(string)` | `{}` | no |
 | clear\_text\_hcl\_variables | An optional map with clear text HCL Terraform variables | `map(string)` | `{}` | no |
 | clear\_text\_terraform\_variables | An optional map with clear text Terraform variables | `map(string)` | `{}` | no |
+| connect\_vcs\_repo | Whether to connect a VCS repo to the workspace | `bool` | `true` | no |
 | execution\_mode | Which execution mode to use | `string` | `"remote"` | no |
 | file\_triggers\_enabled | Whether to filter runs based on the changed files in a VCS push | `bool` | `true` | no |
 | policy | The policy to attach to the pipeline user | `string` | `null` | no |
