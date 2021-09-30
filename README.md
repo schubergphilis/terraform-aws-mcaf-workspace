@@ -29,9 +29,11 @@
 | clear\_text\_terraform\_variables | An optional map with clear text Terraform variables | `map(string)` | `{}` | no |
 | execution\_mode | Which execution mode to use | `string` | `"remote"` | no |
 | file\_triggers\_enabled | Whether to filter runs based on the changed files in a VCS push | `bool` | `true` | no |
+| global\_remote\_state | Allow all workspaces in the organization to read the state of this workspace | `bool` | `true` | no |
 | policy | The policy to attach to the pipeline user | `string` | `null` | no |
 | policy\_arns | A set of policy ARNs to attach to the pipeline user | `set(string)` | `[]` | no |
 | region | The default region of the account | `string` | `null` | no |
+| remote\_state\_consumer\_ids | A set of workspace IDs set as explicit remote state consumers for the given workspace | `set(string)` | `[]` | no |
 | repository\_name | The GitHub or GitLab repository to connect the workspace to | `string` | `null` | no |
 | repository\_owner | The GitHub organization or GitLab namespace that owns the repository | `string` | `null` | no |
 | sensitive\_env\_variables | An optional map with sensitive environment variables | `map(string)` | `{}` | no |
