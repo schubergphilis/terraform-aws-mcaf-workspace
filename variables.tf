@@ -57,6 +57,12 @@ variable "file_triggers_enabled" {
   description = "Whether to filter runs based on the changed files in a VCS push"
 }
 
+variable "global_remote_state" {
+  type        = bool
+  default     = null
+  description = "Allow all workspaces in the organization to read the state of this workspace"
+}
+
 variable "oauth_token_id" {
   type        = string
   description = "The OAuth token ID of the VCS provider"
@@ -66,6 +72,12 @@ variable "policy" {
   type        = string
   default     = null
   description = "The policy to attach to the pipeline user"
+}
+
+variable "remote_state_consumer_ids" {
+  type        = set(string)
+  default     = null
+  description = "A set of workspace IDs set as explicit remote state consumers for this workspace"
 }
 
 variable "policy_arns" {

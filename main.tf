@@ -11,17 +11,19 @@ module "workspace_account" {
 }
 
 resource "tfe_workspace" "default" {
-  name                  = var.name
-  organization          = var.terraform_organization
-  agent_pool_id         = var.agent_pool_id
-  auto_apply            = var.auto_apply
-  execution_mode        = var.execution_mode
-  file_triggers_enabled = var.file_triggers_enabled
-  ssh_key_id            = var.ssh_key_id
-  terraform_version     = var.terraform_version
-  trigger_prefixes      = var.trigger_prefixes
-  queue_all_runs        = true
-  working_directory     = var.working_directory
+  name                      = var.name
+  organization              = var.terraform_organization
+  agent_pool_id             = var.agent_pool_id
+  auto_apply                = var.auto_apply
+  execution_mode            = var.execution_mode
+  file_triggers_enabled     = var.file_triggers_enabled
+  global_remote_state       = var.global_remote_state
+  remote_state_consumer_ids = var.remote_state_consumer_ids
+  ssh_key_id                = var.ssh_key_id
+  terraform_version         = var.terraform_version
+  trigger_prefixes          = var.trigger_prefixes
+  queue_all_runs            = true
+  working_directory         = var.working_directory
 
   dynamic "vcs_repo" {
     for_each = local.connect_vcs_repo
