@@ -3,7 +3,7 @@ locals {
 }
 
 module "workspace_account" {
-  source      = "github.com/schubergphilis/terraform-aws-mcaf-user?ref=v0.1.7"
+  source      = "github.com/schubergphilis/terraform-aws-mcaf-user?ref=v0.1.12"
   name        = var.username
   policy      = var.policy
   policy_arns = var.policy_arns
@@ -38,7 +38,8 @@ resource "tfe_workspace" "default" {
 }
 
 resource "tfe_notification_configuration" "default" {
-  count            = var.slack_notification_url != null ? 1 : 0
+  count = var.slack_notification_url != null ? 1 : 0
+
   name             = tfe_workspace.default.name
   destination_type = "slack"
   enabled          = length(coalesce(var.slack_notification_triggers, [])) > 0
