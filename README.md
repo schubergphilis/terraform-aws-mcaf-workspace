@@ -34,8 +34,7 @@
 | policy\_arns | A set of policy ARNs to attach to the pipeline user | `set(string)` | `[]` | no |
 | region | The default region of the account | `string` | `null` | no |
 | remote\_state\_consumer\_ids | A set of workspace IDs set as explicit remote state consumers for this workspace | `set(string)` | `null` | no |
-| repository\_name | The GitHub or GitLab repository to connect the workspace to | `string` | `null` | no |
-| repository\_owner | The GitHub organization or GitLab namespace that owns the repository | `string` | `null` | no |
+| repository\_identifier | The repository identifier to connect the workspace to | `string` | `null` | no |
 | sensitive\_env\_variables | An optional map with sensitive environment variables | `map(string)` | `{}` | no |
 | sensitive\_hcl\_variables | An optional map with sensitive HCL Terraform variables | <pre>map(object({<br>    sensitive = string<br>  }))</pre> | `{}` | no |
 | sensitive\_terraform\_variables | An optional map with sensitive Terraform variables | `map(string)` | `{}` | no |
