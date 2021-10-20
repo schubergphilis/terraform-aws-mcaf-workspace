@@ -89,7 +89,7 @@ variable "policy_arns" {
 variable "repository_identifier" {
   type        = string
   default     = null
-  description = "The VCS repository to connect the workspace to. E.g. for GitHub this is: <organization>/<repository>"
+  description = "The repository identifier to connect the workspace to"
 }
 
 variable "sensitive_env_variables" {
