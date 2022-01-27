@@ -3,7 +3,7 @@ locals {
 }
 
 module "workspace_account" {
-  source      = "github.com/schubergphilis/terraform-aws-mcaf-user?ref=v0.1.12"
+  source      = "github.com/schubergphilis/terraform-aws-mcaf-user?ref=v0.1.13"
   name        = var.username
   policy      = var.policy
   policy_arns = var.policy_arns
