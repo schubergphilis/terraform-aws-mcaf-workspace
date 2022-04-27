@@ -23,7 +23,7 @@
 | terraform\_organization | The Terraform Enterprise organization to create the workspace in | `string` | n/a | yes |
 | agent\_pool\_id | Agent pool ID, requires "execution\_mode" to be set to agent | `string` | `null` | no |
 | auto\_apply | Whether to automatically apply changes when a Terraform plan is successful | `bool` | `false` | no |
-| branch | The git branch to trigger the TFE workspace for | `string` | `"master"` | no |
+| branch | The git branch to trigger the TFE workspace for | `string` | `"main"` | no |
 | clear\_text\_env\_variables | An optional map with clear text environment variables | `map(string)` | `{}` | no |
 | clear\_text\_hcl\_variables | An optional map with clear text HCL Terraform variables | `map(string)` | `{}` | no |
 | clear\_text\_terraform\_variables | An optional map with clear text Terraform variables | `map(string)` | `{}` | no |
@@ -41,6 +41,7 @@
 | slack\_notification\_triggers | The triggers to send to Slack | `list(string)` | <pre>[<br>  "run:created",<br>  "run:planning",<br>  "run:needs_attention",<br>  "run:applying",<br>  "run:completed",<br>  "run:errored"<br>]</pre> | no |
 | slack\_notification\_url | The Slack Webhook URL to send notification to | `string` | `null` | no |
 | ssh\_key\_id | The SSH key ID to assign to the workspace | `string` | `null` | no |
+| team\_access | An optional map with team IDs and workspace access to assign | <pre>map(object({<br>    access  = string,<br>    team_id = string,<br>  }))</pre> | `{}` | no |
 | terraform\_version | The version of Terraform to use for this workspace | `string` | `"latest"` | no |
 | trigger\_prefixes | List of repository-root-relative paths which should be tracked for changes | `list(string)` | <pre>[<br>  "modules"<br>]</pre> | no |
 | username | The username for a new pipeline user. | `string` | `null` | no |
