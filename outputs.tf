@@ -1,6 +1,6 @@
 output "arn" {
   value       = module.workspace_account.arn
-  description = "The user ARN"
+  description = "The workspace user ARN"
 }
 
 output "workspace_id" {
