@@ -51,7 +51,7 @@
 
 | Name | Description |
 |------|-------------|
-| arn | The user ARN |
+| arn | The workspace user ARN |
 | workspace\_id | The Terraform Cloud workspace ID |
 
 <!--- END_TF_DOCS --->
