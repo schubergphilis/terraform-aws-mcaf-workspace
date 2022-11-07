@@ -27,6 +27,11 @@ variable "branch" {
   description = "The git branch to trigger the TFE workspace for"
 }
 
+variable "tfc_agent_role_configuration" {
+  type        = map(string)
+  description = "Configuration for TFC Cloud Agent support"
+}
+
 variable "clear_text_env_variables" {
   type        = map(string)
   default     = {}
