@@ -2,13 +2,33 @@ locals {
   connect_vcs_repo = var.repository_identifier != null ? { create = true } : {}
 }
 
-module "workspace_account" {
-  source                       = "github.com/schubergphilis/terraform-aws-mcaf-user?ref=v0.1.13"
-  name                         = var.username
-  tfc_agent_role_configuration = var.tfc_agent_role_configuration
-  policy                       = var.policy
-  policy_arns                  = var.policy_arns
-  tags                         = var.tags
+module "workspace_iam_user" {
+  count  = var.auth_method == "iam_user" ? 1 : 0
+  source = "github.com/schubergphilis/terraform-aws-mcaf-user?ref=v0.1.13"
+
+  name        = var.username
+  policy      = var.policy
+  policy_arns = var.policy_arns
+  tags        = var.tags
+}
+
+resource "random_uuid" "external_id" {
+  count = var.auth_method == "iam_role" ? 1 : 0
+}
+
+module "workspace_iam_role" {
+  count  = var.auth_method == "iam_role" ? 1 : 0
+  source = "github.com/schubergphilis/terraform-aws-mcaf-role?ref=v0.3.2"
+
+  name        = var.role_name
+  role_policy = var.policy
+  policy_arns = var.policy_arns
+  tags        = var.tags
+
+  assume_policy = templatefile("${path.module}/templates/assume_role_policy.tftpl", {
+    external_id = random_uuid.external_id[0].result,
+    role_arn    = var.agent_role_arn,
+  })
 }
 
 resource "tfe_workspace" "default" {
@@ -58,17 +78,39 @@ resource "tfe_team_access" "default" {
 }
 
 resource "tfe_variable" "aws_access_key_id" {
+  count = var.auth_method == "iam_user" ? 1 : 0
+
   key          = "AWS_ACCESS_KEY_ID"
-  value        = module.workspace_account.access_key_id
+  value        = module.workspace_iam_user[0].access_key_id
   category     = "env"
   workspace_id = tfe_workspace.default.id
 }
 
 resource "tfe_variable" "aws_secret_access_key" {
+  count = var.auth_method == "iam_user" ? 1 : 0
+
   key          = "AWS_SECRET_ACCESS_KEY"
-  value        = module.workspace_account.secret_access_key
+  value        = module.workspace_iam_user[0].secret_access_key
   category     = "env"
   sensitive    = true
+  workspace_id = tfe_workspace.default.id
+}
+
+resource "tfe_variable" "aws_assume_role" {
+  count = var.auth_method == "iam_role" ? 1 : 0
+
+  key          = "aws_assume_role"
+  value        = module.workspace_iam_role[0].arn
+  category     = "terraform"
+  workspace_id = tfe_workspace.default.id
+}
+
+resource "tfe_variable" "aws_assume_role_external_id" {
+  count = var.auth_method == "iam_role" ? 1 : 0
+
+  key          = "aws_assume_role_external_id"
+  value        = random_uuid.external_id[0].result
+  category     = "terraform"
   workspace_id = tfe_workspace.default.id
 }
 

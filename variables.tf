@@ -15,6 +15,23 @@ variable "agent_pool_id" {
   description = "Agent pool ID, requires \"execution_mode\" to be set to agent"
 }
 
+variable "agent_role_arn" {
+  type        = string
+  default     = null
+  description = "IAM role ARN used by Terraform Cloud Agent to assume role in the created account"
+}
+
+variable "auth_method" {
+  type        = string
+  default     = "iam_user"
+  description = "Configures how the workspace authenticates with the AWS account (can be iam_role or iam_user)"
+
+  validation {
+    condition     = lower(var.auth_method) == "iam_role" || lower(var.auth_method) == "iam_user"
+    error_message = "The auth_method value must be either \"iam_role\" or \"iam_user\"."
+  }
+}
+
 variable "auto_apply" {
   type        = bool
   default     = false
@@ -76,7 +93,7 @@ variable "oauth_token_id" {
 variable "policy" {
   type        = string
   default     = null
-  description = "The policy to attach to the pipeline user"
+  description = "The policy to attach to the pipeline role or user"
 }
 
 variable "remote_state_consumer_ids" {
@@ -95,6 +112,12 @@ variable "repository_identifier" {
   type        = string
   default     = null
   description = "The repository identifier to connect the workspace to"
+}
+
+variable "role_name" {
+  type        = string
+  default     = null
+  description = "The IAM role name for a new pipeline user"
 }
 
 variable "sensitive_env_variables" {
@@ -171,7 +194,7 @@ variable "trigger_prefixes" {
 variable "username" {
   type        = string
   default     = null
-  description = "The username for a new pipeline user."
+  description = "The username for a new pipeline user"
 }
 
 variable "working_directory" {
