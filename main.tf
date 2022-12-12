@@ -111,6 +111,7 @@ resource "tfe_variable" "aws_assume_role_external_id" {
   key          = "aws_assume_role_external_id"
   value        = random_uuid.external_id[0].result
   category     = "terraform"
+  sensitive    = true
   workspace_id = tfe_workspace.default.id
 }
 
