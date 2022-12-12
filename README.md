@@ -22,6 +22,7 @@
 | oauth\_token\_id | The OAuth token ID of the VCS provider | `string` | n/a | yes |
 | tags | A mapping of tags to assign to resource | `map(string)` | n/a | yes |
 | terraform\_organization | The Terraform Enterprise organization to create the workspace in | `string` | n/a | yes |
+| tfc\_agent\_role\_configuration | Configuration for TFC Cloud Agent support | `map(string)` | n/a | yes |
 | agent\_pool\_id | Agent pool ID, requires "execution\_mode" to be set to agent | `string` | `null` | no |
 | agent\_role\_arn | IAM role ARN used by Terraform Cloud Agent to assume role in the created account | `string` | `null` | no |
 | auth\_method | Configures how the workspace authenticates with the AWS account (can be iam\_role or iam\_user) | `string` | `"iam_user"` | no |
