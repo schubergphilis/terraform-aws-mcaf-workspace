@@ -1,5 +1,44 @@
 # terraform-aws-mcaf-workspace
 
+Terraform module to create a Terraform Cloud workspace and either a IAM user or role in an AWS account. The user or role credentials are added to the workspace so that Terraform can create resources in the AWS account.
+
+## Usage
+
+### Team access
+
+This module supports assigning an existing team access to the created workspace.
+
+To do this, pass a map to `var.team_access` using the team name as the key and either `access` or `permissions` to assign a team access to the workspace.
+
+Example using a pre-existing role (see [this link](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/team_access#access) for allowed values):
+
+```hcl
+team_access = {
+  "MyTeamName" = {
+    access = "write"
+  }
+}
+```
+
+Example using a custom role (see [this link](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/team_access#permissions) for a list of keys and their allowed values):
+
+```hcl
+team_access = {
+  "MyTeamName" = {
+    permissions = {
+      run_tasks         = false
+      runs              = "apply"
+      sentinel_mocks    = "read"
+      state_versions    = "read-outputs"
+      variables         = "write"
+      workspace_locking = true
+    }
+  }
+}
+```
+
+The above custom role is similar to the "write" pre-existing role, but blocks access to the workspace state (which is considered sensitive).
+
 <!--- BEGIN_TF_DOCS --->
 ## Requirements
 

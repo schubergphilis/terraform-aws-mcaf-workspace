@@ -162,11 +162,23 @@ variable "ssh_key_id" {
 
 variable "team_access" {
   type = map(object({
-    access  = string,
-    team_id = string,
+    access = optional(string, null),
+    permissions = optional(object({
+      run_tasks         = bool
+      runs              = string
+      sentinel_mocks    = string
+      state_versions    = string
+      variables         = string
+      workspace_locking = bool
+    }), null)
   }))
   default     = {}
-  description = "An optional map with team IDs and workspace access to assign"
+  description = "Map of team names and either type of fixed access or custom permissions to assign"
+
+  validation {
+    condition     = alltrue([for o in var.team_access : !(o.access != null && o.permissions != null)])
+    error_message = "Cannot use \"access\" or \"permissions\" keys together when specifying a team's access."
+  }
 }
 
 variable "terraform_version" {
