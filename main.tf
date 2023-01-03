@@ -2,6 +2,13 @@ locals {
   connect_vcs_repo = var.repository_identifier != null ? { create = true } : {}
 }
 
+data "tfe_team" "default" {
+  for_each = toset(keys(var.team_access))
+
+  name         = each.value
+  organization = var.terraform_organization
+}
+
 module "workspace_iam_user" {
   count  = var.auth_method == "iam_user" ? 1 : 0
   source = "github.com/schubergphilis/terraform-aws-mcaf-user?ref=v0.1.13"
@@ -73,8 +80,21 @@ resource "tfe_team_access" "default" {
   for_each = var.team_access
 
   access       = each.value.access
-  team_id      = each.value.team_id
+  team_id      = data.tfe_team.default[each.key].id
   workspace_id = tfe_workspace.default.id
+
+  dynamic "permissions" {
+    for_each = each.value.permissions != null ? { create = true } : {}
+
+    content {
+      run_tasks         = each.value.permissions["run_tasks"]
+      runs              = each.value.permissions["runs"]
+      sentinel_mocks    = each.value.permissions["sentinel_mocks"]
+      state_versions    = each.value.permissions["state_versions"]
+      variables         = each.value.permissions["variables"]
+      workspace_locking = each.value.permissions["workspace_locking"]
+    }
+  }
 }
 
 resource "tfe_variable" "aws_access_key_id" {
