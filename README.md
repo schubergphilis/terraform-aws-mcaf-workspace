@@ -84,7 +84,7 @@ The above custom role is similar to the "write" pre-existing role, but blocks ac
 | slack\_notification\_triggers | The triggers to send to Slack | `list(string)` | <pre>[<br>  "run:created",<br>  "run:planning",<br>  "run:needs_attention",<br>  "run:applying",<br>  "run:completed",<br>  "run:errored"<br>]</pre> | no |
 | slack\_notification\_url | The Slack Webhook URL to send notification to | `string` | `null` | no |
 | ssh\_key\_id | The SSH key ID to assign to the workspace | `string` | `null` | no |
-| team\_access | An optional map with team IDs and workspace access to assign | <pre>map(object({<br>    access  = string,<br>    team_id = string,<br>  }))</pre> | `{}` | no |
+| team\_access | Map of team names and either type of fixed access or custom permissions to assign | <pre>map(object({<br>    access = optional(string, null),<br>    permissions = optional(object({<br>      run_tasks         = bool<br>      runs              = string<br>      sentinel_mocks    = string<br>      state_versions    = string<br>      variables         = string<br>      workspace_locking = bool<br>    }), null)<br>  }))</pre> | `{}` | no |
 | terraform\_version | The version of Terraform to use for this workspace | `string` | `"latest"` | no |
 | trigger\_prefixes | List of repository-root-relative paths which should be tracked for changes | `list(string)` | <pre>[<br>  "modules"<br>]</pre> | no |
 | username | The username for a new pipeline user | `string` | `null` | no |
