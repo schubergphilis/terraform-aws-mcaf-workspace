@@ -177,7 +177,7 @@ variable "team_access" {
 
   validation {
     condition     = alltrue([for o in var.team_access : !(o.access != null && o.permissions != null)])
-    error_message = "Cannot use \"access\" or \"permissions\" keys together when specifying a team's access."
+    error_message = "Cannot use \"access\" and \"permissions\" keys together when specifying a team's access."
   }
 }
 
