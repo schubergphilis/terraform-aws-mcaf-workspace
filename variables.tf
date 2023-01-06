@@ -32,6 +32,17 @@ variable "auth_method" {
   }
 }
 
+variable "boundary_auth_method" {
+  type        = string
+  default     = "permissions_boundary"
+  description = "Configures the permissions_boundary associated to the iam_role"
+
+  validation {
+    condition     = lower(var.boundary_auth_method) == "permissions_boundary"
+    error_message = "There is no permissions_boundary linked to the iam_role"
+  }
+}
+
 variable "auto_apply" {
   type        = bool
   default     = false
@@ -89,6 +100,12 @@ variable "policy" {
   type        = string
   default     = null
   description = "The policy to attach to the pipeline role or user"
+}
+
+variable "permissions_boundary" {
+  type        = string
+  default     = null
+  description = "The permissions boundary to set on the role"
 }
 
 variable "remote_state_consumer_ids" {
