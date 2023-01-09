@@ -227,6 +227,12 @@ variable "working_directory" {
   description = "A relative path that Terraform will execute within"
 }
 
+variable "workload_boundary" {
+  type        = string
+  default     = null
+  description = "The workload bounddary attached to workload"
+}
+
 variable "tags" {
   type        = map(string)
   description = "A mapping of tags to assign to resource"
