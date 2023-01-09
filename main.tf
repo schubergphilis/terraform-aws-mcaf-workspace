@@ -26,13 +26,13 @@ resource "random_uuid" "external_id" {
 # Block of code if permissions_boundary is present in workload
 
 resource "aws_iam_policy" "ep_workload_boundary" {
-  count  = var.auth_method == "permissions_boundary" ? 1 : 0
+  count  = var.boundary_auth_method == "permissions_boundary" ? 1 : 0
   name   = "ep_workload_boundary"
   policy = var.workload_boundary
 }
 
 resource "aws_iam_policy" "ep_infra_boundary" {
-  count      = var.auth_method == "permissions_boundary" ? 1 : 0
+  count      = var.boundary_auth_method == "permissions_boundary" ? 1 : 0
   depends_on = [aws_iam_policy.ep_workload_boundary]
   name       = "ep_infra_boundary"
   policy     = var.permissions_boundary
