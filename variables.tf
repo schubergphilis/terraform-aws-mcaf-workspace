@@ -105,7 +105,13 @@ variable "policy" {
 variable "permissions_boundary" {
   type        = string
   default     = null
-  description = "The permissions boundary to set on the role"
+  description = "The infrastructure boundary policy to set on the role"
+}
+
+variable "permissions_boundary_name" {
+  type        = string
+  default     = null
+  description = "The infrastructure boundary name attached to the Role"
 }
 
 variable "remote_state_consumer_ids" {
@@ -230,7 +236,13 @@ variable "working_directory" {
 variable "workload_boundary" {
   type        = string
   default     = null
-  description = "The workload bounddary attached to workload"
+  description = "The workload boundary policy attached to workload"
+}
+
+variable "workload_boundary_name" {
+  type        = string
+  default     = null
+  description = "The workload boundary name attached to workload"
 }
 
 variable "tags" {
