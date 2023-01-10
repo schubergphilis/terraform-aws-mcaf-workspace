@@ -45,7 +45,8 @@ module "workspace_iam_role" {
   name                 = var.role_name
   role_policy          = var.policy
   policy_arns          = var.policy_arns
-  permissions_boundary = try(aws_iam_policy.permissions_boundary[0].arn, null)
+  #permissions_boundary = try(aws_iam_policy.permissions_boundary[0].arn, null)
+  permissions_boundary = var.permissions_boundary_arn
   tags                 = var.tags
 
   assume_policy = templatefile("${path.module}/templates/assume_role_policy.tftpl", {

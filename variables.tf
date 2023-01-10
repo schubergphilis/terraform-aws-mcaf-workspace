@@ -115,6 +115,8 @@ variable "remote_state_consumer_ids" {
   description = "A set of workspace IDs set as explicit remote state consumers for this workspace"
 }
 
+variable "permissions_boundary_arn" {}
+
 variable "policy_arns" {
   type        = set(string)
   default     = []
