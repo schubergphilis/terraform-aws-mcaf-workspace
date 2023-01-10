@@ -32,12 +32,6 @@ variable "auth_method" {
   }
 }
 
-# variable "boundary_auth_method" {
-#   type        = bool
-#   default     = false
-#   description = "Configures the permissions_boundary associated to the iam_role"
-# }
-
 variable "auto_apply" {
   type        = bool
   default     = false
@@ -97,25 +91,17 @@ variable "policy" {
   description = "The policy to attach to the pipeline role or user"
 }
 
-# variable "permissions_boundary" {
-#   type        = string
-#   default     = null
-#   description = "The infrastructure boundary policy to set on the role"
-# }
-
-# variable "permissions_boundary_name" {
-#   type        = string
-#   default     = null
-#   description = "The infrastructure boundary name attached to the Role"
-# }
-
 variable "remote_state_consumer_ids" {
   type        = set(string)
   default     = null
   description = "A set of workspace IDs set as explicit remote state consumers for this workspace"
 }
 
-variable "permissions_boundary_arn" {}
+variable "permissions_boundary_arn" {
+  type = string
+  default = null
+  description = "Permissions boundary arn to be attached to the Pipeline Role"
+}
 
 variable "policy_arns" {
   type        = set(string)
@@ -229,18 +215,6 @@ variable "working_directory" {
   default     = "terraform"
   description = "A relative path that Terraform will execute within"
 }
-
-# variable "workload_boundary" {
-#   type        = string
-#   default     = null
-#   description = "The workload boundary policy attached to workload"
-# }
-
-# variable "workload_boundary_name" {
-#   type        = string
-#   default     = null
-#   description = "The workload boundary name attached to workload"
-# }
 
 variable "tags" {
   type        = map(string)

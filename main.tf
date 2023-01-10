@@ -23,21 +23,6 @@ resource "random_uuid" "external_id" {
   count = var.auth_method == "iam_role" ? 1 : 0
 }
 
-# Block of code if permissions_boundary is present in workload
-
-# resource "aws_iam_policy" "workload_boundary" {
-#   count  = var.boundary_auth_method ? 1 : 0
-#   name   = var.workload_boundary_name
-#   policy = var.workload_boundary
-# }
-
-# resource "aws_iam_policy" "permissions_boundary" {
-#   count      = var.boundary_auth_method ? 1 : 0
-#   depends_on = [aws_iam_policy.workload_boundary]
-#   name       = var.permissions_boundary_name
-#   policy     = var.permissions_boundary
-# }
-
 module "workspace_iam_role" {
   count  = var.auth_method == "iam_role" ? 1 : 0
   source = "github.com/schubergphilis/terraform-aws-mcaf-role?ref=v0.3.2"
@@ -45,7 +30,6 @@ module "workspace_iam_role" {
   name                 = var.role_name
   role_policy          = var.policy
   policy_arns          = var.policy_arns
-  #permissions_boundary = try(aws_iam_policy.permissions_boundary[0].arn, null)
   permissions_boundary = var.permissions_boundary_arn
   tags                 = var.tags
 
