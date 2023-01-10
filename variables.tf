@@ -99,7 +99,6 @@ variable "remote_state_consumer_ids" {
 
 variable "permissions_boundary_arn" {
   type = string
-  default = null
   description = "Permissions boundary arn to be attached to the Pipeline Role"
 }
 
