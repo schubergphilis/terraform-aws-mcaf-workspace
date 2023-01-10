@@ -33,14 +33,9 @@ variable "auth_method" {
 }
 
 variable "boundary_auth_method" {
-  type        = string
-  default     = "permissions_boundary"
+  type        = bool
+  default     = false
   description = "Configures the permissions_boundary associated to the iam_role"
-
-  validation {
-    condition     = lower(var.boundary_auth_method) == "permissions_boundary"
-    error_message = "There is no permissions_boundary linked to the iam_role"
-  }
 }
 
 variable "auto_apply" {
