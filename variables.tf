@@ -32,11 +32,11 @@ variable "auth_method" {
   }
 }
 
-variable "boundary_auth_method" {
-  type        = bool
-  default     = false
-  description = "Configures the permissions_boundary associated to the iam_role"
-}
+# variable "boundary_auth_method" {
+#   type        = bool
+#   default     = false
+#   description = "Configures the permissions_boundary associated to the iam_role"
+# }
 
 variable "auto_apply" {
   type        = bool
@@ -97,17 +97,17 @@ variable "policy" {
   description = "The policy to attach to the pipeline role or user"
 }
 
-variable "permissions_boundary" {
-  type        = string
-  default     = null
-  description = "The infrastructure boundary policy to set on the role"
-}
+# variable "permissions_boundary" {
+#   type        = string
+#   default     = null
+#   description = "The infrastructure boundary policy to set on the role"
+# }
 
-variable "permissions_boundary_name" {
-  type        = string
-  default     = null
-  description = "The infrastructure boundary name attached to the Role"
-}
+# variable "permissions_boundary_name" {
+#   type        = string
+#   default     = null
+#   description = "The infrastructure boundary name attached to the Role"
+# }
 
 variable "remote_state_consumer_ids" {
   type        = set(string)
@@ -228,17 +228,17 @@ variable "working_directory" {
   description = "A relative path that Terraform will execute within"
 }
 
-variable "workload_boundary" {
-  type        = string
-  default     = null
-  description = "The workload boundary policy attached to workload"
-}
+# variable "workload_boundary" {
+#   type        = string
+#   default     = null
+#   description = "The workload boundary policy attached to workload"
+# }
 
-variable "workload_boundary_name" {
-  type        = string
-  default     = null
-  description = "The workload boundary name attached to workload"
-}
+# variable "workload_boundary_name" {
+#   type        = string
+#   default     = null
+#   description = "The workload boundary name attached to workload"
+# }
 
 variable "tags" {
   type        = map(string)
