@@ -97,6 +97,12 @@ variable "remote_state_consumer_ids" {
   description = "A set of workspace IDs set as explicit remote state consumers for this workspace"
 }
 
+variable "permissions_boundary_arn" {
+  type        = string
+  default     = null
+  description = "ARN of the policy that is used to set the permissions boundary for the IAM role or IAM user."
+}
+
 variable "policy_arns" {
   type        = set(string)
   default     = []

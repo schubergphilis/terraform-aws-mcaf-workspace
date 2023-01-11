@@ -11,12 +11,13 @@ data "tfe_team" "default" {
 
 module "workspace_iam_user" {
   count  = var.auth_method == "iam_user" ? 1 : 0
-  source = "github.com/schubergphilis/terraform-aws-mcaf-user?ref=v0.1.13"
+  source = "github.com/schubergphilis/terraform-aws-mcaf-user?ref=v0.2.0"
 
-  name        = var.username
-  policy      = var.policy
-  policy_arns = var.policy_arns
-  tags        = var.tags
+  name                 = var.username
+  policy               = var.policy
+  policy_arns          = var.policy_arns
+  permissions_boundary = var.permissions_boundary_arn
+  tags                 = var.tags
 }
 
 resource "random_uuid" "external_id" {
@@ -27,10 +28,11 @@ module "workspace_iam_role" {
   count  = var.auth_method == "iam_role" ? 1 : 0
   source = "github.com/schubergphilis/terraform-aws-mcaf-role?ref=v0.3.2"
 
-  name        = var.role_name
-  role_policy = var.policy
-  policy_arns = var.policy_arns
-  tags        = var.tags
+  name                 = var.role_name
+  role_policy          = var.policy
+  policy_arns          = var.policy_arns
+  permissions_boundary = var.permissions_boundary_arn
+  tags                 = var.tags
 
   assume_policy = templatefile("${path.module}/templates/assume_role_policy.tftpl", {
     external_id = random_uuid.external_id[0].result,
