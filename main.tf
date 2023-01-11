@@ -13,11 +13,11 @@ module "workspace_iam_user" {
   count  = var.auth_method == "iam_user" ? 1 : 0
   source = "github.com/schubergphilis/terraform-aws-mcaf-user?ref=v0.2.0"
 
-  name        = var.username
-  policy      = var.policy
-  policy_arns = var.policy_arns
+  name                 = var.username
+  policy               = var.policy
+  policy_arns          = var.policy_arns
   permissions_boundary = var.permissions_boundary_arn
-  tags        = var.tags
+  tags                 = var.tags
 }
 
 resource "random_uuid" "external_id" {
