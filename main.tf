@@ -16,6 +16,7 @@ module "workspace_iam_user" {
   name        = var.username
   policy      = var.policy
   policy_arns = var.policy_arns
+  permissions_boundary = var.permissions_boundary_arn
   tags        = var.tags
 }
 
