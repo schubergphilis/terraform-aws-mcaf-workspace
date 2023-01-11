@@ -100,7 +100,7 @@ variable "remote_state_consumer_ids" {
 variable "permissions_boundary_arn" {
   type        = string
   default     = null
-  description = "ARN of the policy that is used to set the permissions boundary for the role."
+  description = "ARN of the policy that is used to set the permissions boundary for the IAM role or IAM user."
 }
 
 variable "policy_arns" {
