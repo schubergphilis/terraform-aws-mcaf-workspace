@@ -85,6 +85,12 @@ variable "oauth_token_id" {
   description = "The OAuth token ID of the VCS provider"
 }
 
+variable "path" {
+  type        = string
+  default     = null
+  description = "Path in which to create the iam_role or iam_user"
+}
+
 variable "policy" {
   type        = string
   default     = null

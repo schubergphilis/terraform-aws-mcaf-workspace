@@ -14,6 +14,7 @@ module "workspace_iam_user" {
   source = "github.com/schubergphilis/terraform-aws-mcaf-user?ref=v0.2.0"
 
   name                 = var.username
+  path                 = var.path
   policy               = var.policy
   policy_arns          = var.policy_arns
   permissions_boundary = var.permissions_boundary_arn
@@ -29,6 +30,7 @@ module "workspace_iam_role" {
   source = "github.com/schubergphilis/terraform-aws-mcaf-role?ref=v0.3.2"
 
   name                 = var.role_name
+  path                 = var.path
   role_policy          = var.policy
   policy_arns          = var.policy_arns
   permissions_boundary = var.permissions_boundary_arn
