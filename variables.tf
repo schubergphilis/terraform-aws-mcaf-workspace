@@ -106,13 +106,19 @@ variable "remote_state_consumer_ids" {
 variable "permissions_boundary_arn" {
   type        = string
   default     = null
-  description = "ARN of the policy that is used to set the permissions boundary for the IAM role or IAM user."
+  description = "ARN of the policy that is used to set the permissions boundary for the IAM role or IAM user"
 }
 
 variable "policy_arns" {
   type        = set(string)
   default     = []
   description = "A set of policy ARNs to attach to the pipeline user"
+}
+
+variable "project_id" {
+  type        = string
+  default     = null
+  description = "ID of the project where the workspace should be created"
 }
 
 variable "repository_identifier" {
