@@ -72,8 +72,11 @@ The above custom role is similar to the "write" pre-existing role, but blocks ac
 | execution\_mode | Which execution mode to use | `string` | `"remote"` | no |
 | file\_triggers\_enabled | Whether to filter runs based on the changed files in a VCS push | `bool` | `true` | no |
 | global\_remote\_state | Allow all workspaces in the organization to read the state of this workspace | `bool` | `null` | no |
+| path | Path in which to create the iam\_role or iam\_user | `string` | `null` | no |
+| permissions\_boundary\_arn | ARN of the policy that is used to set the permissions boundary for the IAM role or IAM user | `string` | `null` | no |
 | policy | The policy to attach to the pipeline role or user | `string` | `null` | no |
 | policy\_arns | A set of policy ARNs to attach to the pipeline user | `set(string)` | `[]` | no |
+| project\_id | ID of the project where the workspace should be created | `string` | `null` | no |
 | region | The default region of the account | `string` | `null` | no |
 | remote\_state\_consumer\_ids | A set of workspace IDs set as explicit remote state consumers for this workspace | `set(string)` | `null` | no |
 | repository\_identifier | The repository identifier to connect the workspace to | `string` | `null` | no |
