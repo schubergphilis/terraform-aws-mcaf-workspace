@@ -222,6 +222,12 @@ variable "username" {
   description = "The username for a new pipeline user"
 }
 
+variable "workspace_tags" {
+  type        = list(string)
+  default     = null
+  description = "A list of tag names for this workspace. Note that tags must only contain lowercase letters, numbers, colons, or hyphens"
+}
+
 variable "working_directory" {
   type        = string
   default     = "terraform"
