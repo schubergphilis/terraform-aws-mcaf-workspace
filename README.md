@@ -92,6 +92,7 @@ The above custom role is similar to the "write" pre-existing role, but blocks ac
 | trigger\_prefixes | List of repository-root-relative paths which should be tracked for changes | `list(string)` | <pre>[<br>  "modules"<br>]</pre> | no |
 | username | The username for a new pipeline user | `string` | `null` | no |
 | working\_directory | A relative path that Terraform will execute within | `string` | `"terraform"` | no |
+| workspace\_tags | A list of tag names for this workspace. Note that tags must only contain lowercase letters, numbers, colons, or hyphens | `list(string)` | `null` | no |
 
 ## Outputs
 
