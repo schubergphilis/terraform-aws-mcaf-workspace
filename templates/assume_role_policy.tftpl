@@ -4,7 +4,7 @@
         {
             "Effect": "Allow",
             "Principal": {
-                "AWS": "${role_arn}"
+                "AWS":  ${json_encode(role_arns)}
             },
             "Action": "sts:AssumeRole",
             "Condition": {

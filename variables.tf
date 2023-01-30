@@ -15,8 +15,8 @@ variable "agent_pool_id" {
   description = "Agent pool ID, requires \"execution_mode\" to be set to agent"
 }
 
-variable "agent_role_arn" {
-  type        = string
+variable "agent_role_arns" {
+  type        = list
   default     = null
   description = "IAM role ARN used by Terraform Cloud Agent to assume role in the created account"
 }
