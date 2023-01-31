@@ -38,7 +38,7 @@ module "workspace_iam_role" {
 
   assume_policy = templatefile("${path.module}/templates/assume_role_policy.tftpl", {
     external_id = random_uuid.external_id[0].result,
-    role_arns    = var.agent_role_arns,
+    role_arns_json    = json_encode(var.agent_role_arns)
   })
 }
 
