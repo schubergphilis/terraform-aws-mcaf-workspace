@@ -16,7 +16,7 @@ variable "agent_pool_id" {
 }
 
 variable "agent_role_arns" {
-  type        = list
+  type        = list(any)
   default     = null
   description = "IAM role ARN used by Terraform Cloud Agent to assume role in the created account"
 }
