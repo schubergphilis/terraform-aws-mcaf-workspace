@@ -15,10 +15,10 @@ variable "agent_pool_id" {
   description = "Agent pool ID, requires \"execution_mode\" to be set to agent"
 }
 
-variable "agent_role_arn" {
-  type        = string
+variable "agent_role_arns" {
+  type        = list(string)
   default     = null
-  description = "IAM role ARN used by Terraform Cloud Agent to assume role in the created account"
+  description = "IAM role ARNs used by Terraform Cloud Agent to assume role in the created account"
 }
 
 variable "auth_method" {
@@ -228,7 +228,7 @@ variable "workspace_tags" {
   description = "A list of tag names for this workspace. Note that tags must only contain lowercase letters, numbers, colons, or hyphens"
 
   validation {
-    condition     = alltrue([for workspace_tag in var.workspace_tags : can(regex("[-:a-z0-9]", workspace_tag))])
+    condition     = alltrue([for workspace_tag in coalesce(var.workspace_tags, []) : can(regex("[-:a-z0-9]", workspace_tag))])
     error_message = "One or more tags are not in the correct format (lowercase letters, numbers, colons, or hyphens)"
   }
 }
