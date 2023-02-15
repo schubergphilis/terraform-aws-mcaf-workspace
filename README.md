@@ -39,7 +39,7 @@ team_access = {
 
 The above custom role is similar to the "write" pre-existing role, but blocks access to the workspace state (which is considered sensitive).
 
-<!--- BEGIN_TF_DOCS --->
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -101,4 +101,4 @@ The above custom role is similar to the "write" pre-existing role, but blocks ac
 | arn | The workspace IAM user ARN |
 | workspace\_id | The Terraform Cloud workspace ID |
 
-<!--- END_TF_DOCS --->
+<!-- END_TF_DOCS -->
