@@ -175,7 +175,7 @@ resource "tfe_variable" "tfc_aws_run_role_arn" {
   count = local.enable_oidc ? 1 : 0
 
   key          = "TFC_AWS_RUN_ROLE_ARN"
-  value        = module.workspace_iam_role_oidc.arn
+  value        = module.workspace_iam_role_oidc[0].arn
   category     = "env"
   workspace_id = tfe_workspace.default.id
 }
