@@ -1,5 +1,6 @@
 locals {
   connect_vcs_repo = var.repository_identifier != null ? { create = true } : {}
+  enable_oidc      = var.auth_method == "iam_role_oidc" && var.oidc_settings != null
 }
 
 data "tfe_team" "default" {
@@ -43,7 +44,7 @@ module "workspace_iam_role" {
 }
 
 module "workspace_iam_role_oidc" {
-  count  = var.auth_method == "iam_role_oidc" ? 1 : 0
+  count  = local.enable_oidc ? 1 : 0
   source = "github.com/schubergphilis/terraform-aws-mcaf-role?ref=v0.3.3"
 
   name                 = var.role_name
@@ -162,7 +163,7 @@ resource "tfe_variable" "aws_assume_role_external_id" {
 }
 
 resource "tfe_variable" "tfc_aws_provider_auth" {
-  count = var.auth_method == "iam_role_oidc" ? 1 : 0
+  count = local.enable_oidc ? 1 : 0
 
   key          = "TFC_AWS_PROVIDER_AUTH"
   value        = "true"
@@ -171,7 +172,7 @@ resource "tfe_variable" "tfc_aws_provider_auth" {
 }
 
 resource "tfe_variable" "tfc_aws_run_role_arn" {
-  count = var.auth_method == "iam_role_oidc" ? 1 : 0
+  count = local.enable_oidc ? 1 : 0
 
   key          = "TFC_AWS_RUN_ROLE_ARN"
   value        = module.workspace_iam_role_oidc.arn
@@ -180,7 +181,7 @@ resource "tfe_variable" "tfc_aws_run_role_arn" {
 }
 
 resource "tfe_variable" "tfc_aws_workload_identity_audience" {
-  count = var.auth_method == "iam_role_oidc" ? 1 : 0
+  count = local.enable_oidc ? 1 : 0
 
   key          = "TFC_AWS_WORKLOAD_IDENTITY_AUDIENCE"
   value        = var.oidc_settings.audience
