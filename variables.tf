@@ -38,7 +38,7 @@ variable "oidc_settings" {
     provider_arn = string
     site_address = optional(string, "app.terraform.io")
   })
-  default     = {}
+  default     = null
   description = "OIDC settings to use if auth method is set to \"iam_role_oidc\""
 }
 
