@@ -27,9 +27,19 @@ variable "auth_method" {
   description = "Configures how the workspace authenticates with the AWS account (can be iam_role or iam_user)"
 
   validation {
-    condition     = lower(var.auth_method) == "iam_role" || lower(var.auth_method) == "iam_user"
-    error_message = "The auth_method value must be either \"iam_role\" or \"iam_user\"."
+    condition     = lower(var.auth_method) == "iam_role" || lower(var.auth_method) == "iam_user" || lower(var.auth_method) == "iam_role_oidc"
+    error_message = "The auth_method value must be either \"iam_role\", \"iam_user\" or \"iam_role_oidc\"."
   }
+}
+
+variable "oidc_settings" {
+  type = object({
+    audience     = optional(string, "aws.workload.identity")
+    provider_arn = string
+    site_address = optional(string, "app.terraform.io")
+  })
+  default     = {}
+  description = "OIDC settings to use if auth method is set to \"iam_role_oidc\""
 }
 
 variable "auto_apply" {
