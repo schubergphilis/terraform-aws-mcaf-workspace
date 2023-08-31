@@ -39,7 +39,7 @@ variable "oidc_settings" {
     site_address = optional(string, "app.terraform.io")
   })
   default     = null
-  description = "OIDC settings to use if auth method is set to \"iam_role_oidc\""
+  description = "OIDC settings to use if auth_method is set to \"iam_role_oidc\""
 }
 
 variable "auto_apply" {
@@ -140,7 +140,7 @@ variable "repository_identifier" {
 variable "role_name" {
   type        = string
   default     = null
-  description = "The IAM role name for a new pipeline user"
+  description = "The IAM role name for a new pipeline role"
 }
 
 variable "sensitive_env_variables" {

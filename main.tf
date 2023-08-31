@@ -12,7 +12,7 @@ data "tfe_team" "default" {
 
 module "workspace_iam_user" {
   count  = var.auth_method == "iam_user" ? 1 : 0
-  source = "github.com/schubergphilis/terraform-aws-mcaf-user?ref=v0.2.0"
+  source = "github.com/schubergphilis/terraform-aws-mcaf-user?ref=v0.4.0"
 
   name                 = var.username
   path                 = var.path
