@@ -94,7 +94,7 @@ The above custom role is similar to the "write" pre-existing role, but blocks ac
 | <a name="input_terraform_organization"></a> [terraform\_organization](#input\_terraform\_organization) | The Terraform Enterprise organization to create the workspace in | `string` | n/a | yes |
 | <a name="input_agent_pool_id"></a> [agent\_pool\_id](#input\_agent\_pool\_id) | Agent pool ID, requires "execution\_mode" to be set to agent | `string` | `null` | no |
 | <a name="input_agent_role_arns"></a> [agent\_role\_arns](#input\_agent\_role\_arns) | IAM role ARNs used by Terraform Cloud Agent to assume role in the created account | `list(string)` | `null` | no |
-| <a name="input_auth_method"></a> [auth\_method](#input\_auth\_method) | Configures how the workspace authenticates with the AWS account (can be iam\_role or iam\_user) | `string` | `"iam_user"` | no |
+| <a name="input_auth_method"></a> [auth\_method](#input\_auth\_method) | Configures how the workspace authenticates with the AWS account (can be iam\_role, iam\_user or iam\_role\_oidc) | `string` | `"iam_user"` | no |
 | <a name="input_auto_apply"></a> [auto\_apply](#input\_auto\_apply) | Whether to automatically apply changes when a Terraform plan is successful | `bool` | `false` | no |
 | <a name="input_branch"></a> [branch](#input\_branch) | The git branch to trigger the TFE workspace for | `string` | `"main"` | no |
 | <a name="input_clear_text_env_variables"></a> [clear\_text\_env\_variables](#input\_clear\_text\_env\_variables) | An optional map with clear text environment variables | `map(string)` | `{}` | no |
