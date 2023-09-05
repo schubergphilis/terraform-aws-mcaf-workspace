@@ -24,7 +24,7 @@ variable "agent_role_arns" {
 variable "auth_method" {
   type        = string
   default     = "iam_user"
-  description = "Configures how the workspace authenticates with the AWS account (can be iam_role or iam_user)"
+  description = "Configures how the workspace authenticates with the AWS account (can be iam_role, iam_user or iam_role_oidc)"
 
   validation {
     condition     = lower(var.auth_method) == "iam_role" || lower(var.auth_method) == "iam_user" || lower(var.auth_method) == "iam_role_oidc"
