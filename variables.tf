@@ -24,22 +24,12 @@ variable "agent_role_arns" {
 variable "auth_method" {
   type        = string
   default     = "iam_user"
-  description = "Configures how the workspace authenticates with the AWS account (can be iam_role, iam_user or iam_role_oidc)"
+  description = "Configures how the workspace authenticates with the AWS account (can be iam_user, iam_role, or iam_role_oidc)"
 
   validation {
-    condition     = lower(var.auth_method) == "iam_role" || lower(var.auth_method) == "iam_user" || lower(var.auth_method) == "iam_role_oidc"
-    error_message = "The auth_method value must be either \"iam_role\", \"iam_user\" or \"iam_role_oidc\"."
+    condition     = lower(var.auth_method) == "iam_user" || lower(var.auth_method) == "iam_role" || lower(var.auth_method) == "iam_role_oidc"
+    error_message = "The auth_method value must be either \"iam_user\", \"iam_role\", or \"iam_role_oidc\"."
   }
-}
-
-variable "oidc_settings" {
-  type = object({
-    audience     = optional(string, "aws.workload.identity")
-    provider_arn = string
-    site_address = optional(string, "app.terraform.io")
-  })
-  default     = null
-  description = "OIDC settings to use if auth_method is set to \"iam_role_oidc\""
 }
 
 variable "auto_apply" {
@@ -95,10 +85,20 @@ variable "oauth_token_id" {
   description = "The OAuth token ID of the VCS provider"
 }
 
+variable "oidc_settings" {
+  type = object({
+    audience     = optional(string, "aws.workload.identity")
+    provider_arn = string
+    site_address = optional(string, "app.terraform.io")
+  })
+  default     = null
+  description = "OIDC settings to use if \"auth_method\" is set to \"iam_role_oidc\""
+}
+
 variable "path" {
   type        = string
   default     = null
-  description = "Path in which to create the iam_role or iam_user"
+  description = "Path in which to create the IAM role or user"
 }
 
 variable "policy" {
