@@ -45,13 +45,16 @@ The above custom role is similar to the "write" pre-existing role, but blocks ac
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0.0 |
+| <a name="requirement_random"></a> [random](#requirement\_random) | >= 3.0.0 |
+| <a name="requirement_tfe"></a> [tfe](#requirement\_tfe) | >= 0.37.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_random"></a> [random](#provider\_random) | n/a |
-| <a name="provider_tfe"></a> [tfe](#provider\_tfe) | n/a |
+| <a name="provider_random"></a> [random](#provider\_random) | >= 3.0.0 |
+| <a name="provider_tfe"></a> [tfe](#provider\_tfe) | >= 0.37.0 |
 
 ## Modules
 
