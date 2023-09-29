@@ -159,6 +159,13 @@ module "workspace_iam_user" {
   policy_arns          = var.policy_arns
   permissions_boundary = var.permissions_boundary_arn
   tags                 = var.tags
+
+  lifecycle {
+    precondition {
+      condition     = var.role_name == null
+      error_message = "The iam_role is set to iam_user but no username is specied"
+    }
+  }
 }
 
 resource "tfe_variable" "aws_access_key_id" {
@@ -203,6 +210,13 @@ module "workspace_iam_role" {
     external_id    = random_uuid.external_id[0].result,
     role_arns_json = jsonencode(var.agent_role_arns)
   })
+
+  lifecycle {
+    precondition {
+      condition     = var.role_name == null
+      error_message = "The iam_role is set to iam_role_oidc but no role_name is specied"
+    }
+  }
 }
 
 resource "tfe_variable" "aws_assume_role" {
@@ -246,6 +260,13 @@ module "workspace_iam_role_oidc" {
     site_address   = var.oidc_settings.site_address,
     workspace_name = var.name
   })
+
+  lifecycle {
+    precondition {
+      condition     = var.role_name == null
+      error_message = "The auth_method is set to iam_role_oidc but no role_name is specied"
+    }
+  }
 }
 
 resource "tfe_variable" "tfc_aws_provider_auth" {
