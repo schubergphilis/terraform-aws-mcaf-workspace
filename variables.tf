@@ -131,6 +131,12 @@ variable "project_id" {
   description = "ID of the project where the workspace should be created"
 }
 
+variable "queue_all_runs" {
+  type        = bool
+  default     = true
+  description = "When set to false no initial run is queued and all runs triggered by a webhook will not be queued, necessary if you need to set variable sets after creation."
+}
+
 variable "repository_identifier" {
   type        = string
   default     = null
