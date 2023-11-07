@@ -16,7 +16,7 @@ resource "tfe_workspace" "default" {
   global_remote_state       = var.global_remote_state
   organization              = var.terraform_organization
   project_id                = var.project_id
-  queue_all_runs            = true
+  queue_all_runs            = var.queue_all_runs
   remote_state_consumer_ids = var.remote_state_consumer_ids
   ssh_key_id                = var.ssh_key_id
   tag_names                 = var.workspace_tags
