@@ -170,7 +170,7 @@ variable "sensitive_hcl_variables" {
 }
 
 variable "slack_notification_triggers" {
-  type    = list(string)
+  type = list(string)
   default = [
     "run:created",
     "run:planning",
@@ -196,7 +196,7 @@ variable "ssh_key_id" {
 
 variable "team_access" {
   type = map(object({
-    access      = optional(string, null),
+    access = optional(string, null),
     permissions = optional(object({
       run_tasks         = bool
       runs              = string
