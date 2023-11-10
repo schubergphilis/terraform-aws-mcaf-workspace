@@ -37,13 +37,13 @@ resource "tfe_workspace" "default" {
 }
 
 resource "tfe_notification_configuration" "default" {
-  count = var.slack_notification_url != null ? 1 : 0
+  for_each = length(var.notification_configuration) != 0 ? { for v in var.notification_configuration : v.url => v } : {}
 
-  name             = tfe_workspace.default.name
-  destination_type = "slack"
-  enabled          = length(coalesce(var.slack_notification_triggers, [])) > 0
-  triggers         = var.slack_notification_triggers
-  url              = var.slack_notification_url
+  name             = "${tfe_workspace.default.name}-${each.value.destination_type}"
+  destination_type = each.value.destination_type
+  enabled          = each.value.enabled
+  triggers         = each.value.triggers
+  url              = each.value.url
   workspace_id     = tfe_workspace.default.id
 }
 
