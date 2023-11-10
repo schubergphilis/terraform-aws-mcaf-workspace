@@ -80,6 +80,29 @@ variable "global_remote_state" {
   description = "Allow all workspaces in the organization to read the state of this workspace"
 }
 
+variable "notification_configuration" {
+  type = list(object({
+    destination_type = string
+    enabled          = optional(bool, true)
+    url              = string
+    triggers = optional(list(string), [
+      "run:created",
+      "run:planning",
+      "run:needs_attention",
+      "run:applying",
+      "run:completed",
+      "run:errored",
+    ])
+  }))
+  default     = []
+  description = "Notification configuration for this workspace"
+
+  validation {
+    condition     = alltrue([for v in var.notification_configuration : contains(["slack", "microsoft-teams"], v.destination_type)])
+    error_message = "Supported destination types are: slack, microsoft-teams"
+  }
+}
+
 variable "oauth_token_id" {
   type        = string
   description = "The OAuth token ID of the VCS provider"
@@ -167,25 +190,6 @@ variable "sensitive_hcl_variables" {
   }))
   default     = {}
   description = "An optional map with sensitive HCL Terraform variables"
-}
-
-variable "slack_notification_triggers" {
-  type = list(string)
-  default = [
-    "run:created",
-    "run:planning",
-    "run:needs_attention",
-    "run:applying",
-    "run:completed",
-    "run:errored"
-  ]
-  description = "The triggers to send to Slack"
-}
-
-variable "slack_notification_url" {
-  type        = string
-  default     = null
-  description = "The Slack Webhook URL to send notification to"
 }
 
 variable "ssh_key_id" {
