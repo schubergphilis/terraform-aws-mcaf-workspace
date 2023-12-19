@@ -34,10 +34,10 @@ resource "tfe_workspace" "default" {
   }
 }
 
-resource "tfe_workspace_settings" "test-settings" {
-  workspace_id   = tfe_workspace.default.id
-  execution_mode = var.execution_mode
+resource "tfe_workspace_settings" "default" {
   agent_pool_id  = var.agent_pool_id
+  execution_mode = var.execution_mode
+  workspace_id   = tfe_workspace.default.id
 }
 
 resource "tfe_notification_configuration" "default" {

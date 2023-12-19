@@ -66,6 +66,11 @@ variable "execution_mode" {
   type        = string
   default     = "remote"
   description = "Which execution mode to use"
+
+  validation {
+    condition     = var.execution_mode == "agent" || var.execution_mode == "local" || var.execution_mode == "remote"
+    error_message = "The execution_mode value must be either \"agent\", \"local\", or \"remote\"."
+  }
 }
 
 variable "file_triggers_enabled" {
