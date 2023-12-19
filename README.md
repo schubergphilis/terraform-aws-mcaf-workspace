@@ -47,14 +47,14 @@ The above custom role is similar to the "write" pre-existing role, but blocks ac
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0.0 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | >= 3.0.0 |
-| <a name="requirement_tfe"></a> [tfe](#requirement\_tfe) | >= 0.37.0 |
+| <a name="requirement_tfe"></a> [tfe](#requirement\_tfe) | >= 0.51.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
 | <a name="provider_random"></a> [random](#provider\_random) | >= 3.0.0 |
-| <a name="provider_tfe"></a> [tfe](#provider\_tfe) | >= 0.37.0 |
+| <a name="provider_tfe"></a> [tfe](#provider\_tfe) | >= 0.51.0 |
 
 ## Modules
 
@@ -86,6 +86,7 @@ The above custom role is similar to the "write" pre-existing role, but blocks ac
 | [tfe_variable.tfc_aws_run_role_arn](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/variable) | resource |
 | [tfe_variable.tfc_aws_workload_identity_audience](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/variable) | resource |
 | [tfe_workspace.default](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/workspace) | resource |
+| [tfe_workspace_settings.test-settings](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/workspace_settings) | resource |
 | [tfe_team.default](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/data-sources/team) | data source |
 
 ## Inputs
