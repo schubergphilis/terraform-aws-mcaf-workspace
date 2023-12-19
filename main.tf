@@ -9,9 +9,7 @@ locals {
 
 resource "tfe_workspace" "default" {
   name                      = var.name
-  agent_pool_id             = var.agent_pool_id
   auto_apply                = var.auto_apply
-  execution_mode            = var.execution_mode
   file_triggers_enabled     = var.file_triggers_enabled
   global_remote_state       = var.global_remote_state
   organization              = var.terraform_organization
@@ -34,6 +32,12 @@ resource "tfe_workspace" "default" {
       oauth_token_id     = var.oauth_token_id
     }
   }
+}
+
+resource "tfe_workspace_settings" "default" {
+  agent_pool_id  = var.agent_pool_id
+  execution_mode = var.execution_mode
+  workspace_id   = tfe_workspace.default.id
 }
 
 resource "tfe_notification_configuration" "default" {
