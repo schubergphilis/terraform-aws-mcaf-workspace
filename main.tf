@@ -35,7 +35,7 @@ resource "tfe_workspace" "default" {
 }
 
 resource "tfe_workspace_settings" "default" {
-  agent_pool_id  = var.execution_mode != "remote" ? var.agent_pool_id : null
+  agent_pool_id  = var.execution_mode == "agent" ? var.agent_pool_id : null
   execution_mode = var.execution_mode
   workspace_id   = tfe_workspace.default.id
 }
