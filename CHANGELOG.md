@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.1.1 - 2024-03-01
+
+### What's Changed
+
+#### 🐛 Bug Fixes
+
+* fix: add condition to agent_pool_id to allow for unchanged MCAF AVM condition (#59) @marlonparmentier
+
+**Full Changelog**: https://github.com/schubergphilis/terraform-aws-mcaf-workspace/compare/v1.1.0...v1.1.1
+
 ## v1.1.0 - 2023-12-19
 
 ### What's Changed
