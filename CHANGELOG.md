@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.1.2 - 2024-03-04
+
+### What's Changed
+
+#### 🐛 Bug Fixes
+
+* fix(output): Add missing `workload_name` output (#60) @shoekstra
+
+**Full Changelog**: https://github.com/schubergphilis/terraform-aws-mcaf-workspace/compare/v1.1.1...v1.1.2
+
 ## v1.1.1 - 2024-03-01
 
 ### What's Changed
