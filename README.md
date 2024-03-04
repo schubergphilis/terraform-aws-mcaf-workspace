@@ -137,4 +137,5 @@ The above custom role is similar to the "write" pre-existing role, but blocks ac
 |------|-------------|
 | <a name="output_arn"></a> [arn](#output\_arn) | The workspace IAM user ARN |
 | <a name="output_workspace_id"></a> [workspace\_id](#output\_workspace\_id) | The Terraform Cloud workspace ID |
+| <a name="output_workspace_name"></a> [workspace\_name](#output\_workspace\_name) | The Terraform Cloud workspace name |
 <!-- END_TF_DOCS -->
