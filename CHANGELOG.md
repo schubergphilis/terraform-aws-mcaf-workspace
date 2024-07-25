@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.2.0 - 2024-07-25
+
+### What's Changed
+
+#### 🚀 Features
+
+* feature: lifecycle management - add support for many new variables (#61) @marwinbaumannsbp
+
+**Full Changelog**: https://github.com/schubergphilis/terraform-aws-mcaf-workspace/compare/v1.1.2...v1.2.0
+
 ## v1.1.2 - 2024-03-04
 
 ### What's Changed
