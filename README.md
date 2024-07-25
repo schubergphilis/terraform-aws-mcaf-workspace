@@ -60,8 +60,8 @@ The above custom role is similar to the "write" pre-existing role, but blocks ac
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_workspace_iam_role"></a> [workspace\_iam\_role](#module\_workspace\_iam\_role) | github.com/schubergphilis/terraform-aws-mcaf-role | v0.3.3 |
-| <a name="module_workspace_iam_role_oidc"></a> [workspace\_iam\_role\_oidc](#module\_workspace\_iam\_role\_oidc) | github.com/schubergphilis/terraform-aws-mcaf-role | v0.3.3 |
+| <a name="module_workspace_iam_role"></a> [workspace\_iam\_role](#module\_workspace\_iam\_role) | schubergphilis/mcaf-role/aws | ~> 0.4.0 |
+| <a name="module_workspace_iam_role_oidc"></a> [workspace\_iam\_role\_oidc](#module\_workspace\_iam\_role\_oidc) | schubergphilis/mcaf-role/aws | ~> 0.4.0 |
 | <a name="module_workspace_iam_user"></a> [workspace\_iam\_user](#module\_workspace\_iam\_user) | github.com/schubergphilis/terraform-aws-mcaf-user | v0.4.0 |
 
 ## Resources
@@ -98,12 +98,16 @@ The above custom role is similar to the "write" pre-existing role, but blocks ac
 | <a name="input_terraform_organization"></a> [terraform\_organization](#input\_terraform\_organization) | The Terraform Enterprise organization to create the workspace in | `string` | n/a | yes |
 | <a name="input_agent_pool_id"></a> [agent\_pool\_id](#input\_agent\_pool\_id) | Agent pool ID, requires "execution\_mode" to be set to agent | `string` | `null` | no |
 | <a name="input_agent_role_arns"></a> [agent\_role\_arns](#input\_agent\_role\_arns) | IAM role ARNs used by Terraform Cloud Agent to assume role in the created account | `list(string)` | `null` | no |
+| <a name="input_allow_destroy_plan"></a> [allow\_destroy\_plan](#input\_allow\_destroy\_plan) | Whether destroy plans can be queued on the workspace | `bool` | `true` | no |
+| <a name="input_assessments_enabled"></a> [assessments\_enabled](#input\_assessments\_enabled) | Whether to regularly run health assessments such as drift detection on the workspace | `bool` | `true` | no |
 | <a name="input_auth_method"></a> [auth\_method](#input\_auth\_method) | Configures how the workspace authenticates with the AWS account (can be iam\_user, iam\_role, or iam\_role\_oidc) | `string` | `"iam_user"` | no |
 | <a name="input_auto_apply"></a> [auto\_apply](#input\_auto\_apply) | Whether to automatically apply changes when a Terraform plan is successful | `bool` | `false` | no |
+| <a name="input_auto_apply_run_trigger"></a> [auto\_apply\_run\_trigger](#input\_auto\_apply\_run\_trigger) | Whether to automatically apply changes for runs that were created by run triggers from another workspace | `bool` | `false` | no |
 | <a name="input_branch"></a> [branch](#input\_branch) | The git branch to trigger the TFE workspace for | `string` | `"main"` | no |
 | <a name="input_clear_text_env_variables"></a> [clear\_text\_env\_variables](#input\_clear\_text\_env\_variables) | An optional map with clear text environment variables | `map(string)` | `{}` | no |
 | <a name="input_clear_text_hcl_variables"></a> [clear\_text\_hcl\_variables](#input\_clear\_text\_hcl\_variables) | An optional map with clear text HCL Terraform variables | `map(string)` | `{}` | no |
 | <a name="input_clear_text_terraform_variables"></a> [clear\_text\_terraform\_variables](#input\_clear\_text\_terraform\_variables) | An optional map with clear text Terraform variables | `map(string)` | `{}` | no |
+| <a name="input_description"></a> [description](#input\_description) | A description for the workspace | `string` | `null` | no |
 | <a name="input_execution_mode"></a> [execution\_mode](#input\_execution\_mode) | Which execution mode to use | `string` | `"remote"` | no |
 | <a name="input_file_triggers_enabled"></a> [file\_triggers\_enabled](#input\_file\_triggers\_enabled) | Whether to filter runs based on the changed files in a VCS push | `bool` | `true` | no |
 | <a name="input_global_remote_state"></a> [global\_remote\_state](#input\_global\_remote\_state) | Allow all workspaces in the organization to read the state of this workspace | `bool` | `null` | no |
@@ -126,6 +130,7 @@ The above custom role is similar to the "write" pre-existing role, but blocks ac
 | <a name="input_tags"></a> [tags](#input\_tags) | A mapping of tags to assign to resource | `map(string)` | `null` | no |
 | <a name="input_team_access"></a> [team\_access](#input\_team\_access) | Map of team names and either type of fixed access or custom permissions to assign | <pre>map(object({<br>    access = optional(string, null),<br>    permissions = optional(object({<br>      run_tasks         = bool<br>      runs              = string<br>      sentinel_mocks    = string<br>      state_versions    = string<br>      variables         = string<br>      workspace_locking = bool<br>    }), null)<br>  }))</pre> | `{}` | no |
 | <a name="input_terraform_version"></a> [terraform\_version](#input\_terraform\_version) | The version of Terraform to use for this workspace | `string` | `"latest"` | no |
+| <a name="input_trigger_patterns"></a> [trigger\_patterns](#input\_trigger\_patterns) | List of glob patterns that describe the files Terraform Cloud monitors for changes. Trigger patterns are always appended to the root directory of the repository. Mutually exclusive with trigger-prefixes | `list(string)` | `null` | no |
 | <a name="input_trigger_prefixes"></a> [trigger\_prefixes](#input\_trigger\_prefixes) | List of repository-root-relative paths which should be tracked for changes | `list(string)` | <pre>[<br>  "modules"<br>]</pre> | no |
 | <a name="input_username"></a> [username](#input\_username) | The username for a new pipeline user | `string` | `null` | no |
 | <a name="input_working_directory"></a> [working\_directory](#input\_working\_directory) | A relative path that Terraform will execute within | `string` | `"terraform"` | no |
