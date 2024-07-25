@@ -123,9 +123,9 @@ resource "tfe_variable" "sensitive_hcl_variables" {
 }
 
 resource "tfe_workspace_variable_set" "workspace_variable_sets" {
-  for_each = toset(var.variable_set_ids)
+  for_each = var.variable_set_ids
 
-  variable_set_id = each.key
+  variable_set_id = each.value
   workspace_id    = tfe_workspace.default.id
 }
 

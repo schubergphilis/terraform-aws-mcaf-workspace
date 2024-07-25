@@ -284,9 +284,9 @@ variable "username" {
 }
 
 variable "variable_set_ids" {
-  type        = list(string)
-  default     = []
-  description = "List of variable set ids to attach to the workspace"
+  type        = map(string)
+  default     = {}
+  description = "Map of variable set ids to attach to the workspace"
 }
 
 variable "workspace_tags" {
