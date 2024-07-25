@@ -283,6 +283,12 @@ variable "username" {
   description = "The username for a new pipeline user"
 }
 
+variable "variable_set_ids" {
+  type        = list(string)
+  default     = []
+  description = "List of variable set ids to attach to the workspace"
+}
+
 variable "workspace_tags" {
   type        = list(string)
   default     = null
