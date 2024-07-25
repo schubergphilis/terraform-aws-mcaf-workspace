@@ -21,6 +21,18 @@ variable "agent_role_arns" {
   description = "IAM role ARNs used by Terraform Cloud Agent to assume role in the created account"
 }
 
+variable "allow_destroy_plan" {
+  type        = bool
+  default     = true
+  description = "Whether destroy plans can be queued on the workspace"
+}
+
+variable "assessments_enabled" {
+  type        = bool
+  default     = true
+  description = "Whether to regularly run health assessments such as drift detection on the workspace"
+}
+
 variable "auth_method" {
   type        = string
   default     = "iam_user"
@@ -36,6 +48,12 @@ variable "auto_apply" {
   type        = bool
   default     = false
   description = "Whether to automatically apply changes when a Terraform plan is successful"
+}
+
+variable "auto_apply_run_trigger" {
+  type        = bool
+  default     = false
+  description = "Whether to automatically apply changes for runs that were created by run triggers from another workspace"
 }
 
 variable "branch" {
@@ -60,6 +78,12 @@ variable "clear_text_terraform_variables" {
   type        = map(string)
   default     = {}
   description = "An optional map with clear text Terraform variables"
+}
+
+variable "description" {
+  type        = string
+  default     = null
+  description = "A description for the workspace"
 }
 
 variable "execution_mode" {
@@ -129,22 +153,16 @@ variable "path" {
   description = "Path in which to create the IAM role or user"
 }
 
-variable "policy" {
-  type        = string
-  default     = null
-  description = "The policy to attach to the pipeline role or user"
-}
-
-variable "remote_state_consumer_ids" {
-  type        = set(string)
-  default     = null
-  description = "A set of workspace IDs set as explicit remote state consumers for this workspace"
-}
-
 variable "permissions_boundary_arn" {
   type        = string
   default     = null
   description = "ARN of the policy that is used to set the permissions boundary for the IAM role or IAM user"
+}
+
+variable "policy" {
+  type        = string
+  default     = null
+  description = "The policy to attach to the pipeline role or user"
 }
 
 variable "policy_arns" {
@@ -165,6 +183,12 @@ variable "queue_all_runs" {
   description = "When set to false no initial run is queued and all runs triggered by a webhook will not be queued, necessary if you need to set variable sets after creation."
 }
 
+variable "remote_state_consumer_ids" {
+  type        = set(string)
+  default     = null
+  description = "A set of workspace IDs set as explicit remote state consumers for this workspace"
+}
+
 variable "repository_identifier" {
   type        = string
   default     = null
@@ -183,12 +207,6 @@ variable "sensitive_env_variables" {
   description = "An optional map with sensitive environment variables"
 }
 
-variable "sensitive_terraform_variables" {
-  type        = map(string)
-  default     = {}
-  description = "An optional map with sensitive Terraform variables"
-}
-
 variable "sensitive_hcl_variables" {
   type = map(object({
     sensitive = string
@@ -197,10 +215,22 @@ variable "sensitive_hcl_variables" {
   description = "An optional map with sensitive HCL Terraform variables"
 }
 
+variable "sensitive_terraform_variables" {
+  type        = map(string)
+  default     = {}
+  description = "An optional map with sensitive Terraform variables"
+}
+
 variable "ssh_key_id" {
   type        = string
   default     = null
   description = "The SSH key ID to assign to the workspace"
+}
+
+variable "tags" {
+  type        = map(string)
+  default     = null
+  description = "A mapping of tags to assign to resource"
 }
 
 variable "team_access" {
@@ -224,15 +254,21 @@ variable "team_access" {
   }
 }
 
+variable "terraform_organization" {
+  type        = string
+  description = "The Terraform Enterprise organization to create the workspace in"
+}
+
 variable "terraform_version" {
   type        = string
   default     = "latest"
   description = "The version of Terraform to use for this workspace"
 }
 
-variable "terraform_organization" {
-  type        = string
-  description = "The Terraform Enterprise organization to create the workspace in"
+variable "trigger_patterns" {
+  type        = list(string)
+  default     = null
+  description = "List of glob patterns that describe the files Terraform Cloud monitors for changes. Trigger patterns are always appended to the root directory of the repository. Mutually exclusive with trigger-prefixes"
 }
 
 variable "trigger_prefixes" {
@@ -262,10 +298,4 @@ variable "working_directory" {
   type        = string
   default     = "terraform"
   description = "A relative path that Terraform will execute within"
-}
-
-variable "tags" {
-  type        = map(string)
-  default     = null
-  description = "A mapping of tags to assign to resource"
 }
