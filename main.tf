@@ -9,7 +9,11 @@ locals {
 
 resource "tfe_workspace" "default" {
   name                      = var.name
+  allow_destroy_plan        = var.allow_destroy_plan
+  assessments_enabled       = var.assessments_enabled
   auto_apply                = var.auto_apply
+  auto_apply_run_trigger    = var.auto_apply_run_trigger
+  description               = var.description
   file_triggers_enabled     = var.file_triggers_enabled
   global_remote_state       = var.global_remote_state
   organization              = var.terraform_organization
@@ -19,6 +23,7 @@ resource "tfe_workspace" "default" {
   ssh_key_id                = var.ssh_key_id
   tag_names                 = var.workspace_tags
   terraform_version         = var.terraform_version
+  trigger_patterns          = var.trigger_patterns
   trigger_prefixes          = var.trigger_prefixes
   working_directory         = var.working_directory
 
@@ -193,8 +198,10 @@ resource "random_uuid" "external_id" {
 }
 
 module "workspace_iam_role" {
-  count  = var.auth_method == "iam_role" ? 1 : 0
-  source = "github.com/schubergphilis/terraform-aws-mcaf-role?ref=v0.3.3"
+  count = var.auth_method == "iam_role" ? 1 : 0
+
+  source  = "schubergphilis/mcaf-role/aws"
+  version = "~> 0.4.0"
 
   name                 = var.role_name
   path                 = var.path
@@ -233,8 +240,10 @@ resource "tfe_variable" "aws_assume_role_external_id" {
 ################################################################################
 
 module "workspace_iam_role_oidc" {
-  count  = local.enable_oidc ? 1 : 0
-  source = "github.com/schubergphilis/terraform-aws-mcaf-role?ref=v0.3.3"
+  count = local.enable_oidc ? 1 : 0
+
+  source  = "schubergphilis/mcaf-role/aws"
+  version = "~> 0.4.0"
 
   name                 = var.role_name
   path                 = var.path
