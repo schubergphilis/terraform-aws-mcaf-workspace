@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.3.0 - 2024-07-29
+
+### What's Changed
+
+#### 🚀 Features
+
+* feature: ability to pass down variable set id's that will be associated with the workspace (workspace variable set) (#62) @jorrite
+
+**Full Changelog**: https://github.com/schubergphilis/terraform-aws-mcaf-workspace/compare/v1.2.0...v1.3.0
+
 ## v1.2.0 - 2024-07-25
 
 ### What's Changed
