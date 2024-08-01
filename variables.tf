@@ -127,8 +127,8 @@ variable "notification_configuration" {
   description = "Notification configuration for this workspace"
 
   validation {
-    condition     = alltrue([for v in var.notification_configuration : contains(["slack", "microsoft-teams"], v.destination_type)])
-    error_message = "Supported destination types are: slack, microsoft-teams"
+    condition     = alltrue([for v in var.notification_configuration : contains(["email", "generic", "microsoft-teams", "slack"], v.destination_type)])
+    error_message = "Supported destination types are: \"email\", \"generic\", \"microsoft-teams\", or \"slack\""
   }
 }
 

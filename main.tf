@@ -1,6 +1,15 @@
 locals {
   connect_vcs_repo = var.repository_identifier != null ? { create = true } : {}
   enable_oidc      = var.auth_method == "iam_role_oidc" && var.oidc_settings != null
+
+  notification_configuration = length(var.notification_configuration) != 0 ? {
+    for item in var.notification_configuration : "${tfe_workspace.default.name}_${item.destination_type}_${random_string.tfe_notification_configuration_suffix.result}" => {
+      destination_type = item.destination_type
+      enabled          = item.enabled
+      url              = item.url
+      triggers         = item.triggers
+    }
+  } : {}
 }
 
 ################################################################################
@@ -45,10 +54,15 @@ resource "tfe_workspace_settings" "default" {
   workspace_id   = tfe_workspace.default.id
 }
 
-resource "tfe_notification_configuration" "default" {
-  for_each = length(var.notification_configuration) != 0 ? { for v in var.notification_configuration : v.url => v } : {}
+resource "random_string" "tfe_notification_configuration_suffix" {
+  length  = 5
+  special = false
+}
 
-  name             = "${tfe_workspace.default.name}-${each.value.destination_type}"
+resource "tfe_notification_configuration" "default" {
+  for_each = local.notification_configuration
+
+  name             = each.key
   destination_type = each.value.destination_type
   enabled          = each.value.enabled
   triggers         = each.value.triggers
