@@ -46,9 +46,9 @@ resource "tfe_workspace_settings" "default" {
 }
 
 resource "tfe_notification_configuration" "default" {
-  for_each = length(var.notification_configuration) != 0 ? { for v in var.notification_configuration : v.url => v } : {}
+  for_each = var.notification_configuration
 
-  name             = "${tfe_workspace.default.name}-${each.value.destination_type}"
+  name             = each.key
   destination_type = each.value.destination_type
   enabled          = each.value.enabled
   triggers         = each.value.triggers
