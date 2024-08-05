@@ -5,6 +5,7 @@ This document captures breaking changes.
 ### Variables
 
 - `notification_configuration` has been modified from a `list(object)` to a `map(object)`. They key should be the name of the notification configuration as it will be displayed in Terraform Cloud.
+- The default `auth_method` has been modified from `iam_user` to `iam_role_oidc`.
 
 ## Upgrading to v1.0.0
 
