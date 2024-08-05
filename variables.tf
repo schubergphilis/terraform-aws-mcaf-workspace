@@ -124,7 +124,7 @@ variable "notification_configuration" {
     ])
   }))
   default     = {}
-  description = "Notification configuration for this workspace, with the key as the name of the notification configuration."
+  description = "Notification configuration, using name as key and config as value"
 
   validation {
     condition     = alltrue([for k, v in var.notification_configuration : contains(["email", "generic", "microsoft-teams", "slack"], v.destination_type)])
