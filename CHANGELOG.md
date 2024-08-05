@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## v2.0.0 - 2024-08-05
+
+### What's Changed
+
+#### 🚀 Features
+
+* breaking: set default auth mode from 'iam_user' to 'iam_role_oidc' (#65) @marwinbaumannsbp
+* breaking: solve bug where 'notification_configuration' can not contain sensitive values or values known after apply (#64) @marwinbaumannsbp
+
+#### 🐛 Bug Fixes
+
+* breaking: solve bug where 'notification_configuration' can not contain sensitive values or values known after apply (#64) @marwinbaumannsbp
+
+**Full Changelog**: https://github.com/schubergphilis/terraform-aws-mcaf-workspace/compare/v1.3.0...v2.0.0
+
 ## v1.3.0 - 2024-07-29
 
 ### What's Changed
