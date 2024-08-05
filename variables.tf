@@ -35,7 +35,7 @@ variable "assessments_enabled" {
 
 variable "auth_method" {
   type        = string
-  default     = "iam_user"
+  default     = "iam_role_oidc"
   description = "Configures how the workspace authenticates with the AWS account (can be iam_user, iam_role, or iam_role_oidc)"
 
   validation {
