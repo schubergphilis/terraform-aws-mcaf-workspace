@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## v2.0.1 - 2024-08-08
+
+### What's Changed
+
+#### 🐛 Bug Fixes
+
+* fix: ensure that when `notification_configuration` or `team_access` is set to `null` the default value is used (#66) @marwinbaumannsbp
+
+**Full Changelog**: https://github.com/schubergphilis/terraform-aws-mcaf-workspace/compare/v2.0.0...v2.0.1
+
 ## v2.0.0 - 2024-08-05
 
 ### What's Changed
