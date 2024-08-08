@@ -125,6 +125,7 @@ variable "notification_configuration" {
   }))
   default     = {}
   description = "Notification configuration, using name as key and config as value"
+  nullable    = false
 
   validation {
     condition     = alltrue([for k, v in var.notification_configuration : contains(["email", "generic", "microsoft-teams", "slack"], v.destination_type)])
@@ -247,6 +248,7 @@ variable "team_access" {
   }))
   default     = {}
   description = "Map of team names and either type of fixed access or custom permissions to assign"
+  nullable    = false
 
   validation {
     condition     = alltrue([for o in var.team_access : !(o.access != null && o.permissions != null)])
