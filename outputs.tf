@@ -4,11 +4,11 @@ output "arn" {
 }
 
 output "workspace_name" {
-  value       = tfe_workspace.default.name
+  value       = module.tfe-workspace.workspace_name
   description = "The Terraform Cloud workspace name"
 }
 
 output "workspace_id" {
-  value       = tfe_workspace.default.id
+  value       = module.tfe-workspace.workspace_id
   description = "The Terraform Cloud workspace ID"
 }

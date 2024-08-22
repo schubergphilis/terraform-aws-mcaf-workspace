@@ -1,6 +1,7 @@
 # terraform-aws-mcaf-workspace
 
-Terraform module to create a Terraform Cloud workspace and either a IAM user or role in an AWS account. The user or role credentials are added to the workspace so that Terraform can create resources in the AWS account.
+This module uses the terraform-tfe-mcaf-workspace module to create a Terraform Cloud workspace and extends the features to manage AWS resources. This is done by creating either a IAM user or role and adding those credentials to the workspace.
+
 
 ## Usage
 
