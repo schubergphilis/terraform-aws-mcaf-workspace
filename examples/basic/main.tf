@@ -2,8 +2,6 @@ provider "aws" {
   region = "eu-west-1"
 }
 
-provider "tfe" {}
-
 module "workspace-example" {
   source = "../.."
 

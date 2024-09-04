@@ -1,132 +1,46 @@
 locals {
-  connect_vcs_repo = var.repository_identifier != null ? { create = true } : {}
-  enable_oidc      = var.auth_method == "iam_role_oidc" && var.oidc_settings != null
+  enable_oidc = var.auth_method == "iam_role_oidc" && var.oidc_settings != null
 }
 
 ################################################################################
 # Workspace
 ################################################################################
 
-resource "tfe_workspace" "default" {
-  name                      = var.name
-  allow_destroy_plan        = var.allow_destroy_plan
-  assessments_enabled       = var.assessments_enabled
-  auto_apply                = var.auto_apply
-  auto_apply_run_trigger    = var.auto_apply_run_trigger
-  description               = var.description
-  file_triggers_enabled     = var.file_triggers_enabled
-  global_remote_state       = var.global_remote_state
-  organization              = var.terraform_organization
-  project_id                = var.project_id
-  queue_all_runs            = var.queue_all_runs
-  remote_state_consumer_ids = var.remote_state_consumer_ids
-  ssh_key_id                = var.ssh_key_id
-  tag_names                 = var.workspace_tags
-  terraform_version         = var.terraform_version
-  trigger_patterns          = var.trigger_patterns
-  trigger_prefixes          = var.trigger_prefixes
-  working_directory         = var.working_directory
+module "tfe-workspace" {
+  source  = "schubergphilis/mcaf-workspace/tfe"
+  version = "~> 2.0"
 
-  dynamic "vcs_repo" {
-    for_each = local.connect_vcs_repo
-
-    content {
-      identifier         = var.repository_identifier
-      branch             = var.branch
-      ingress_submodules = false
-      oauth_token_id     = var.oauth_token_id
-    }
-  }
-}
-
-resource "tfe_workspace_settings" "default" {
-  agent_pool_id  = var.execution_mode == "agent" ? var.agent_pool_id : null
-  execution_mode = var.execution_mode
-  workspace_id   = tfe_workspace.default.id
-}
-
-resource "tfe_notification_configuration" "default" {
-  for_each = var.notification_configuration
-
-  name             = each.key
-  destination_type = each.value.destination_type
-  enabled          = each.value.enabled
-  triggers         = each.value.triggers
-  url              = each.value.url
-  workspace_id     = tfe_workspace.default.id
-}
-
-resource "tfe_variable" "aws_default_region" {
-  key          = "AWS_DEFAULT_REGION"
-  value        = var.region
-  category     = "env"
-  workspace_id = tfe_workspace.default.id
-}
-
-resource "tfe_variable" "clear_text_env_variables" {
-  for_each = var.clear_text_env_variables
-
-  key          = each.key
-  value        = each.value
-  category     = "env"
-  workspace_id = tfe_workspace.default.id
-}
-
-resource "tfe_variable" "sensitive_env_variables" {
-  for_each = var.sensitive_env_variables
-
-  key          = each.key
-  value        = each.value
-  category     = "env"
-  sensitive    = true
-  workspace_id = tfe_workspace.default.id
-}
-
-resource "tfe_variable" "clear_text_terraform_variables" {
-  for_each = var.clear_text_terraform_variables
-
-  key          = each.key
-  value        = each.value
-  category     = "terraform"
-  workspace_id = tfe_workspace.default.id
-}
-
-resource "tfe_variable" "sensitive_terraform_variables" {
-  for_each = var.sensitive_terraform_variables
-
-  key          = each.key
-  value        = each.value
-  category     = "terraform"
-  sensitive    = true
-  workspace_id = tfe_workspace.default.id
-}
-
-resource "tfe_variable" "clear_text_hcl_variables" {
-  for_each = var.clear_text_hcl_variables
-
-  key          = each.key
-  value        = each.value
-  category     = "terraform"
-  hcl          = true
-  workspace_id = tfe_workspace.default.id
-}
-
-resource "tfe_variable" "sensitive_hcl_variables" {
-  for_each = var.sensitive_hcl_variables
-
-  key          = each.key
-  value        = each.value.sensitive
-  category     = "terraform"
-  hcl          = true
-  sensitive    = true
-  workspace_id = tfe_workspace.default.id
-}
-
-resource "tfe_workspace_variable_set" "default" {
-  for_each = var.variable_set_ids
-
-  variable_set_id = each.value
-  workspace_id    = tfe_workspace.default.id
+  name                           = var.name
+  agent_pool_id                  = var.execution_mode == "agent" ? var.agent_pool_id : null
+  allow_destroy_plan             = var.allow_destroy_plan
+  assessments_enabled            = var.assessments_enabled
+  auto_apply                     = var.auto_apply
+  auto_apply_run_trigger         = var.auto_apply_run_trigger
+  branch                         = var.branch
+  clear_text_env_variables       = merge({ AWS_DEFAULT_REGION = var.region }, var.clear_text_env_variables)
+  clear_text_hcl_variables       = var.clear_text_hcl_variables
+  clear_text_terraform_variables = var.clear_text_terraform_variables
+  description                    = var.description
+  execution_mode                 = var.execution_mode
+  file_triggers_enabled          = var.file_triggers_enabled
+  global_remote_state            = var.global_remote_state
+  notification_configuration     = var.notification_configuration
+  oauth_token_id                 = var.repository_identifier != null ? var.oauth_token_id : null
+  project_id                     = var.project_id
+  queue_all_runs                 = var.queue_all_runs
+  remote_state_consumer_ids      = var.remote_state_consumer_ids
+  repository_identifier          = var.repository_identifier
+  sensitive_env_variables        = var.sensitive_env_variables
+  sensitive_hcl_variables        = var.sensitive_hcl_variables
+  sensitive_terraform_variables  = var.sensitive_terraform_variables
+  ssh_key_id                     = var.ssh_key_id
+  terraform_organization         = var.terraform_organization
+  terraform_version              = var.terraform_version
+  trigger_patterns               = var.trigger_patterns
+  trigger_prefixes               = var.trigger_prefixes
+  variable_set_ids               = var.variable_set_ids
+  working_directory              = var.working_directory
+  workspace_tags                 = var.workspace_tags
 }
 
 ################################################################################
@@ -145,7 +59,7 @@ resource "tfe_team_access" "default" {
 
   access       = each.value.access
   team_id      = data.tfe_team.default[each.key].id
-  workspace_id = tfe_workspace.default.id
+  workspace_id = module.tfe-workspace.workspace_id
 
   dynamic "permissions" {
     for_each = each.value.permissions != null ? { create = true } : {}
@@ -183,7 +97,7 @@ resource "tfe_variable" "aws_access_key_id" {
   key          = "AWS_ACCESS_KEY_ID"
   value        = module.workspace_iam_user[0].access_key_id
   category     = "env"
-  workspace_id = tfe_workspace.default.id
+  workspace_id = module.tfe-workspace.workspace_id
 }
 
 resource "tfe_variable" "aws_secret_access_key" {
@@ -193,7 +107,7 @@ resource "tfe_variable" "aws_secret_access_key" {
   value        = module.workspace_iam_user[0].secret_access_key
   category     = "env"
   sensitive    = true
-  workspace_id = tfe_workspace.default.id
+  workspace_id = module.tfe-workspace.workspace_id
 }
 
 ################################################################################
@@ -229,7 +143,7 @@ resource "tfe_variable" "aws_assume_role" {
   key          = "aws_assume_role"
   value        = module.workspace_iam_role[0].arn
   category     = "terraform"
-  workspace_id = tfe_workspace.default.id
+  workspace_id = module.tfe-workspace.workspace_id
 }
 
 resource "tfe_variable" "aws_assume_role_external_id" {
@@ -239,7 +153,7 @@ resource "tfe_variable" "aws_assume_role_external_id" {
   value        = random_uuid.external_id[0].result
   category     = "terraform"
   sensitive    = true
-  workspace_id = tfe_workspace.default.id
+  workspace_id = module.tfe-workspace.workspace_id
 }
 
 ################################################################################
@@ -274,7 +188,7 @@ resource "tfe_variable" "tfc_aws_provider_auth" {
   key          = "TFC_AWS_PROVIDER_AUTH"
   value        = "true"
   category     = "env"
-  workspace_id = tfe_workspace.default.id
+  workspace_id = module.tfe-workspace.workspace_id
 }
 
 resource "tfe_variable" "tfc_aws_run_role_arn" {
@@ -283,7 +197,7 @@ resource "tfe_variable" "tfc_aws_run_role_arn" {
   key          = "TFC_AWS_RUN_ROLE_ARN"
   value        = module.workspace_iam_role_oidc[0].arn
   category     = "env"
-  workspace_id = tfe_workspace.default.id
+  workspace_id = module.tfe-workspace.workspace_id
 }
 
 resource "tfe_variable" "tfc_aws_workload_identity_audience" {
@@ -292,5 +206,5 @@ resource "tfe_variable" "tfc_aws_workload_identity_audience" {
   key          = "TFC_AWS_WORKLOAD_IDENTITY_AUDIENCE"
   value        = var.oidc_settings.audience
   category     = "env"
-  workspace_id = tfe_workspace.default.id
+  workspace_id = module.tfe-workspace.workspace_id
 }
