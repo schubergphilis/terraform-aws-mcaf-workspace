@@ -80,8 +80,10 @@ resource "tfe_team_access" "default" {
 ################################################################################
 
 module "workspace_iam_user" {
-  count  = var.auth_method == "iam_user" ? 1 : 0
-  source = "github.com/schubergphilis/terraform-aws-mcaf-user?ref=v0.4.0"
+  count = var.auth_method == "iam_user" ? 1 : 0
+
+  source  = "schubergphilis/mcaf-user/aws"
+  version = "~> 0.4"
 
   name                 = var.username
   path                 = var.path
