@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## v2.1.0 - 2024-09-19
+
+### What's Changed
+
+#### 🚀 Features
+
+* feat: Move User module to the TF Registry (#68) @fatbasstard
+* enhancement: Move to use terraform-tfe-mcaf-workspace module (#67) @stefanwb
+
+**Full Changelog**: https://github.com/schubergphilis/terraform-aws-mcaf-workspace/compare/v2.0.1...v2.1.0
+
 ## v2.0.1 - 2024-08-08
 
 ### What's Changed
