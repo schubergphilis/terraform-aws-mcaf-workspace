@@ -17,7 +17,7 @@ module "tfe-workspace" {
   auto_apply                     = var.auto_apply
   auto_apply_run_trigger         = var.auto_apply_run_trigger
   branch                         = var.branch
-  clear_text_env_variables       = var.region != null ? merge({ AWS_DEFAULT_REGION = var.region }, var.clear_text_env_variables) : var.clear_text_env_variables
+  clear_text_env_variables       = var.region != null ? merge(var.clear_text_env_variables, { AWS_DEFAULT_REGION = var.region }) : var.clear_text_env_variables
   clear_text_hcl_variables       = var.clear_text_hcl_variables
   clear_text_terraform_variables = var.clear_text_terraform_variables
   description                    = var.description
