@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## v2.1.1 - 2024-10-29
+
+### What's Changed
+
+#### 🐛 Bug Fixes
+
+* fix: do not set `DEFAULT_REGION` env var if `var.region` is empty (#69) @marwinbaumannsbp
+
+**Full Changelog**: https://github.com/schubergphilis/terraform-aws-mcaf-workspace/compare/v2.1.0...v2.1.1
+
 ## v2.1.0 - 2024-09-19
 
 ### What's Changed
