@@ -8,7 +8,7 @@ locals {
 
 module "tfe-workspace" {
   source  = "schubergphilis/mcaf-workspace/tfe"
-  version = "~> 2.0"
+  version = "~> 2.1.0"
 
   name                           = var.name
   agent_pool_id                  = var.execution_mode == "agent" ? var.agent_pool_id : null
@@ -23,6 +23,7 @@ module "tfe-workspace" {
   description                    = var.description
   execution_mode                 = var.execution_mode
   file_triggers_enabled          = var.file_triggers_enabled
+  github_app_installation_id     = var.repository_identifier != null ? var.github_app_installation_id : null
   global_remote_state            = var.global_remote_state
   notification_configuration     = var.notification_configuration
   oauth_token_id                 = var.repository_identifier != null ? var.oauth_token_id : null
@@ -83,7 +84,7 @@ module "workspace_iam_user" {
   count = var.auth_method == "iam_user" ? 1 : 0
 
   source  = "schubergphilis/mcaf-user/aws"
-  version = "~> 0.4"
+  version = "~> 0.4.0"
 
   name                 = var.username
   path                 = var.path
