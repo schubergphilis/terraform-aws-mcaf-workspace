@@ -229,6 +229,12 @@ variable "sensitive_terraform_variables" {
   description = "An optional map with sensitive Terraform variables"
 }
 
+variable "speculative_enabled" {
+  type        = bool
+  default     = true
+  description = "Enables or disables speculative plans on PR/MR, enabled by default"
+}
+
 variable "ssh_key_id" {
   type        = string
   default     = null

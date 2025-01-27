@@ -8,7 +8,7 @@ locals {
 
 module "tfe-workspace" {
   source  = "schubergphilis/mcaf-workspace/tfe"
-  version = "~> 2.1.0"
+  version = "~> 2.1.2"
 
   name                           = var.name
   agent_pool_id                  = var.execution_mode == "agent" ? var.agent_pool_id : null
@@ -34,6 +34,7 @@ module "tfe-workspace" {
   sensitive_env_variables        = var.sensitive_env_variables
   sensitive_hcl_variables        = var.sensitive_hcl_variables
   sensitive_terraform_variables  = var.sensitive_terraform_variables
+  speculative_enabled            = var.speculative_enabled
   ssh_key_id                     = var.ssh_key_id
   terraform_organization         = var.terraform_organization
   terraform_version              = var.terraform_version
