@@ -8,7 +8,7 @@ locals {
 
 module "tfe-workspace" {
   source  = "schubergphilis/mcaf-workspace/tfe"
-  version = "~> 2.1.2"
+  version = "~> 2.2.0"
 
   name                           = var.name
   agent_pool_id                  = var.execution_mode == "agent" ? var.agent_pool_id : null
