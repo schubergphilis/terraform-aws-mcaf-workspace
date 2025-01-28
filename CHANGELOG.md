@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## v2.3.0 - 2025-01-28
+
+### What's Changed
+
+#### 🚀 Features
+
+* feat(options): Add speculative_enabled option (#71) @stromp
+
+**Full Changelog**: https://github.com/schubergphilis/terraform-aws-mcaf-workspace/compare/v2.2.0...v2.3.0
+
 ## v2.2.0 - 2025-01-10
 
 ### What's Changed
