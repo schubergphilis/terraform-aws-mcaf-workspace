@@ -61,7 +61,7 @@ The above custom role is similar to the "write" pre-existing role, but blocks ac
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_tfe-workspace"></a> [tfe-workspace](#module\_tfe-workspace) | schubergphilis/mcaf-workspace/tfe | ~> 2.2.0 |
+| <a name="module_tfe-workspace"></a> [tfe-workspace](#module\_tfe-workspace) | schubergphilis/mcaf-workspace/tfe | ~> 2.3.0 |
 | <a name="module_workspace_iam_role"></a> [workspace\_iam\_role](#module\_workspace\_iam\_role) | schubergphilis/mcaf-role/aws | ~> 0.4.0 |
 | <a name="module_workspace_iam_role_oidc"></a> [workspace\_iam\_role\_oidc](#module\_workspace\_iam\_role\_oidc) | schubergphilis/mcaf-role/aws | ~> 0.4.0 |
 | <a name="module_workspace_iam_user"></a> [workspace\_iam\_user](#module\_workspace\_iam\_user) | schubergphilis/mcaf-user/aws | ~> 0.4.0 |
@@ -124,8 +124,8 @@ The above custom role is similar to the "write" pre-existing role, but blocks ac
 | <a name="input_tags"></a> [tags](#input\_tags) | A mapping of tags to assign to resource | `map(string)` | `null` | no |
 | <a name="input_team_access"></a> [team\_access](#input\_team\_access) | Map of team names and either type of fixed access or custom permissions to assign | <pre>map(object({<br/>    access = optional(string, null),<br/>    permissions = optional(object({<br/>      run_tasks         = bool<br/>      runs              = string<br/>      sentinel_mocks    = string<br/>      state_versions    = string<br/>      variables         = string<br/>      workspace_locking = bool<br/>    }), null)<br/>  }))</pre> | `{}` | no |
 | <a name="input_terraform_version"></a> [terraform\_version](#input\_terraform\_version) | The version of Terraform to use for this workspace | `string` | `"latest"` | no |
-| <a name="input_trigger_patterns"></a> [trigger\_patterns](#input\_trigger\_patterns) | List of glob patterns that describe the files Terraform Cloud monitors for changes. Trigger patterns are always appended to the root directory of the repository. Mutually exclusive with trigger-prefixes | `list(string)` | `null` | no |
-| <a name="input_trigger_prefixes"></a> [trigger\_prefixes](#input\_trigger\_prefixes) | List of repository-root-relative paths which should be tracked for changes | `list(string)` | <pre>[<br/>  "modules"<br/>]</pre> | no |
+| <a name="input_trigger_patterns"></a> [trigger\_patterns](#input\_trigger\_patterns) | List of glob patterns that describe the files Terraform Cloud monitors for changes. Trigger patterns are always appended to the root directory of the repository. Mutually exclusive with trigger-prefixes | `list(string)` | <pre>[<br/>  "modules/**/*"<br/>]</pre> | no |
+| <a name="input_trigger_prefixes"></a> [trigger\_prefixes](#input\_trigger\_prefixes) | List of repository-root-relative paths which should be tracked for changes | `list(string)` | `null` | no |
 | <a name="input_username"></a> [username](#input\_username) | The username for a new pipeline user | `string` | `null` | no |
 | <a name="input_variable_set_ids"></a> [variable\_set\_ids](#input\_variable\_set\_ids) | Map of variable set ids to attach to the workspace | `map(string)` | `{}` | no |
 | <a name="input_working_directory"></a> [working\_directory](#input\_working\_directory) | A relative path that Terraform will execute within | `string` | `"terraform"` | no |

@@ -282,13 +282,13 @@ variable "terraform_version" {
 
 variable "trigger_patterns" {
   type        = list(string)
-  default     = null
+  default     = ["modules/**/*"]
   description = "List of glob patterns that describe the files Terraform Cloud monitors for changes. Trigger patterns are always appended to the root directory of the repository. Mutually exclusive with trigger-prefixes"
 }
 
 variable "trigger_prefixes" {
   type        = list(string)
-  default     = ["modules"]
+  default     = null
   description = "List of repository-root-relative paths which should be tracked for changes"
 }
 
