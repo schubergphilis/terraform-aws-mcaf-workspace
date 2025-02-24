@@ -1,7 +1,11 @@
-This document captures breaking changes.
+# Upgrading Notes
+
+This document captures required refactoring on your part when upgrading to a module version that contains breaking changes.
+
 ## Upgrading to v2.4.0
 
 ### Variables (v2.4.0)
+
 - Default value removed `var.trigger_prefixes`: `["modules"]` -> `null`
 - Default value added `var.trigger_patterns`: `null` -> `["modules/**/*"]`.
 
@@ -21,6 +25,7 @@ Option 1: Migrate to `trigger_patterns` (Recommended)
 2. **Set** equivalent values in `trigger_patterns`.
 
 **Example:**
+
 ```hcl
 # Before
 var.trigger_prefixes = ["envs/prod/"]
@@ -33,11 +38,10 @@ See (documentation on trigger runs when files in specified paths change)[https:/
 
 Option 2: Opt Out
 
-1. Set `tfe_workspace.trigger_patterns` to `null`.
-2. Set `tfe_workspace.trigger_prefixes` to `["modules"]`, or keep the value you are using.
+1. Set `var.trigger_patterns` to `null`.
+2. Set `var.trigger_prefixes` to `["modules"]`, or keep the value you are using.
 
 This is a temporary workaround; trigger_prefixes will be deprecated.
-
 
 #### Avoid Conflict Errors
 
@@ -45,20 +49,3 @@ If both variables are set, Terraform will fail with:
 
 `"trigger_patterns": conflicts with trigger_prefixes`.
 Fix it by following Option 1 or Option 2.
-
-## Upgrading to v2.0.0
-
-### Variables
-
-- `notification_configuration` has been modified from a `list(object)` to a `map(object)`. They key should be the name of the notification configuration as it will be displayed in Terraform Cloud.
-- The default `auth_method` has been modified from `iam_user` to `iam_role_oidc`.
-
-## Upgrading to v1.0.0
-
-### Variables
-
-The following variables have been merged:
-
-- `slack_notification_triggers` & `slack_notification_url` -> `notification_configuration`
-
-This allows to easily configure notifications for both slack and teams.
