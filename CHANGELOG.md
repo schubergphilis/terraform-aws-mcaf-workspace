@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## v2.5.0 - 2025-03-17
+
+### What's Changed
+
+Note: This version bumps the Terraform required version to `>= 1.7.0`, due to dependency requirements.
+
+#### 🚀 Features
+
+* enhancement: bump tfe-mcaf-workspace to 2.4.x (#73) @mlflr
+
+**Full Changelog**: https://github.com/schubergphilis/terraform-aws-mcaf-workspace/compare/v2.4.0...v2.5.0
+
 ## v2.4.0 - 2025-02-24
 
 ### What's Changed
