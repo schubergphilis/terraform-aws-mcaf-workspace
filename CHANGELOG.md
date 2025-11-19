@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## v2.6.0 - 2025-11-19
+
+### What's Changed
+
+#### 🚀 Features
+
+* feat: update mcaf-workspace to v2.6.0 (#74) @marwinbaumannsbp
+
+**Full Changelog**: https://github.com/schubergphilis/terraform-aws-mcaf-workspace/compare/v2.5.0...v2.6.0
+
 ## v2.5.0 - 2025-03-17
 
 ### What's Changed
