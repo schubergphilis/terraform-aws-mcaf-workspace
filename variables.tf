@@ -56,6 +56,18 @@ variable "auto_apply_run_trigger" {
   description = "Whether to automatically apply changes for runs that were created by run triggers from another workspace"
 }
 
+variable "auto_destroy_activity_duration" {
+  type        = string
+  default     = null
+  description = "Duration string (e.g. \"7d\") after last activity when an auto-destroy run should be queued for this workspace"
+}
+
+variable "auto_destroy_at" {
+  type        = string
+  default     = null
+  description = "Absolute time (RFC3339, e.g. \"2025-12-31T23:59:00Z\") at which this workspace's resources should be automatically destroyed"
+}
+
 variable "branch" {
   type        = string
   default     = "main"
@@ -101,6 +113,12 @@ variable "file_triggers_enabled" {
   type        = bool
   default     = true
   description = "Whether to filter runs based on the changed files in a VCS push"
+}
+
+variable "force_delete" {
+  type        = bool
+  default     = false
+  description = "If true, the workspace will be force deleted even when resources are still under management"
 }
 
 variable "github_app_installation_id" {
@@ -271,6 +289,7 @@ variable "team_access" {
 
 variable "terraform_organization" {
   type        = string
+  default     = null
   description = "The Terraform Enterprise organization to create the workspace in"
 }
 
@@ -289,7 +308,7 @@ variable "trigger_patterns" {
 variable "trigger_prefixes" {
   type        = list(string)
   default     = null
-  description = "List of repository-root-relative paths which should be tracked for changes"
+  description = "(**DEPRECATED**) List of repository-root-relative paths which should be tracked for changes"
 }
 
 variable "username" {
@@ -304,10 +323,23 @@ variable "variable_set_ids" {
   description = "Map of variable set ids to attach to the workspace"
 }
 
+variable "variable_set_names" {
+  type        = set(string)
+  default     = []
+  description = "Set of variable set names to attach to the workspace"
+  nullable    = false
+}
+
+variable "workspace_map_tags" {
+  type        = map(string)
+  default     = null
+  description = "A map of key value tags for this workspace"
+}
+
 variable "workspace_tags" {
   type        = list(string)
   default     = null
-  description = "A list of tag names for this workspace. Note that tags must only contain lowercase letters, numbers, colons, or hyphens"
+  description = "(**DEPRECATED**) A list of tag names for this workspace. Note that tags must only contain lowercase letters, numbers, colons, or hyphens"
 
   validation {
     condition     = alltrue([for workspace_tag in coalesce(var.workspace_tags, []) : can(regex("[-:a-z0-9]", workspace_tag))])
