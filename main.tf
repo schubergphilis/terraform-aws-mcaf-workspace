@@ -8,46 +8,47 @@ locals {
 
 module "tfe-workspace" {
   source  = "schubergphilis/mcaf-workspace/tfe"
-  version = "~> 2.6.0"
+  version = "~> 2.7.0"
 
-  name                           = var.name
-  agent_pool_id                  = var.execution_mode == "agent" ? var.agent_pool_id : null
-  allow_destroy_plan             = var.allow_destroy_plan
-  assessments_enabled            = var.assessments_enabled
-  auto_apply                     = var.auto_apply
-  auto_apply_run_trigger         = var.auto_apply_run_trigger
-  auto_destroy_activity_duration = var.auto_destroy_activity_duration
-  auto_destroy_at                = var.auto_destroy_at
-  branch                         = var.branch
-  clear_text_env_variables       = var.region != null ? merge(var.clear_text_env_variables, { AWS_DEFAULT_REGION = var.region }) : var.clear_text_env_variables
-  clear_text_hcl_variables       = var.clear_text_hcl_variables
-  clear_text_terraform_variables = var.clear_text_terraform_variables
-  description                    = var.description
-  execution_mode                 = var.execution_mode
-  file_triggers_enabled          = var.file_triggers_enabled
-  force_delete                   = var.force_delete
-  github_app_installation_id     = var.repository_identifier != null ? var.github_app_installation_id : null
-  global_remote_state            = var.global_remote_state
-  notification_configuration     = var.notification_configuration
-  oauth_token_id                 = var.repository_identifier != null ? var.oauth_token_id : null
-  project_id                     = var.project_id
-  queue_all_runs                 = var.queue_all_runs
-  remote_state_consumer_ids      = var.remote_state_consumer_ids
-  repository_identifier          = var.repository_identifier
-  sensitive_env_variables        = var.sensitive_env_variables
-  sensitive_hcl_variables        = var.sensitive_hcl_variables
-  sensitive_terraform_variables  = var.sensitive_terraform_variables
-  speculative_enabled            = var.speculative_enabled
-  ssh_key_id                     = var.ssh_key_id
-  terraform_organization         = var.terraform_organization
-  terraform_version              = var.terraform_version
-  trigger_patterns               = var.trigger_patterns
-  trigger_prefixes               = var.trigger_prefixes
-  variable_set_ids               = var.variable_set_ids
-  variable_set_names             = var.variable_set_names
-  working_directory              = var.working_directory
-  workspace_map_tags             = var.workspace_map_tags
-  workspace_tags                 = var.workspace_tags
+  name                                         = var.name
+  agent_pool_id                                = var.execution_mode == "agent" ? var.agent_pool_id : null
+  allow_destroy_plan                           = var.allow_destroy_plan
+  assessments_enabled                          = var.assessments_enabled
+  auto_apply                                   = var.auto_apply
+  auto_apply_run_trigger                       = var.auto_apply_run_trigger
+  auto_destroy_activity_duration               = var.auto_destroy_activity_duration
+  auto_destroy_at                              = var.auto_destroy_at
+  branch                                       = var.branch
+  clear_text_env_variables                     = var.region != null ? merge(var.clear_text_env_variables, { AWS_DEFAULT_REGION = var.region }) : var.clear_text_env_variables
+  clear_text_hcl_variables                     = var.clear_text_hcl_variables
+  clear_text_terraform_variables               = var.clear_text_terraform_variables
+  description                                  = var.description
+  execution_mode                               = var.execution_mode
+  file_triggers_enabled                        = var.file_triggers_enabled
+  force_delete                                 = var.force_delete
+  github_app_installation_id                   = var.repository_identifier != null ? var.github_app_installation_id : null
+  global_remote_state                          = var.global_remote_state
+  notification_configuration                   = var.notification_configuration
+  oauth_token_id                               = var.repository_identifier != null ? var.oauth_token_id : null
+  project_id                                   = var.project_id
+  queue_all_runs                               = var.queue_all_runs
+  remote_state_consumer_ids                    = var.remote_state_consumer_ids
+  repository_identifier                        = var.repository_identifier
+  sensitive_env_variables                      = var.sensitive_env_variables
+  sensitive_hcl_variables                      = var.sensitive_hcl_variables
+  sensitive_terraform_variables                = var.sensitive_terraform_variables
+  speculative_enabled                          = var.speculative_enabled
+  ssh_key_id                                   = var.ssh_key_id
+  terraform_organization                       = var.terraform_organization
+  terraform_version                            = var.terraform_version
+  trigger_patterns                             = var.trigger_patterns
+  trigger_patterns_working_directory_recursive = var.trigger_patterns_working_directory_recursive
+  trigger_prefixes                             = var.trigger_prefixes
+  variable_set_ids                             = var.variable_set_ids
+  variable_set_names                           = var.variable_set_names
+  working_directory                            = var.working_directory
+  workspace_map_tags                           = var.workspace_map_tags
+  workspace_tags                               = var.workspace_tags
 }
 
 ################################################################################
