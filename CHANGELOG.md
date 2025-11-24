@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## v2.7.0 - 2025-11-24
+
+### What's Changed
+
+#### 🚀 Features
+
+* feat: Improve trigger pattern flexibility (#75) @marwinbaumannsbp
+
+**Full Changelog**: https://github.com/schubergphilis/terraform-aws-mcaf-workspace/compare/v2.6.0...v2.7.0
+
 ## v2.6.0 - 2025-11-19
 
 ### What's Changed
