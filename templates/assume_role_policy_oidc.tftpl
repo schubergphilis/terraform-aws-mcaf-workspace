@@ -12,7 +12,7 @@
                     "${site_address}:aud": "${audience}"
                 },
                 "StringLike": {
-                    "${site_address}:sub": "organization:${org_name}:project:*:workspace:${workspace_name}:run_phase:*"
+                    "${site_address}:sub": "organization:${org_name}:project:${project_name != null ? project_name : "*"}:workspace:${project_name != null ? "*" : workspace_name}:run_phase:*"
                 }
             }
         }
