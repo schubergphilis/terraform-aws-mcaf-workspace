@@ -170,6 +170,19 @@ resource "tfe_variable" "aws_assume_role_external_id" {
 # Auth - IAM Role - OIDC
 ################################################################################
 
+data "tfe_projects" "all" {
+  count = var.project_id != null ? 1 : 0
+
+  organization = var.terraform_organization
+}
+
+locals {
+  project_name = var.project_id != null ? one([
+    for project in data.tfe_projects.all[0].projects :
+    project.name if project.id == var.project_id
+  ]) : null
+}
+
 module "workspace_iam_role_oidc" {
   count = local.enable_oidc ? 1 : 0
 
