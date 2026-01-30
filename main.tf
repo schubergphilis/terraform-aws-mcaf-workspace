@@ -199,6 +199,7 @@ module "workspace_iam_role_oidc" {
   assume_policy = templatefile("${path.module}/templates/assume_role_policy_oidc.tftpl", {
     audience       = var.oidc_settings.audience,
     org_name       = var.terraform_organization,
+    project_name   = local.project_name,
     provider_arn   = var.oidc_settings.provider_arn,
     site_address   = var.oidc_settings.site_address,
     workspace_name = var.name
