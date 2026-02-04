@@ -6,6 +6,13 @@ locals {
 # Workspace
 ################################################################################
 
+data "tfe_project" "default" {
+  count = var.project_name != null ? 1 : 0
+
+  organization = var.terraform_organization
+  name         = var.project_name
+}
+
 module "tfe-workspace" {
   source  = "schubergphilis/mcaf-workspace/tfe"
   version = "~> 2.7.0"
@@ -30,7 +37,7 @@ module "tfe-workspace" {
   global_remote_state                          = var.global_remote_state
   notification_configuration                   = var.notification_configuration
   oauth_token_id                               = var.repository_identifier != null ? var.oauth_token_id : null
-  project_id                                   = var.project_id
+  project_id                                   = var.project_name != null ? data.tfe_project.default[0].id : null
   queue_all_runs                               = var.queue_all_runs
   remote_state_consumer_ids                    = var.remote_state_consumer_ids
   repository_identifier                        = var.repository_identifier
@@ -170,17 +177,8 @@ resource "tfe_variable" "aws_assume_role_external_id" {
 # Auth - IAM Role - OIDC
 ################################################################################
 
-data "tfe_projects" "all" {
-  count = var.project_id != null ? 1 : 0
-
-  organization = var.terraform_organization
-}
-
 locals {
-  project_name = var.project_id != null ? one([
-    for project in data.tfe_projects.all[0].projects :
-    project.name if project.id == var.project_id
-  ]) : null
+  project_filter = var.oidc_project_scope ? var.project_name : "*"
 }
 
 module "workspace_iam_role_oidc" {
@@ -197,12 +195,12 @@ module "workspace_iam_role_oidc" {
   tags                 = var.tags
 
   assume_policy = templatefile("${path.module}/templates/assume_role_policy_oidc.tftpl", {
-    audience       = var.oidc_settings.audience,
-    org_name       = var.terraform_organization,
-    project_name   = local.project_name,
-    provider_arn   = var.oidc_settings.provider_arn,
-    site_address   = var.oidc_settings.site_address,
-    workspace_name = var.name
+    audience         = var.oidc_settings.audience,
+    org_name         = var.terraform_organization,
+    project_filter   = local.project_filter,
+    provider_arn     = var.oidc_settings.provider_arn,
+    site_address     = var.oidc_settings.site_address,
+    workspace_filter = var.name,
   })
 }
 

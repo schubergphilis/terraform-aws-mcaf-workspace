@@ -1,14 +1,3 @@
-variable "name" {
-  type        = string
-  description = "A name for the Terraform workspace"
-}
-
-variable "region" {
-  type        = string
-  default     = null
-  description = "The default region of the account"
-}
-
 variable "agent_pool_id" {
   type        = string
   default     = null
@@ -133,6 +122,11 @@ variable "global_remote_state" {
   description = "Allow all workspaces in the organization to read the state of this workspace"
 }
 
+variable "name" {
+  type        = string
+  description = "A name for the Terraform workspace"
+}
+
 variable "notification_configuration" {
   type = map(object({
     destination_type = string
@@ -161,6 +155,17 @@ variable "oauth_token_id" {
   type        = string
   default     = null
   description = "The OAuth token ID of the VCS provider"
+}
+
+variable "oidc_project_scope" {
+  description = "Apply OIDC trust to all workspaces in the project instead of just this workspace"
+  type        = bool
+  default     = false
+
+  validation {
+    condition     = !var.oidc_project_scope || length(var.project_name) > 0
+    error_message = "If oidc_project_scope is true, project_name must be provided."
+  }
 }
 
 variable "oidc_settings" {
@@ -197,16 +202,22 @@ variable "policy_arns" {
   description = "A set of policy ARNs to attach to the pipeline user"
 }
 
-variable "project_id" {
+variable "project_name" {
   type        = string
   default     = null
-  description = "ID of the project where the workspace should be created"
+  description = "Name of the project where the workspace should be created"
 }
 
 variable "queue_all_runs" {
   type        = bool
   default     = true
   description = "When set to false no initial run is queued and all runs triggered by a webhook will not be queued, necessary if you need to set variable sets after creation."
+}
+
+variable "region" {
+  type        = string
+  default     = null
+  description = "The default region of the account"
 }
 
 variable "remote_state_consumer_ids" {
@@ -337,6 +348,12 @@ variable "variable_set_names" {
   nullable    = false
 }
 
+variable "working_directory" {
+  type        = string
+  default     = "terraform"
+  description = "A relative path that Terraform will execute within"
+}
+
 variable "workspace_map_tags" {
   type        = map(string)
   default     = null
@@ -352,10 +369,4 @@ variable "workspace_tags" {
     condition     = alltrue([for workspace_tag in coalesce(var.workspace_tags, []) : can(regex("[-:a-z0-9]", workspace_tag))])
     error_message = "One or more tags are not in the correct format (lowercase letters, numbers, colons, or hyphens)"
   }
-}
-
-variable "working_directory" {
-  type        = string
-  default     = "terraform"
-  description = "A relative path that Terraform will execute within"
 }
