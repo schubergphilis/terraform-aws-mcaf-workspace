@@ -1,10 +1,19 @@
 locals {
-  enable_oidc = var.auth_method == "iam_role_oidc" && var.oidc_settings != null
+  enable_oidc           = var.auth_method == "iam_role_oidc" && var.oidc_settings != null
+  oidc_project_filter   = try(var.oidc_settings.project_scope, false) ? var.project_name : "*"
+  oidc_workspace_filter = !try(var.oidc_settings.project_scope, false) ? var.name : "*"
 }
 
 ################################################################################
 # Workspace
 ################################################################################
+
+data "tfe_project" "default" {
+  count = var.project_name != null ? 1 : 0
+
+  organization = var.terraform_organization
+  name         = var.project_name
+}
 
 module "tfe-workspace" {
   source  = "schubergphilis/mcaf-workspace/tfe"
@@ -30,7 +39,7 @@ module "tfe-workspace" {
   global_remote_state                          = var.global_remote_state
   notification_configuration                   = var.notification_configuration
   oauth_token_id                               = var.repository_identifier != null ? var.oauth_token_id : null
-  project_id                                   = var.project_id
+  project_id                                   = var.project_name != null ? data.tfe_project.default[0].id : null
   queue_all_runs                               = var.queue_all_runs
   remote_state_consumer_ids                    = var.remote_state_consumer_ids
   repository_identifier                        = var.repository_identifier
@@ -184,11 +193,12 @@ module "workspace_iam_role_oidc" {
   tags                 = var.tags
 
   assume_policy = templatefile("${path.module}/templates/assume_role_policy_oidc.tftpl", {
-    audience       = var.oidc_settings.audience,
-    org_name       = var.terraform_organization,
-    provider_arn   = var.oidc_settings.provider_arn,
-    site_address   = var.oidc_settings.site_address,
-    workspace_name = var.name
+    audience         = var.oidc_settings.audience,
+    org_name         = var.terraform_organization,
+    project_filter   = local.oidc_project_filter,
+    provider_arn     = var.oidc_settings.provider_arn,
+    site_address     = var.oidc_settings.site_address,
+    workspace_filter = local.oidc_workspace_filter,
   })
 }
 

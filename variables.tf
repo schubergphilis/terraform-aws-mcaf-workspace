@@ -1,14 +1,3 @@
-variable "name" {
-  type        = string
-  description = "A name for the Terraform workspace"
-}
-
-variable "region" {
-  type        = string
-  default     = null
-  description = "The default region of the account"
-}
-
 variable "agent_pool_id" {
   type        = string
   default     = null
@@ -133,6 +122,11 @@ variable "global_remote_state" {
   description = "Allow all workspaces in the organization to read the state of this workspace"
 }
 
+variable "name" {
+  type        = string
+  description = "A name for the Terraform workspace"
+}
+
 variable "notification_configuration" {
   type = map(object({
     destination_type = string
@@ -165,12 +159,24 @@ variable "oauth_token_id" {
 
 variable "oidc_settings" {
   type = object({
-    audience     = optional(string, "aws.workload.identity")
-    provider_arn = string
-    site_address = optional(string, "app.terraform.io")
+    audience = optional(string, "aws.workload.identity")
+    # Apply OIDC trust to all workspaces in the project instead of just this workspace.
+    # WARNING: Only enable this setting when the project relates to a single AWS Account to avoid unintended access.
+    project_scope = optional(bool, false)
+    provider_arn  = string
+    site_address  = optional(string, "app.terraform.io")
   })
   default     = null
   description = "OIDC settings to use if \"auth_method\" is set to \"iam_role_oidc\""
+
+  validation {
+    condition = (
+      var.oidc_settings == null ||
+      !try(var.oidc_settings.project_scope, false) ||
+      length(var.project_name) > 0
+    )
+    error_message = "If oidc_settings.project_scope is true, project_name must be provided."
+  }
 }
 
 variable "path" {
@@ -197,16 +203,22 @@ variable "policy_arns" {
   description = "A set of policy ARNs to attach to the pipeline user"
 }
 
-variable "project_id" {
+variable "project_name" {
   type        = string
   default     = null
-  description = "ID of the project where the workspace should be created"
+  description = "Name of the TFE project where the workspace should be created"
 }
 
 variable "queue_all_runs" {
   type        = bool
   default     = true
   description = "When set to false no initial run is queued and all runs triggered by a webhook will not be queued, necessary if you need to set variable sets after creation."
+}
+
+variable "region" {
+  type        = string
+  default     = null
+  description = "The default region of the account"
 }
 
 variable "remote_state_consumer_ids" {
@@ -337,6 +349,12 @@ variable "variable_set_names" {
   nullable    = false
 }
 
+variable "working_directory" {
+  type        = string
+  default     = "terraform"
+  description = "A relative path that Terraform will execute within"
+}
+
 variable "workspace_map_tags" {
   type        = map(string)
   default     = null
@@ -352,10 +370,4 @@ variable "workspace_tags" {
     condition     = alltrue([for workspace_tag in coalesce(var.workspace_tags, []) : can(regex("[-:a-z0-9]", workspace_tag))])
     error_message = "One or more tags are not in the correct format (lowercase letters, numbers, colons, or hyphens)"
   }
-}
-
-variable "working_directory" {
-  type        = string
-  default     = "terraform"
-  description = "A relative path that Terraform will execute within"
 }
