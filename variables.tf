@@ -157,25 +157,26 @@ variable "oauth_token_id" {
   description = "The OAuth token ID of the VCS provider"
 }
 
-variable "oidc_project_scope" {
-  description = "Apply OIDC trust to all workspaces in the project instead of just this workspace"
-  type        = bool
-  default     = false
-
-  validation {
-    condition     = !var.oidc_project_scope || length(var.project_name) > 0
-    error_message = "If oidc_project_scope is true, project_name must be provided."
-  }
-}
-
 variable "oidc_settings" {
   type = object({
-    audience     = optional(string, "aws.workload.identity")
-    provider_arn = string
-    site_address = optional(string, "app.terraform.io")
+    audience = optional(string, "aws.workload.identity")
+    # Apply OIDC trust to all workspaces in the project instead of just this workspace.
+    # WARNING: Only enable this setting when the project relates to a single AWS Account to avoid unintended access.
+    project_scope = optional(bool, false)
+    provider_arn  = string
+    site_address  = optional(string, "app.terraform.io")
   })
   default     = null
   description = "OIDC settings to use if \"auth_method\" is set to \"iam_role_oidc\""
+
+  validation {
+    condition = (
+      var.oidc_settings == null ||
+      !try(var.oidc_settings.project_scope, false) ||
+      length(var.project_name) > 0
+    )
+    error_message = "If oidc_settings.project_scope is true, project_name must be provided."
+  }
 }
 
 variable "path" {
@@ -205,7 +206,7 @@ variable "policy_arns" {
 variable "project_name" {
   type        = string
   default     = null
-  description = "Name of the project where the workspace should be created"
+  description = "Name of the TFE project where the workspace should be created"
 }
 
 variable "queue_all_runs" {
