@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## v3.0.0 - 2026-02-09
+
+### What's Changed
+
+#### 🚀 Features
+
+* feat!: enable project-scoped OIDC roles (#76) @Plork
+* feat!: Remove deprecated vars trigger_prefixes and workspace_tags (#77) @marwinbaumannsbp
+
+**Full Changelog**: https://github.com/schubergphilis/terraform-aws-mcaf-workspace/compare/v2.7.0...v3.0.0
+
 ## v2.7.0 - 2025-11-24
 
 ### What's Changed
