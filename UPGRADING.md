@@ -2,6 +2,12 @@
 
 This document captures required refactoring on your part when upgrading to a module version that contains breaking changes.
 
+## Upgrading to v3.0.0
+
+### Variables (v3.0.0)
+
+- The variable `project_id` has been replaced by `project_name`.
+
 ## Upgrading to v2.4.0
 
 ### Variables (v2.4.0)
