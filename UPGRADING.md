@@ -7,6 +7,8 @@ This document captures required refactoring on your part when upgrading to a mod
 ### Variables (v3.0.0)
 
 - The variable `project_id` has been replaced by `project_name`.
+- The deprecated variable `trigger_prefixes` has been removed.
+- The deprecated variable `workspace_tags` has been removed. `workspace_map_tags` has been renamed to `workspace_tags`.
 
 ## Upgrading to v2.4.0
 

@@ -324,12 +324,6 @@ variable "trigger_patterns_working_directory_recursive" {
   nullable    = false
 }
 
-variable "trigger_prefixes" {
-  type        = list(string)
-  default     = null
-  description = "(**DEPRECATED**) List of repository-root-relative paths which should be tracked for changes"
-}
-
 variable "username" {
   type        = string
   default     = null
@@ -355,19 +349,8 @@ variable "working_directory" {
   description = "A relative path that Terraform will execute within"
 }
 
-variable "workspace_map_tags" {
+variable "workspace_tags" {
   type        = map(string)
   default     = null
   description = "A map of key value tags for this workspace"
-}
-
-variable "workspace_tags" {
-  type        = list(string)
-  default     = null
-  description = "(**DEPRECATED**) A list of tag names for this workspace. Note that tags must only contain lowercase letters, numbers, colons, or hyphens"
-
-  validation {
-    condition     = alltrue([for workspace_tag in coalesce(var.workspace_tags, []) : can(regex("[-:a-z0-9]", workspace_tag))])
-    error_message = "One or more tags are not in the correct format (lowercase letters, numbers, colons, or hyphens)"
-  }
 }

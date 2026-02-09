@@ -61,9 +61,9 @@ The above custom role is similar to the "write" pre-existing role, but blocks ac
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_tfe-workspace"></a> [tfe-workspace](#module\_tfe-workspace) | schubergphilis/mcaf-workspace/tfe | ~> 2.7.0 |
+| <a name="module_tfe-workspace"></a> [tfe-workspace](#module\_tfe-workspace) | schubergphilis/mcaf-workspace/tfe | ~> 3.0.0 |
 | <a name="module_workspace_iam_role"></a> [workspace\_iam\_role](#module\_workspace\_iam\_role) | schubergphilis/mcaf-role/aws | ~> 0.4.0 |
-| <a name="module_workspace_iam_role_oidc"></a> [workspace\_iam\_role\_oidc](#module\_workspace\_iam\_role\_oidc) | schubergphilis/mcaf-role/aws | ~> 0.4.0 |
+| <a name="module_workspace_iam_role_oidc"></a> [workspace\_iam\_role\_oidc](#module\_workspace\_iam\_role\_oidc) | schubergphilis/mcaf-role/aws | ~> 0.5.3 |
 | <a name="module_workspace_iam_user"></a> [workspace\_iam\_user](#module\_workspace\_iam\_user) | schubergphilis/mcaf-user/aws | ~> 0.4.0 |
 
 ## Resources
@@ -130,13 +130,11 @@ The above custom role is similar to the "write" pre-existing role, but blocks ac
 | <a name="input_terraform_version"></a> [terraform\_version](#input\_terraform\_version) | The version of Terraform to use for this workspace | `string` | `"latest"` | no |
 | <a name="input_trigger_patterns"></a> [trigger\_patterns](#input\_trigger\_patterns) | List of glob patterns that describe the files Terraform Cloud monitors for changes. Trigger patterns are always appended to the root directory of the repository. Mutually exclusive with trigger-prefixes | `list(string)` | <pre>[<br/>  "modules/**/*"<br/>]</pre> | no |
 | <a name="input_trigger_patterns_working_directory_recursive"></a> [trigger\_patterns\_working\_directory\_recursive](#input\_trigger\_patterns\_working\_directory\_recursive) | If true, include all nested files in the working directory; if false, match only its root. | `bool` | `false` | no |
-| <a name="input_trigger_prefixes"></a> [trigger\_prefixes](#input\_trigger\_prefixes) | (**DEPRECATED**) List of repository-root-relative paths which should be tracked for changes | `list(string)` | `null` | no |
 | <a name="input_username"></a> [username](#input\_username) | The username for a new pipeline user | `string` | `null` | no |
 | <a name="input_variable_set_ids"></a> [variable\_set\_ids](#input\_variable\_set\_ids) | Map of variable set ids to attach to the workspace | `map(string)` | `{}` | no |
 | <a name="input_variable_set_names"></a> [variable\_set\_names](#input\_variable\_set\_names) | Set of variable set names to attach to the workspace | `set(string)` | `[]` | no |
 | <a name="input_working_directory"></a> [working\_directory](#input\_working\_directory) | A relative path that Terraform will execute within | `string` | `"terraform"` | no |
-| <a name="input_workspace_map_tags"></a> [workspace\_map\_tags](#input\_workspace\_map\_tags) | A map of key value tags for this workspace | `map(string)` | `null` | no |
-| <a name="input_workspace_tags"></a> [workspace\_tags](#input\_workspace\_tags) | (**DEPRECATED**) A list of tag names for this workspace. Note that tags must only contain lowercase letters, numbers, colons, or hyphens | `list(string)` | `null` | no |
+| <a name="input_workspace_tags"></a> [workspace\_tags](#input\_workspace\_tags) | A map of key value tags for this workspace | `map(string)` | `null` | no |
 
 ## Outputs
 

@@ -17,7 +17,7 @@ data "tfe_project" "default" {
 
 module "tfe-workspace" {
   source  = "schubergphilis/mcaf-workspace/tfe"
-  version = "~> 2.7.0"
+  version = "~> 3.0.0"
 
   name                                         = var.name
   agent_pool_id                                = var.execution_mode == "agent" ? var.agent_pool_id : null
@@ -52,11 +52,9 @@ module "tfe-workspace" {
   terraform_version                            = var.terraform_version
   trigger_patterns                             = var.trigger_patterns
   trigger_patterns_working_directory_recursive = var.trigger_patterns_working_directory_recursive
-  trigger_prefixes                             = var.trigger_prefixes
   variable_set_ids                             = var.variable_set_ids
   variable_set_names                           = var.variable_set_names
   working_directory                            = var.working_directory
-  workspace_map_tags                           = var.workspace_map_tags
   workspace_tags                               = var.workspace_tags
 }
 
@@ -183,7 +181,7 @@ module "workspace_iam_role_oidc" {
   count = local.enable_oidc ? 1 : 0
 
   source  = "schubergphilis/mcaf-role/aws"
-  version = "~> 0.4.0"
+  version = "~> 0.5.3"
 
   name                 = var.role_name
   path                 = var.path
