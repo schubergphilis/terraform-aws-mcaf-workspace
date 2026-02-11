@@ -26,11 +26,6 @@ variable "auth_method" {
   type        = string
   default     = "iam_role_oidc"
   description = "Configures how the workspace authenticates with the AWS account (can be iam_user, iam_role, or iam_role_oidc)"
-
-  validation {
-    condition     = lower(var.auth_method) == "iam_user" || lower(var.auth_method) == "iam_role" || lower(var.auth_method) == "iam_role_oidc"
-    error_message = "The auth_method value must be either \"iam_user\", \"iam_role\", or \"iam_role_oidc\"."
-  }
 }
 
 variable "auto_apply" {
@@ -168,15 +163,6 @@ variable "oidc_settings" {
   })
   default     = null
   description = "OIDC settings to use if \"auth_method\" is set to \"iam_role_oidc\""
-
-  validation {
-    condition = (
-      var.oidc_settings == null ||
-      !try(var.oidc_settings.project_scope, false) ||
-      length(var.project_name) > 0
-    )
-    error_message = "If oidc_settings.project_scope is true, project_name must be provided."
-  }
 }
 
 variable "path" {

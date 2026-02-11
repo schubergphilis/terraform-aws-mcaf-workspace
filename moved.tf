@@ -1,49 +1,57 @@
+# IAM User resources
 moved {
-  from = tfe_workspace.default
-  to   = module.tfe-workspace.tfe_workspace.default
+  from = module.workspace_iam_user
+  to   = module.auth.module.workspace_iam_user
 }
 
 moved {
-  from = tfe_workspace_settings.default
-  to   = module.tfe-workspace.tfe_workspace_settings.default
+  from = tfe_variable.aws_access_key_id
+  to   = module.auth.tfe_variable.aws_access_key_id
 }
 
 moved {
-  from = tfe_notification_configuration.default
-  to   = module.tfe-workspace.tfe_notification_configuration.default
+  from = tfe_variable.aws_secret_access_key
+  to   = module.auth.tfe_variable.aws_secret_access_key
+}
+
+# IAM Role (Agent) resources
+moved {
+  from = random_uuid.external_id
+  to   = module.auth.random_uuid.external_id
 }
 
 moved {
-  from = tfe_workspace_variable_set.default
-  to   = module.tfe-workspace.tfe_workspace_variable_set.default
+  from = module.workspace_iam_role
+  to   = module.auth.module.workspace_iam_role
 }
 
 moved {
-  from = tfe_variable.clear_text_env_variables
-  to   = module.tfe-workspace.tfe_variable.clear_text_env_variables
+  from = tfe_variable.aws_assume_role
+  to   = module.auth.tfe_variable.aws_assume_role
 }
 
 moved {
-  from = tfe_variable.clear_text_hcl_variables
-  to   = module.tfe-workspace.tfe_variable.clear_text_hcl_variables
+  from = tfe_variable.aws_assume_role_external_id
+  to   = module.auth.tfe_variable.aws_assume_role_external_id
+}
+
+# IAM Role (OIDC) resources
+moved {
+  from = module.workspace_iam_role_oidc
+  to   = module.auth.module.workspace_iam_role_oidc
 }
 
 moved {
-  from = tfe_variable.clear_text_terraform_variables
-  to   = module.tfe-workspace.tfe_variable.clear_text_terraform_variables
+  from = tfe_variable.tfc_aws_provider_auth
+  to   = module.auth.tfe_variable.tfc_aws_provider_auth
 }
 
 moved {
-  from = tfe_variable.sensitive_env_variables
-  to   = module.tfe-workspace.tfe_variable.sensitive_env_variables
+  from = tfe_variable.tfc_aws_run_role_arn
+  to   = module.auth.tfe_variable.tfc_aws_run_role_arn
 }
 
 moved {
-  from = tfe_variable.sensitive_hcl_variables
-  to   = module.tfe-workspace.tfe_variable.sensitive_hcl_variables
-}
-
-moved {
-  from = tfe_variable.sensitive_terraform_variables
-  to   = module.tfe-workspace.tfe_variable.sensitive_terraform_variables
+  from = tfe_variable.tfc_aws_workload_identity_audience
+  to   = module.auth.tfe_variable.tfc_aws_workload_identity_audience
 }
