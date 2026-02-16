@@ -90,10 +90,12 @@ resource "tfe_team_access" "default" {
 }
 
 ################################################################################
-# Auth
+# Authentication TFE Workspace <> AWS IAM Role/User
 ################################################################################
 
 module "auth" {
+  count = var.enable_authentication ? 1 : 0
+
   source = "./modules/auth"
 
   agent_role_arns          = var.agent_role_arns

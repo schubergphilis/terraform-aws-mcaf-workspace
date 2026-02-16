@@ -82,6 +82,12 @@ variable "description" {
   description = "A description for the workspace"
 }
 
+variable "enable_authentication" {
+  type        = bool
+  default     = true
+  description = "Whether to create and configure AWS IAM credentials (user or role) for the workspace to authenticate with AWS using the specified auth_method"
+}
+
 variable "execution_mode" {
   type        = string
   default     = "remote"
