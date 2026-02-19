@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## v3.1.0 - 2026-02-19
+
+### What's Changed
+
+#### 🚀 Features
+
+* feat: move authentication to a submodule (#78) @marwinbaumannsbp
+
+**Full Changelog**: https://github.com/schubergphilis/terraform-aws-mcaf-workspace/compare/v3.0.0...v3.1.0
+
 ## v3.0.0 - 2026-02-09
 
 ### What's Changed
