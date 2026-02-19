@@ -2,8 +2,27 @@
 
 This module uses the terraform-tfe-mcaf-workspace module to create a Terraform Cloud workspace and extends the features to manage AWS resources. This is done by creating either a IAM user or role and adding those credentials to the workspace.
 
-
 ## Usage
+
+### Authentication
+
+The module supports three authentication methods for Terraform Cloud to access AWS, configured via the `auth_method` variable:
+
+| Method | Description |
+| ------ | ----------- |
+| `iam_role_oidc` (default) | Creates an IAM role that Terraform Cloud assumes using OIDC workload identity (recommended) |
+| `iam_user` | Creates an IAM user with static credentials (`AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`) stored in Terraform Cloud |
+| `iam_role` | Creates an IAM role that Terraform Cloud assumes using static credentials and an external ID |
+
+#### Why OIDC is Recommended
+
+- No long-lived credentials are stored or managed
+- Native integration with Terraform Cloud workload identity
+- Automatic temporary credential issuance for each run
+
+#### Disabling Authentication
+
+Authentication can be disabled by setting `enable_authentication = false`. This is useful when authentication is managed at the Terraform Cloud project level or AWS credentials are provided externally via variable sets.
 
 ### Team access
 
@@ -54,31 +73,20 @@ The above custom role is similar to the "write" pre-existing role, but blocks ac
 
 | Name | Version |
 |------|---------|
-| <a name="provider_random"></a> [random](#provider\_random) | >= 3.0.0 |
 | <a name="provider_tfe"></a> [tfe](#provider\_tfe) | >= 0.67.1 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
+| <a name="module_auth"></a> [auth](#module\_auth) | ./modules/auth | n/a |
 | <a name="module_tfe-workspace"></a> [tfe-workspace](#module\_tfe-workspace) | schubergphilis/mcaf-workspace/tfe | ~> 3.0.0 |
-| <a name="module_workspace_iam_role"></a> [workspace\_iam\_role](#module\_workspace\_iam\_role) | schubergphilis/mcaf-role/aws | ~> 0.4.0 |
-| <a name="module_workspace_iam_role_oidc"></a> [workspace\_iam\_role\_oidc](#module\_workspace\_iam\_role\_oidc) | schubergphilis/mcaf-role/aws | ~> 0.5.3 |
-| <a name="module_workspace_iam_user"></a> [workspace\_iam\_user](#module\_workspace\_iam\_user) | schubergphilis/mcaf-user/aws | ~> 0.4.0 |
 
 ## Resources
 
 | Name | Type |
 |------|------|
-| [random_uuid.external_id](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/uuid) | resource |
 | [tfe_team_access.default](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/team_access) | resource |
-| [tfe_variable.aws_access_key_id](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/variable) | resource |
-| [tfe_variable.aws_assume_role](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/variable) | resource |
-| [tfe_variable.aws_assume_role_external_id](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/variable) | resource |
-| [tfe_variable.aws_secret_access_key](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/variable) | resource |
-| [tfe_variable.tfc_aws_provider_auth](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/variable) | resource |
-| [tfe_variable.tfc_aws_run_role_arn](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/variable) | resource |
-| [tfe_variable.tfc_aws_workload_identity_audience](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/variable) | resource |
 | [tfe_project.default](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/data-sources/project) | data source |
 | [tfe_team.default](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/data-sources/team) | data source |
 
@@ -101,6 +109,7 @@ The above custom role is similar to the "write" pre-existing role, but blocks ac
 | <a name="input_clear_text_hcl_variables"></a> [clear\_text\_hcl\_variables](#input\_clear\_text\_hcl\_variables) | An optional map with clear text HCL Terraform variables | `map(string)` | `{}` | no |
 | <a name="input_clear_text_terraform_variables"></a> [clear\_text\_terraform\_variables](#input\_clear\_text\_terraform\_variables) | An optional map with clear text Terraform variables | `map(string)` | `{}` | no |
 | <a name="input_description"></a> [description](#input\_description) | A description for the workspace | `string` | `null` | no |
+| <a name="input_enable_authentication"></a> [enable\_authentication](#input\_enable\_authentication) | Whether to create and configure AWS IAM credentials (user or role) for the workspace to authenticate with AWS using the specified auth\_method | `bool` | `true` | no |
 | <a name="input_execution_mode"></a> [execution\_mode](#input\_execution\_mode) | Which execution mode to use | `string` | `"remote"` | no |
 | <a name="input_file_triggers_enabled"></a> [file\_triggers\_enabled](#input\_file\_triggers\_enabled) | Whether to filter runs based on the changed files in a VCS push | `bool` | `true` | no |
 | <a name="input_force_delete"></a> [force\_delete](#input\_force\_delete) | If true, the workspace will be force deleted even when resources are still under management | `bool` | `false` | no |
@@ -141,6 +150,9 @@ The above custom role is similar to the "write" pre-existing role, but blocks ac
 | Name | Description |
 |------|-------------|
 | <a name="output_arn"></a> [arn](#output\_arn) | The workspace IAM user ARN |
+| <a name="output_iam_role_arn"></a> [iam\_role\_arn](#output\_iam\_role\_arn) | ARN of the IAM role (if auth\_method is iam\_role) |
+| <a name="output_iam_role_oidc_arn"></a> [iam\_role\_oidc\_arn](#output\_iam\_role\_oidc\_arn) | ARN of the IAM role for OIDC (if auth\_method is iam\_role\_oidc) |
+| <a name="output_iam_user_arn"></a> [iam\_user\_arn](#output\_iam\_user\_arn) | ARN of the IAM user (if auth\_method is iam\_user) |
 | <a name="output_workspace_id"></a> [workspace\_id](#output\_workspace\_id) | The Terraform Cloud workspace ID |
 | <a name="output_workspace_name"></a> [workspace\_name](#output\_workspace\_name) | The Terraform Cloud workspace name |
 <!-- END_TF_DOCS -->
