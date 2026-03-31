@@ -2,6 +2,13 @@
 
 This document captures required refactoring on your part when upgrading to a module version that contains breaking changes.
 
+## Upgrading to v4.0.0
+
+### Variables (v4.0.0)
+
+- The variable `project_name` has been replaced by `project_id`.
+- A new variable `oidc_settings.project_name` has been added to control the OIDC project filter.
+
 ## Upgrading to v3.0.0
 
 ### Variables (v3.0.0)
