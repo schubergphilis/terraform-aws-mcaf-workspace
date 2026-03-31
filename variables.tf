@@ -160,7 +160,8 @@ variable "oauth_token_id" {
 
 variable "oidc_settings" {
   type = object({
-    audience = optional(string, "aws.workload.identity")
+    audience     = optional(string, "aws.workload.identity")
+    project_name = optional(string)
     # Apply OIDC trust to all workspaces in the project instead of just this workspace.
     # WARNING: Only enable this setting when the project relates to a single AWS Account to avoid unintended access.
     project_scope = optional(bool, false)
@@ -169,6 +170,11 @@ variable "oidc_settings" {
   })
   default     = null
   description = "OIDC settings to use if \"auth_method\" is set to \"iam_role_oidc\""
+
+  validation {
+    condition     = var.oidc_settings == null || !var.oidc_settings.project_scope || var.oidc_settings.project_name != null
+    error_message = "\"project_name\" must be set in \"oidc_settings\" when \"project_scope\" is enabled."
+  }
 }
 
 variable "path" {
@@ -195,10 +201,10 @@ variable "policy_arns" {
   description = "A set of policy ARNs to attach to the pipeline user"
 }
 
-variable "project_name" {
+variable "project_id" {
   type        = string
   default     = null
-  description = "Name of the TFE project where the workspace should be created"
+  description = "ID of the TFE project where the workspace should be created"
 }
 
 variable "queue_all_runs" {

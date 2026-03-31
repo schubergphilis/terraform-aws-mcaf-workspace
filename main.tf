@@ -1,18 +1,11 @@
 locals {
-  oidc_project_filter   = try(var.oidc_settings.project_scope, false) ? var.project_name : "*"
+  oidc_project_filter   = try(var.oidc_settings.project_scope, false) ? var.oidc_settings.project_name : "*"
   oidc_workspace_filter = !try(var.oidc_settings.project_scope, false) ? var.name : "*"
 }
 
 ################################################################################
 # Workspace
 ################################################################################
-
-data "tfe_project" "default" {
-  count = var.project_name != null ? 1 : 0
-
-  organization = var.terraform_organization
-  name         = var.project_name
-}
 
 module "tfe-workspace" {
   source  = "schubergphilis/mcaf-workspace/tfe"
@@ -38,7 +31,7 @@ module "tfe-workspace" {
   global_remote_state                          = var.global_remote_state
   notification_configuration                   = var.notification_configuration
   oauth_token_id                               = var.repository_identifier != null ? var.oauth_token_id : null
-  project_id                                   = var.project_name != null ? data.tfe_project.default[0].id : null
+  project_id                                   = var.project_id
   queue_all_runs                               = var.queue_all_runs
   remote_state_consumer_ids                    = var.remote_state_consumer_ids
   repository_identifier                        = var.repository_identifier
