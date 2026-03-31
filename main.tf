@@ -110,8 +110,11 @@ module "auth" {
   username                 = var.username
   workspace_id             = module.tfe-workspace.workspace_id
 
-  oidc_settings = var.oidc_settings != null ? merge(var.oidc_settings, {
+  oidc_settings = var.oidc_settings != null ? {
+    audience              = var.oidc_settings.audience
     oidc_project_filter   = local.oidc_project_filter
     oidc_workspace_filter = local.oidc_workspace_filter
-  }) : null
+    provider_arn          = var.oidc_settings.provider_arn
+    site_address          = var.oidc_settings.site_address
+  } : null
 }
