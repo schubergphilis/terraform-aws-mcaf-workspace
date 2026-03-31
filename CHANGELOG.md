@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## v4.0.0 - 2026-03-31
+
+### What's Changed
+
+#### 🐛 Bug Fixes
+
+* fix!: known after apply issues with tfe project (#79) @marwinbaumannsbp
+
+**Full Changelog**: https://github.com/schubergphilis/terraform-aws-mcaf-workspace/compare/v3.1.1...v4.0.0
+
 ## v3.1.1 - 2026-03-31
 
 ### What's Changed
