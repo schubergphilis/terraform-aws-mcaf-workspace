@@ -2,6 +2,14 @@
 
 This document captures required refactoring on your part when upgrading to a module version that contains breaking changes.
 
+## Upgrading to v3.1.0
+
+### Behaviour (v3.1.0)
+
+Prior to v3.1.0, if no `oidc_settings` were provided the module would silently skip creating authentication-related resources, which could lead to confusion. Starting with v3.1.0, `iam_role_oidc` authentication is required by default as this is the current best practice. This means you must provide the `oidc_settings` variable — see the [`basic`](examples/basic) example for reference.
+
+If you do not need authentication, you can either explicitly set `enable_authentication` to `false`, or use the underlying [terraform-tfe-mcaf-workspace](https://registry.terraform.io/modules/schubergphilis/mcaf-workspace/tfe/latest) module directly.
+
 ## Upgrading to v3.0.0
 
 ### Variables (v3.0.0)
