@@ -29,7 +29,7 @@ variable "oidc_settings" {
 
 variable "path" {
   type        = string
-  default     = null
+  default     = "/"
   description = "Path in which to create the IAM role or user"
 }
 
