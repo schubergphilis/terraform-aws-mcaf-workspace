@@ -16,6 +16,7 @@ module "workspace_iam_user" {
   path                 = var.path
   policy               = var.policy
   policy_arns          = var.policy_arns
+  postfix              = var.postfix
   permissions_boundary = var.permissions_boundary_arn
   tags                 = var.tags
 }
@@ -59,6 +60,7 @@ module "workspace_iam_role" {
   path                 = var.path
   permissions_boundary = var.permissions_boundary_arn
   policy_arns          = var.policy_arns
+  postfix              = var.postfix
   role_policy          = var.policy
   tags                 = var.tags
 
@@ -103,6 +105,7 @@ module "workspace_iam_role_oidc" {
   path                 = var.path
   permissions_boundary = var.permissions_boundary_arn
   policy_arns          = var.policy_arns
+  postfix              = var.postfix
   role_policy          = var.policy
   tags                 = var.tags
 

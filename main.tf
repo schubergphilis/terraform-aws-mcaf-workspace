@@ -97,6 +97,7 @@ module "auth" {
   permissions_boundary_arn = var.permissions_boundary_arn
   policy                   = var.policy
   policy_arns              = var.policy_arns
+  postfix                  = var.postfix
   role_name                = var.role_name
   tags                     = var.tags
   terraform_organization   = var.terraform_organization
