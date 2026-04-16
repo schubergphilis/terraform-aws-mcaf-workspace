@@ -121,6 +121,7 @@ The above custom role is similar to the "write" pre-existing role, but blocks ac
 | <a name="input_permissions_boundary_arn"></a> [permissions\_boundary\_arn](#input\_permissions\_boundary\_arn) | ARN of the policy that is used to set the permissions boundary for the IAM role or IAM user | `string` | `null` | no |
 | <a name="input_policy"></a> [policy](#input\_policy) | The policy to attach to the pipeline role or user | `string` | `null` | no |
 | <a name="input_policy_arns"></a> [policy\_arns](#input\_policy\_arns) | A set of policy ARNs to attach to the pipeline user | `set(string)` | `[]` | no |
+| <a name="input_postfix"></a> [postfix](#input\_postfix) | Whether to postfix the IAM resources with e.g. `User` and `Role` | `string` | `true` | no |
 | <a name="input_project_id"></a> [project\_id](#input\_project\_id) | ID of the TFE project where the workspace should be created | `string` | `null` | no |
 | <a name="input_queue_all_runs"></a> [queue\_all\_runs](#input\_queue\_all\_runs) | When set to false no initial run is queued and all runs triggered by a webhook will not be queued, necessary if you need to set variable sets after creation. | `bool` | `true` | no |
 | <a name="input_region"></a> [region](#input\_region) | The default region of the account | `string` | `null` | no |

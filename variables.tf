@@ -201,6 +201,12 @@ variable "policy_arns" {
   description = "A set of policy ARNs to attach to the pipeline user"
 }
 
+variable "postfix" {
+  type        = string
+  default     = true
+  description = "Whether to postfix the IAM resources with e.g. `User` and `Role`"
+}
+
 variable "project_id" {
   type        = string
   default     = null
