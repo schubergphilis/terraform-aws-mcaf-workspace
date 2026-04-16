@@ -43,7 +43,7 @@
 | <a name="input_agent_role_arns"></a> [agent\_role\_arns](#input\_agent\_role\_arns) | IAM role ARNs used by Terraform Cloud Agent to assume role in the created account | `list(string)` | `null` | no |
 | <a name="input_auth_method"></a> [auth\_method](#input\_auth\_method) | Configures how the workspace authenticates with the AWS account (can be iam\_user, iam\_role, or iam\_role\_oidc) | `string` | `"iam_role_oidc"` | no |
 | <a name="input_oidc_settings"></a> [oidc\_settings](#input\_oidc\_settings) | OIDC settings to use if "auth\_method" is set to "iam\_role\_oidc" | <pre>object({<br/>    audience              = optional(string, "aws.workload.identity")<br/>    oidc_project_filter   = optional(string, "*")<br/>    oidc_workspace_filter = string<br/>    provider_arn          = string<br/>    site_address          = optional(string, "app.terraform.io")<br/>  })</pre> | `null` | no |
-| <a name="input_path"></a> [path](#input\_path) | Path in which to create the IAM role or user | `string` | `null` | no |
+| <a name="input_path"></a> [path](#input\_path) | Path in which to create the IAM role or user | `string` | `"/"` | no |
 | <a name="input_permissions_boundary_arn"></a> [permissions\_boundary\_arn](#input\_permissions\_boundary\_arn) | ARN of the policy that is used to set the permissions boundary for the IAM role or IAM user | `string` | `null` | no |
 | <a name="input_policy"></a> [policy](#input\_policy) | The policy to attach to the pipeline role or user | `string` | `null` | no |
 | <a name="input_policy_arns"></a> [policy\_arns](#input\_policy\_arns) | A set of policy ARNs to attach to the pipeline user | `set(string)` | `[]` | no |
