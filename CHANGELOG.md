@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## v4.1.0 - 2026-04-16
+
+### What's Changed
+
+#### 🚀 Features
+
+* feat: Add postfix option for Authentication (#84) @fatbasstard
+
+#### 🐛 Bug Fixes
+
+* feat: Add postfix option for Authentication (#84) @fatbasstard
+* fix: Change the path default value (#83) @fatbasstard
+
+**Full Changelog**: https://github.com/schubergphilis/terraform-aws-mcaf-workspace/compare/v4.0.0...v4.1.0
+
 ## v4.0.0 - 2026-03-31
 
 ### What's Changed
