@@ -217,7 +217,13 @@ variable "terraform_version" {
 
 variable "terraform_organization" {
   type        = string
-  description = "The Terraform Enterprise organization to create the workspace in"
+  default     = null
+  description = "The Terraform Enterprise organization to create the workspace in. If not specified, the provider's default organization will be used. Required when used with OIDC"
+
+  validation {
+    condition     = (var.auth_method != "iam_role_oidc") || (var.terraform_organization != null && var.auth_method == "iam_role_oidc")
+    error_message = "terraform_organization is mandatory when using IAM Role OIDC authentication."
+  }
 }
 
 variable "trigger_prefixes" {
