@@ -306,7 +306,7 @@ variable "team_access" {
 variable "terraform_organization" {
   type        = string
   default     = null
-  description = "The Terraform Enterprise organization to create the workspace in"
+  description = "The Terraform Enterprise organization to create the workspace in. If omitted, organization must be defined in the provider config."
 }
 
 variable "terraform_version" {

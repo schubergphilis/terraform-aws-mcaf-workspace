@@ -94,6 +94,9 @@ resource "tfe_variable" "aws_assume_role_external_id" {
 ################################################################################
 # Auth - IAM Role - OIDC
 ################################################################################
+data "tfe_organization" "default" {
+  count = local.enable_oidc ? 1 : 0
+}
 
 module "workspace_iam_role_oidc" {
   count = local.enable_oidc ? 1 : 0
@@ -111,7 +114,7 @@ module "workspace_iam_role_oidc" {
 
   assume_policy = templatefile("${path.module}/templates/assume_role_policy_oidc.tftpl", {
     audience         = var.oidc_settings.audience,
-    org_name         = var.terraform_organization,
+    org_name         = var.terraform_organization != null ? var.terraform_organization : data.tfe_organization.default[0].name,
     project_filter   = var.oidc_settings.oidc_project_filter,
     provider_arn     = var.oidc_settings.provider_arn,
     site_address     = var.oidc_settings.site_address,
