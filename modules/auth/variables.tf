@@ -72,7 +72,7 @@ variable "tags" {
 variable "terraform_organization" {
   type        = string
   default     = null
-  description = "The Terraform Enterprise organization to create the workspace in"
+  description = "The Terraform Enterprise organization to create the workspace in. If omitted, organization must be defined in the provider config."
 }
 
 variable "username" {
